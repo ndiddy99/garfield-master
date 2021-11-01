@@ -8,4 +8,8 @@ void Devcart_PrintStr(char *string);
 //reset back to file menu
 void Devcart_Reset(void);
 
+// change to a subdirectory (can only go one subdirectory deep &
+// the name must be 8 or less characters)
+void Devcart_ChangeDir(char *dir);
+
 #endif

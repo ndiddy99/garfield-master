@@ -22,7 +22,8 @@ enum {
     FUNC_UPLOAD,
     FUNC_EXEC,
     FUNC_PRINT,
-    FUNC_QUIT
+    FUNC_QUIT,
+    FUNC_CHGDIR
 };
 
 static inline Uint8 Devcart_GetByte(void) {
@@ -105,5 +106,15 @@ void Devcart_Reset() {
     Devcart_PutByte(FUNC_QUIT);
     // reset saturn
     PER_SMPC_SYS_RES();
+}
+
+void Devcart_ChangeDir(char *dir) {
+    Devcart_PutByte(FUNC_CHGDIR);
+    for (int i = 0;; i++) {
+        Devcart_PutByte(dir[i]);
+        if (dir[i] == '\0') {
+            break;
+        }
+    }
 }
 

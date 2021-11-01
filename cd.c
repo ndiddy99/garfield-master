@@ -29,12 +29,17 @@ void CD_Init(void) {
 }
 
 void CD_ChangeDir(char *directory) {
-    Sint32 id = GFS_NameToId((Sint8 *)directory);
-    GFS_DIRTBL_TYPE(&dirTable) = GFS_DIR_NAME;
-    GFS_DIRTBL_DIRNAME(&dirTable) = dirname;
-    GFS_DIRTBL_NDIR(&dirTable) = MAX_DIR;
-    GFS_LoadDir(id, &dirTable);
-    GFS_SetDir(&dirTable);
+    if (DEVCART_LOAD) {
+        Devcart_ChangeDir(directory);
+    }
+    else { 
+        Sint32 id = GFS_NameToId((Sint8 *)directory);
+        GFS_DIRTBL_TYPE(&dirTable) = GFS_DIR_NAME;
+        GFS_DIRTBL_DIRNAME(&dirTable) = dirname;
+        GFS_DIRTBL_NDIR(&dirTable) = MAX_DIR;
+        GFS_LoadDir(id, &dirTable);
+        GFS_SetDir(&dirTable);
+    }
 }
 
 /**
