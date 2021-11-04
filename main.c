@@ -12,6 +12,7 @@
 
 #include "cd.h"
 #include "devcart.h"
+#include "game.h"
 #include "release.h"
 #include "scroll.h"
 #include "sound.h"
@@ -31,8 +32,6 @@ typedef enum {
 	STATE_SOON,
 } GAME_STATE;
 
-SPRITE_INFO blockSpr;
-
 int main() {
 	frame = 0;
 
@@ -44,10 +43,11 @@ int main() {
 //
 	CD_Init();
 	Sprite_Init();
-	scroll_init();
+	Scroll_Init();
 	Print_Init();
 	Print_Load();
 //	sound_init();
+    Game_Init();
 //	//init RNG
 //	Uint8 *time = PER_GET_TIM();
 //	Uint32 seed = time[4] | (time[3] << 8) | (time[2] << 16) | (time[3] << 24);
@@ -58,12 +58,6 @@ int main() {
 //	while (1) {
 //		frame++;
 //    }
-
-    CD_ChangeDir("GAME");
-    int blockNum = Sprite_Load("BLOCKS.SPR", NULL);
-    CD_ChangeDir("..");
-
-    Sprite_Make(blockNum + 1, MTH_FIXED(64), MTH_FIXED(64), &blockSpr);
 
     while (1) {
         frame++;
@@ -92,8 +86,8 @@ int main() {
 
 		Sprite_StartDraw();
         
-        Sprite_Draw(&blockSpr);
-
+        Game_Run();
+        
 		Sprite_DrawAll();
 		if (DEBUG) {
 			Print_Display();

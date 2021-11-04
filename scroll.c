@@ -19,7 +19,7 @@ Uint32 vram[] = {
 	SCL_VDP2_VRAM_B0 + 0x10000
 };
 
-Uint32 char_offsets[] = {
+Uint32 charOffsets[] = {
 	SCL_VDP2_VRAM_A1 - SCL_VDP2_VRAM, //NBG0
 	SCL_VDP2_VRAM_B1 - SCL_VDP2_VRAM, //NBG1
 	SCL_VDP2_VRAM_B1 - SCL_VDP2_VRAM, //NBG2
@@ -59,7 +59,7 @@ Uint32 char_offsets[] = {
 //nbg 2/3 tilemaps in B0
 //nbg 1/2/3 graphics in B1
 //nbg 0 is 256 color, 1, 2, & 3 are 16 color
-Uint16	CycleTbLoRes[] = {
+Uint16	cycleTbLoRes[] = {
 	0x01ee,0xeeee,
 	0x44ee,0xeeee,
 	0xff23,0xffff,
@@ -73,7 +73,7 @@ Uint16	CycleTbLoRes[] = {
 //nbg 2/3 tilemaps in B0
 //nbg 1/2/3 graphics in B1
 //nbg 0 is 256 color, 1, 2 & 3 are 16 color
-Uint16	CycleTbHiRes[] = {
+Uint16	cycleTbHiRes[] = {
 	0x01ee,0xffff,
 	0x44ee,0xffff,
 	0xff23,0xffff,
@@ -82,7 +82,7 @@ Uint16	CycleTbHiRes[] = {
 
 
 //only nbg0 is enabled, use gfx from all of vram
-Uint16 CycleTbBitmap[] = {
+Uint16 cycleTbBitmap[] = {
 	0x4444,0xffff,
 	0x4444,0xffff,
 	0x4444,0xffff,
@@ -91,10 +91,10 @@ Uint16 CycleTbBitmap[] = {
 
 SclConfig scfg[4];
 
-void scroll_init(void) {
+void Scroll_Init(void) {
 	int i;
 	Uint16 BackCol;
-	SclVramConfig vram_cfg;
+	SclVramConfig vramCfg;
 
 	//wipe out vram
     for (int i = 0; i < 0x80000; i++) {
@@ -109,7 +109,7 @@ void scroll_init(void) {
 
 	SCL_InitConfigTb(&scfg[0]);
 		scfg[0].dispenbl      = ON;
-		scfg[0].charsize      = SCL_CHAR_SIZE_2X2;
+		scfg[0].charsize      = SCL_CHAR_SIZE_1X1;
 		scfg[0].pnamesize     = SCL_PN1WORD;
 		scfg[0].flip          = SCL_PN_10BIT;
 		scfg[0].platesize     = SCL_PL_SIZE_2X1; //they meant "plane size"
@@ -139,13 +139,13 @@ void scroll_init(void) {
 	SCL_SetConfig(SCL_NBG3, &scfg[3]);
 	
 	//setup VRAM configuration
-	SCL_InitVramConfigTb(&vram_cfg);
-		vram_cfg.vramModeA = ON; //separate VRAM A into A0 & A1
-		vram_cfg.vramModeB = ON; //separate VRAM B into B0 & B1
-	SCL_SetVramConfig(&vram_cfg);
+	SCL_InitVramConfigTb(&vramCfg);
+		vramCfg.vramModeA = ON; //separate VRAM A into A0 & A1
+		vramCfg.vramModeB = ON; //separate VRAM B into B0 & B1
+	SCL_SetVramConfig(&vramCfg);
 
 	//setup vram access pattern
-	SCL_SetCycleTable(CycleTbLoRes);
+	SCL_SetCycleTable(cycleTbLoRes);
 	 
 	SCL_Open(SCL_NBG0);
 		SCL_MoveTo(FIXED(0), FIXED(0), 0); //home position
@@ -159,8 +159,8 @@ void scroll_init(void) {
 	SCL_Open(SCL_NBG3);
 		SCL_MoveTo(FIXED(0), FIXED(0), 0);
 	SCL_Close();
-	scroll_scale(0, FIXED(1));
-	scroll_scale(1, FIXED(1));
+	Scroll_Scale(0, FIXED(1));
+	Scroll_Scale(1, FIXED(1));
 
 	SCL_SetPriority(SCL_SPR, 7);
 	SCL_SetPriority(SCL_NBG0, 6);
@@ -169,12 +169,12 @@ void scroll_init(void) {
 	SCL_SetPriority(SCL_NBG3, 3); //set layer priorities
 }
 
-int scroll_loadtile(void *src, volatile void *dest, Uint32 object, Uint16 palno) {
-	Uint32 pal_len;
-	memcpy(&pal_len, src, sizeof(pal_len));
+int Scroll_LoadTile(void *src, volatile void *dest, Uint32 object, Uint16 palno) {
+	Uint32 palLen;
+	memcpy(&palLen, src, sizeof(palLen));
 	src += 4;
-	SCL_SetColRam(object, palno, pal_len, src);
-	src += (pal_len * sizeof(Uint32));
+	SCL_SetColRam(object, palno, palLen, src);
+	src += (palLen * sizeof(Uint32));
 	Uint32 image_size;
 	memcpy(&image_size, src, sizeof(image_size));
 	src += sizeof(Uint32);
@@ -183,7 +183,7 @@ int scroll_loadtile(void *src, volatile void *dest, Uint32 object, Uint16 palno)
 			((volatile char *)dest)[i] = ((char *)src)[i];
 		}
 	}
-	if (pal_len == 16) {
+	if (palLen == 16) {
 		return image_size / 128;
 	}
 	else {
@@ -191,10 +191,10 @@ int scroll_loadtile(void *src, volatile void *dest, Uint32 object, Uint16 palno)
 	}
 }
 
-char *scroll_tileptr(void *buff, int *size) {
-	Sint32 pal_len;
-	memcpy(&pal_len, buff, sizeof(pal_len));
-	buff += (pal_len + 1) * sizeof(pal_len);
+char *Scroll_TilePtr(void *buff, int *size) {
+	Sint32 palLen;
+	memcpy(&palLen, buff, sizeof(palLen));
+	buff += (palLen + 1) * sizeof(palLen);
 	if (size) {
 		memcpy(size, buff, sizeof(*size));
 	}
@@ -202,7 +202,7 @@ char *scroll_tileptr(void *buff, int *size) {
 	return (char *)buff;
 }
 
-char *scroll_mapptr(void *buff, int *xsize, int *ysize) {
+char *Scroll_MapPtr(void *buff, int *xsize, int *ysize) {
 	if (xsize) {
 		memcpy(xsize, buff, sizeof(int));
 	}
@@ -221,7 +221,7 @@ char *scroll_mapptr(void *buff, int *xsize, int *ysize) {
 #define LOW_BYTE (0xFF)
 #define HIGH_BYTE (0xFF00)
 
-void scroll_scale(int num, Fixed32 scale) {
+void Scroll_Scale(int num, Fixed32 scale) {
 	SCL_Open(1 << (num + 2));
 		SCL_Scale(scale, scale);
 	SCL_Close();
@@ -240,42 +240,42 @@ void scroll_scale(int num, Fixed32 scale) {
 	}
 }
 
-void scroll_set(int num, Fixed32 x, Fixed32 y) {
+void Scroll_Set(int num, Fixed32 x, Fixed32 y) {
 	SCL_Open(1 << (num + 2));
 	SCL_MoveTo(x, y, 0);
 	SCL_Close();
 }
 
-void scroll_move(int num, Fixed32 x, Fixed32 y) {
+void Scroll_Move(int num, Fixed32 x, Fixed32 y) {
 	SCL_Open(1 << (num + 2));
 	SCL_Move(x, y, 0);
 	SCL_Close();
 }
 
-void scroll_clearmaps(void) {
+void Scroll_ClearMaps(void) {
 	memset(MAP_PTR(0), 0, 0x2000);
 	memset(MAP_PTR(1), 0, 0x2000);
 	memset(MAP_PTR(2), 0, 0x2000);
 	memset(MAP_PTR(3), 0, 0x2000);
 }
 
-void scroll_clearvram(void) {
+void Scroll_ClearVram(void) {
 	for (int i = 0; i < 0x80000; i++) {
 		((volatile Uint8 *)SCL_VDP2_VRAM)[i] = 0;
 	}
 }
 
-void scroll_charsize(int num, Uint8 size) {
+void Scroll_CharSize(int num, Uint8 size) {
 	scfg[num].charsize = size;
 	SCL_SetConfig(1 << (num + 2), &scfg[num]);
 }
 
-void scroll_enable(int num, Uint8 state) {
+void Scroll_Enable(int num, Uint8 state) {
 	scfg[num].dispenbl = state;
 	SCL_SetConfig(1 << (num + 2), &scfg[num]);
 }
 
-void scroll_mapsize(int num, Uint8 size) {
+void Scroll_MapSize(int num, Uint8 size) {
 	scfg[num].pnamesize = size;
 	SCL_SetConfig(1 << (num + 2), &scfg[num]);
 }

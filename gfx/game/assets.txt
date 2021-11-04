@@ -1,1 +1,2 @@
 sr blocks
+t1 placed.bmp

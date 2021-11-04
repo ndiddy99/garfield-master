@@ -10,55 +10,33 @@ extern Uint32 vram[];
 //number of tiles between A0 and B1
 #define SCROLL_B1_OFFSET (0x3000)
 
-#define SCROLL_HIRES_X (704)
-#define SCROLL_HIRES_Y (480)
-#define SCROLL_LORES_X (352)
-#define SCROLL_LORES_Y (240)
-
-#define SCROLL_RES_LOW (0)
-#define SCROLL_RES_HIGH (1)
-extern int scroll_res;
-
 #define SCROLL_HEADER16 (72)
 #define SCROLL_HEADER256 (1032)
 
-typedef struct {
-    Uint8 *tile_name; //filename of .TLE file
-    Uint16 tile_num; //number of tiles
-    Uint32 *palette; //pointer to palette
-    Uint8 *map_name; //filename of .MAP file
-    Uint16 map_width; //width of map
-    Uint16 map_height; //height of map
-} LAYER;
-
-void scroll_init(void);
+void Scroll_Init(void);
 // Loads a tile file into VRAM.
 // src: where in RAM the tile file is
 // dest: where in VRAM to load the tile file (or NULL for "don't load into vram")
 // object: what screen to load the palette to
 // palno: the color to load the palette from the file at
-int scroll_loadtile(void *src, volatile void *dest, Uint32 object, Uint16 palno);
+int Scroll_LoadTile(void *src, volatile void *dest, Uint32 object, Uint16 palno);
 // Returns a pointer to the start of the tile file's graphics
-char *scroll_tileptr(void *buff, int *size);
+char *Scroll_TilePtr(void *buff, int *size);
 // Returns a pointer to the start of the map file's graphics
-char *scroll_mapptr(void *buff, int *xsize, int *ysize);
+char *Scroll_MapPtr(void *buff, int *xsize, int *ysize);
 
-void scroll_scale(int num, Fixed32 scale);
-void scroll_set(int num, Fixed32 x, Fixed32 y);
-void scroll_move(int num, Fixed32 x, Fixed32 y);
+void Scroll_Scale(int num, Fixed32 scale);
+void Scroll_Set(int num, Fixed32 x, Fixed32 y);
+void Scroll_Move(int num, Fixed32 x, Fixed32 y);
 //zeroes out all tilemap vram
-void scroll_clearmaps(void);
+void Scroll_ClearMaps(void);
 // zeroes out the entire vram
-void scroll_clearvram(void);
+void Scroll_ClearVram(void);
 //sets bg #num's character size
-void scroll_charsize(int num, Uint8 size);
+void Scroll_CharSize(int num, Uint8 size);
 //enables/disable bg #num
-void scroll_enable(int num, Uint8 state);
+void Scroll_Enable(int num, Uint8 state);
 //sets bg #num's map size (either 1 word or 2 word)
-void scroll_mapsize(int num, Uint8 size);
+void Scroll_MapSize(int num, Uint8 size);
 
-//enable/disable bitmap graphics (turns on nbg0, disables all other bgs)
-void scroll_bitmapon();
-void scroll_bitmap_2048();
-void scroll_bitmapoff();
 #endif
