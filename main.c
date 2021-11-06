@@ -48,17 +48,7 @@ int main() {
 	Print_Load();
 //	sound_init();
     Game_Init();
-//	//init RNG
-//	Uint8 *time = PER_GET_TIM();
-//	Uint32 seed = time[4] | (time[3] << 8) | (time[2] << 16) | (time[3] << 24);
-//	MTH_InitialRand(seed);
-//
-//	int state = STATE_NOTICE;
-
-//	while (1) {
-//		frame++;
-//    }
-
+    
     while (1) {
         frame++;
 

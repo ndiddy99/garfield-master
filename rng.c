@@ -38,7 +38,7 @@ void RNG_Init() {
     first = 1;
 }
 
-int RNG_GetNum() {
+int RNG_Get() {
     int tries = 6;
     int candidate;
 
