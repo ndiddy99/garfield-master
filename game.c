@@ -1,8 +1,9 @@
 #include <sega_scl.h>
 
-#include "block.h"
 #include "cd.h"
 #include "game.h"
+#include "piece.h"
+#include "print.h"
 #include "rng.h"
 #include "scroll.h"
 #include "sprite.h"
@@ -10,6 +11,61 @@
 
 static int blockStart;
 static SPRITE_INFO blockSpr;
+
+#define GAME_ROWS (20)
+#define GAME_COLS (10)
+static int gameBoard[GAME_ROWS][GAME_COLS];
+
+#define ROW_OFFSET (64)
+#define TILE_SIZE (8)
+#define BOARD_ROW (4)
+#define BOARD_COL (8)
+volatile Uint16 *boardVram;
+
+#define SPAWN_X (4)
+#define SPAWN_Y (0)
+
+static PIECE currPiece;
+
+// initializes a new piece
+static void Game_MakePiece(PIECE *piece) {
+    piece->num = RNG_Get();
+    piece->rotation = 0;
+    piece->x = SPAWN_X;
+    piece->y = SPAWN_Y;
+}
+
+// draws a piece
+static void Game_DrawPiece(PIECE *piece) {
+    int tileNo;
+
+    for (int y = 0; y < PIECE_SIZE; y++) {
+        for (int x = 0; x < PIECE_SIZE; x++) {
+            tileNo = pieces[piece->num][piece->rotation][y][x];
+            if (tileNo != 0) {
+                // subtract 1 from the sprite number because the piece arrays have the first
+                // block sprite as 1 and 0 as "nothing"
+                Sprite_Make(blockStart + tileNo - 1, MTH_IntToFixed((BOARD_COL + piece->x + x) * TILE_SIZE),
+                        MTH_IntToFixed((BOARD_ROW + piece->y + y) * TILE_SIZE), &blockSpr);
+                Sprite_Draw(&blockSpr);
+            }
+        }
+    }
+}
+
+// copies a piece to the board
+static void Game_CopyPiece(PIECE *piece) {
+    int tile;
+
+    for (int y = 0; y < PIECE_SIZE; y++) {
+        for (int x = 0; x < PIECE_SIZE; x++) {
+            tile = pieces[piece->num][piece->rotation][y][x];
+            if (tile != 0) {
+                gameBoard[piece->y + y][piece->x + x] = tile;
+            }
+        }
+    }
+}
 
 void Game_Init() {
     // load assets
@@ -20,37 +76,64 @@ void Game_Init() {
 
     CD_Load("PLACED.TLE", gameBuf);
     Scroll_LoadTile(gameBuf, (volatile void *)SCL_VDP2_VRAM_A1, SCL_NBG0, 0);
-    volatile Uint16 *gameMap = (volatile Uint16 *)MAP_PTR(0);
-    for (int i = 0; i < 2048; i++) {
-        gameMap[i] = (i % 9) * 2;
-    }
+    boardVram = (volatile Uint16 *)MAP_PTR(0) + (BOARD_ROW * ROW_OFFSET) + BOARD_COL;
    
     CD_ChangeDir("..");
 
     // initialize the RNG
     RNG_Init();
-}
 
-static void Game_Draw(int block) {
-    int tileNo;
-
-    for (int y = 0; y < BLOCK_SIZE; y++) {
-        for (int x = 0; x < BLOCK_SIZE; x++) {
-            tileNo = blocks[block][0][y][x];
-            if (tileNo != 0) {
-                Sprite_Make(blockStart + tileNo, MTH_IntToFixed(64 + (x * 8)), MTH_IntToFixed(64 + (y * 8)), &blockSpr);
-                Sprite_Draw(&blockSpr);
-            }
+    // initialize the board
+    for (int y = 0; y < GAME_ROWS; y++) {
+        for (int x = 0; x < GAME_COLS; x++) {
+            gameBoard[y][x] = 0;
         }
     }
+
+    // set the first piece
+    Game_MakePiece(&currPiece);
 }
 
 int Game_Run() {
-    static int drawPiece;
     if (PadData1E & PAD_A) {
-        drawPiece = RNG_Get();
+        Game_CopyPiece(&currPiece);
+        Game_MakePiece(&currPiece);
     }
 
-    Game_Draw(drawPiece);
+    // clockwise rotation
+    if (PadData1E & PAD_C) {
+        currPiece.rotation--;
+    }
+
+    // counterclockwise rotation
+    if (PadData1E & PAD_B) {
+        currPiece.rotation++;
+    }
+    currPiece.rotation %= PIECE_ROTATIONS;
+
+    if ((PadData1E & PAD_D) && ((currPiece.y + PIECE_SIZE) < GAME_ROWS)) {
+        currPiece.y++;
+    }
+
+    if ((PadData1E & PAD_L) && (currPiece.x > 0)) {
+        currPiece.x--;
+    }
+
+    if ((PadData1E & PAD_R) && ((currPiece.x + PIECE_SIZE) < GAME_COLS)) {
+        currPiece.x++;
+    }
+
+    Print_Num(currPiece.rotation, 2, 0);
+        
+
+    // Game_Draw(drawPiece);
+    Game_DrawPiece(&currPiece);
+
+    // copy the board to VRAM
+    for (int y = 0; y < GAME_ROWS; y++) {
+        for (int x = 0; x < GAME_COLS; x++) {
+            boardVram[(y * ROW_OFFSET) + x] = (gameBoard[y][x] * 2);
+        }
+    }
     return 0;
 }

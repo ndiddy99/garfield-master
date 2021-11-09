@@ -1,21 +1,21 @@
 #include <sega_mth.h>
 #include <sega_per.h>
 
-#include "block.h"
+#include "piece.h"
 #define HISTORY_LEN (4)
 static Uint8 history[HISTORY_LEN];
 static int first;
 
-static void HistoryPush(int block) {
+static void HistoryPush(int num) {
     history[3] = history[2];
     history[2] = history[1];
     history[1] = history[0];
-    history[0] = block;
+    history[0] = num;
 }
 
-static int HistoryContains(int block) {
+static int HistoryContains(int num) {
     for (int i = 0; i < HISTORY_LEN; i++) {
-        if (history[i] == block) {
+        if (history[i] == num) {
             return 1;
         }
     }
@@ -29,10 +29,10 @@ void RNG_Init() {
     MTH_InitialRand(timestamp);
     
     // initialize the history
-    HistoryPush(BLOCK_Z);
-    HistoryPush(BLOCK_Z);
-    HistoryPush(BLOCK_S);
-    HistoryPush(BLOCK_S);
+    HistoryPush(PIECE_Z);
+    HistoryPush(PIECE_Z);
+    HistoryPush(PIECE_S);
+    HistoryPush(PIECE_S);
 
     // we're going to give the first piece
     first = 1;
@@ -43,10 +43,10 @@ int RNG_Get() {
     int candidate;
 
     while (tries > 0) {
-        candidate = (MTH_GetRand() >> 8) % BLOCK_COUNT;
+        candidate = (MTH_GetRand() >> 8) % PIECE_COUNT;
         
-        // don't allow S, Z, or O to be the first block (retry until we get a different block)
-        if (first && ((candidate == BLOCK_S) || (candidate == BLOCK_Z) || (candidate == BLOCK_O))) {
+        // don't allow S, Z, or O to be the first piece (retry until we get a different piece)
+        if (first && ((candidate == PIECE_S) || (candidate == PIECE_Z) || (candidate == PIECE_O))) {
             continue;
         }
         
