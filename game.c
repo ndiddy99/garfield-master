@@ -67,6 +67,32 @@ static void Game_CopyPiece(PIECE *piece) {
     }
 }
 
+static inline int Game_BoardGet(int x, int y) {
+    if ((y < 0) || (y >= GAME_ROWS)) {
+        return 1;
+    }
+
+    if ((x < 0) || (x >= GAME_COLS)) {
+        return 1;
+    }
+
+    return gameBoard[y][x];
+}
+
+// returns 1 if a piece can fit on the board
+static int Game_CheckPiece(PIECE *piece) {
+    for (int y = 0; y < PIECE_SIZE; y++) {
+        for (int x = 0; x < PIECE_SIZE; x++) {
+            if (Game_BoardGet(piece->x + x, piece->y + y) &&
+                    pieces[piece->num][piece->rotation][y][x]) {
+                return 0;
+            }
+        }
+    }
+
+    return 1;
+}
+
 void Game_Init() {
     // load assets
     Uint8 *gameBuf = (Uint8 *)LWRAM;
@@ -103,24 +129,43 @@ int Game_Run() {
     // clockwise rotation
     if (PadData1E & PAD_C) {
         currPiece.rotation--;
+        currPiece.rotation %= PIECE_ROTATIONS;
+        if (!Game_CheckPiece(&currPiece)) {
+            currPiece.rotation++;
+            currPiece.rotation %= PIECE_ROTATIONS;
+        }
     }
 
     // counterclockwise rotation
     if (PadData1E & PAD_B) {
         currPiece.rotation++;
+        currPiece.rotation %= PIECE_ROTATIONS;
+        if (!Game_CheckPiece(&currPiece)) {
+            currPiece.rotation--;
+            currPiece.rotation %= PIECE_ROTATIONS;
+        }
     }
     currPiece.rotation %= PIECE_ROTATIONS;
 
-    if ((PadData1E & PAD_D) && ((currPiece.y + PIECE_SIZE) < GAME_ROWS)) {
+    if (PadData1E & PAD_D) {
         currPiece.y++;
+        if (!Game_CheckPiece(&currPiece)) {
+            currPiece.y--;
+        }
     }
 
-    if ((PadData1E & PAD_L) && (currPiece.x > 0)) {
+    if (PadData1E & PAD_L) {
         currPiece.x--;
+        if (!Game_CheckPiece(&currPiece)) {
+            currPiece.x++;
+        }
     }
 
-    if ((PadData1E & PAD_R) && ((currPiece.x + PIECE_SIZE) < GAME_COLS)) {
+    if (PadData1E & PAD_R) {
         currPiece.x++;
+        if (!Game_CheckPiece(&currPiece)) {
+            currPiece.x--;
+        }
     }
 
     Print_Num(currPiece.rotation, 2, 0);
