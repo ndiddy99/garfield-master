@@ -23,9 +23,16 @@ static int gameBoard[GAME_ROWS][GAME_COLS];
 volatile Uint16 *boardVram;
 
 #define SPAWN_X (4)
-#define SPAWN_Y (0)
-
+#define SPAWN_Y (-1)
 static PIECE currPiece;
+
+#define MOVE_FRAMES (10)
+#define DAS_FRAMES (2)
+static int leftTimer;
+static int rightTimer;
+
+#define ROTATE_CLOCKWISE (-1)
+#define ROTATE_COUNTERCLOCKWISE (1)
 
 // initializes a new piece
 static void Game_MakePiece(PIECE *piece) {
@@ -33,6 +40,36 @@ static void Game_MakePiece(PIECE *piece) {
     piece->rotation = 0;
     piece->x = SPAWN_X;
     piece->y = SPAWN_Y;
+}
+
+void Game_Init() {
+    // load assets
+    Uint8 *gameBuf = (Uint8 *)LWRAM;
+    CD_ChangeDir("GAME");
+    
+    blockStart = Sprite_Load("BLOCKS.SPR", NULL); // sprites for active blocks
+
+    CD_Load("PLACED.TLE", gameBuf);
+    Scroll_LoadTile(gameBuf, (volatile void *)SCL_VDP2_VRAM_A1, SCL_NBG0, 0);
+    boardVram = (volatile Uint16 *)MAP_PTR(0) + (BOARD_ROW * ROW_OFFSET) + BOARD_COL;
+   
+    CD_ChangeDir("..");
+
+    // initialize the RNG
+    RNG_Init();
+
+    // initialize the board
+    for (int y = 0; y < GAME_ROWS; y++) {
+        for (int x = 0; x < GAME_COLS; x++) {
+            gameBoard[y][x] = 0;
+        }
+    }
+
+    leftTimer = MOVE_FRAMES;
+    rightTimer = MOVE_FRAMES;
+
+    // set the first piece
+    Game_MakePiece(&currPiece);
 }
 
 // draws a piece
@@ -60,7 +97,7 @@ static void Game_CopyPiece(PIECE *piece) {
     for (int y = 0; y < PIECE_SIZE; y++) {
         for (int x = 0; x < PIECE_SIZE; x++) {
             tile = pieces[piece->num][piece->rotation][y][x];
-            if (tile != 0) {
+            if (((piece->x + x) >= 0) && ((piece->y + y) >= 0) && (tile != 0)) {
                 gameBoard[piece->y + y][piece->x + x] = tile;
             }
         }
@@ -93,31 +130,90 @@ static int Game_CheckPiece(PIECE *piece) {
     return 1;
 }
 
-void Game_Init() {
-    // load assets
-    Uint8 *gameBuf = (Uint8 *)LWRAM;
-    CD_ChangeDir("GAME");
-    
-    blockStart = Sprite_Load("BLOCKS.SPR", NULL); // sprites for active blocks
-
-    CD_Load("PLACED.TLE", gameBuf);
-    Scroll_LoadTile(gameBuf, (volatile void *)SCL_VDP2_VRAM_A1, SCL_NBG0, 0);
-    boardVram = (volatile Uint16 *)MAP_PTR(0) + (BOARD_ROW * ROW_OFFSET) + BOARD_COL;
-   
-    CD_ChangeDir("..");
-
-    // initialize the RNG
-    RNG_Init();
-
-    // initialize the board
-    for (int y = 0; y < GAME_ROWS; y++) {
-        for (int x = 0; x < GAME_COLS; x++) {
-            gameBoard[y][x] = 0;
+// checks the center column rule for kicks
+static int Game_CanKick(PIECE *piece) {
+    if ((piece->num == PIECE_L) || (piece->num == PIECE_J) || (piece->num == PIECE_T)) {
+        for (int y = 0; y < PIECE_SIZE; y++) {
+            for (int x = 0; x < PIECE_SIZE; x++) {
+                if (Game_BoardGet(piece->x + x, piece->y + y) &&
+                        pieces[piece->num][piece->rotation][y][x]) {
+                    if (x == 1) {
+                        return 0;
+                    }
+                    else {
+                        return 1;
+                    }
+                }
+            }
         }
     }
 
-    // set the first piece
-    Game_MakePiece(&currPiece);
+    return 1;
+}
+
+static int Game_CanMoveLeft() {
+    if (PadData1E & PAD_L) {
+        leftTimer = MOVE_FRAMES;
+        return 1;
+    }
+
+    else if (PadData1 & PAD_L) {
+        if (leftTimer == 0) {
+            leftTimer = DAS_FRAMES;
+            return 1;
+        }
+        else {
+            leftTimer--;
+        }
+    }
+    return 0;
+}
+
+static int Game_CanMoveRight() {
+    if (PadData1E & PAD_R) {
+        rightTimer = MOVE_FRAMES;
+        return 1;
+    }
+
+    else if (PadData1 & PAD_R) {
+        if (rightTimer == 0) {
+            rightTimer = DAS_FRAMES;
+            return 1;
+        }
+        else {
+            rightTimer--;
+        }
+    }
+    return 0;
+}
+
+static void Game_Rotate(PIECE *piece, int rotation) {
+    Uint8 originalRotation = piece->rotation;
+    piece->rotation += rotation;
+    piece->rotation %= PIECE_ROTATIONS;
+    if (Game_CheckPiece(piece)) {
+        return;
+    }
+
+    if (Game_CanKick(piece)) {
+        // try going to the left
+        piece->x++;
+        if (Game_CheckPiece(piece)) {
+            return;
+        }
+
+        // try going to the left
+        piece->x -= 2;
+        if (Game_CheckPiece(piece)) {
+            return;
+        }
+
+        // move piece back to where it originally was
+        piece->x++;
+    }
+    
+    // rotate back
+    piece->rotation = originalRotation;
 }
 
 int Game_Run() {
@@ -128,22 +224,12 @@ int Game_Run() {
 
     // clockwise rotation
     if (PadData1E & PAD_C) {
-        currPiece.rotation--;
-        currPiece.rotation %= PIECE_ROTATIONS;
-        if (!Game_CheckPiece(&currPiece)) {
-            currPiece.rotation++;
-            currPiece.rotation %= PIECE_ROTATIONS;
-        }
+        Game_Rotate(&currPiece, ROTATE_CLOCKWISE);
     }
 
     // counterclockwise rotation
     if (PadData1E & PAD_B) {
-        currPiece.rotation++;
-        currPiece.rotation %= PIECE_ROTATIONS;
-        if (!Game_CheckPiece(&currPiece)) {
-            currPiece.rotation--;
-            currPiece.rotation %= PIECE_ROTATIONS;
-        }
+        Game_Rotate(&currPiece, ROTATE_COUNTERCLOCKWISE);
     }
     currPiece.rotation %= PIECE_ROTATIONS;
 
@@ -154,21 +240,23 @@ int Game_Run() {
         }
     }
 
-    if (PadData1E & PAD_L) {
+    if (Game_CanMoveLeft()) {
         currPiece.x--;
         if (!Game_CheckPiece(&currPiece)) {
             currPiece.x++;
         }
     }
 
-    if (PadData1E & PAD_R) {
+    if (Game_CanMoveRight()) {
         currPiece.x++;
         if (!Game_CheckPiece(&currPiece)) {
             currPiece.x--;
         }
     }
 
-    Print_Num(currPiece.rotation, 2, 0);
+    Print_Num(currPiece.x, 2, 0);
+    Print_Num(currPiece.y, 3, 0);
+    Print_Num(currPiece.rotation, 4, 0);
         
 
     // Game_Draw(drawPiece);

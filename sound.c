@@ -109,9 +109,9 @@ static void sound_external_audio_enable(Uint8 vol_l, Uint8 vol_r) {
 
 //must be called after cd_init
 void sound_init() {
-    if (!DEVCART_LOAD) {
-        sound_external_audio_enable(5, 5);
-    }
+#ifndef DEVCART_LOAD
+    sound_external_audio_enable(5, 5);
+#endif
 }
 
 

@@ -1,9 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <sega_mth.h>
+
 typedef struct {
-    Uint8 x;
-    Uint8 y;
+    int x;
+    int y;
     Uint8 num;
     Uint8 rotation;
 } PIECE;
