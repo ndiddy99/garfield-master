@@ -31,6 +31,13 @@ static PIECE currPiece;
 static int leftTimer;
 static int rightTimer;
 
+#define DOWN_FRAMES (3)
+#define LOCK_FRAMES (30)
+static int downTimer;
+
+#define GRAVITY_FRAMES (10)
+static int gravityTimer;
+
 #define ROTATE_CLOCKWISE (-1)
 #define ROTATE_COUNTERCLOCKWISE (1)
 
@@ -40,6 +47,7 @@ static void Game_MakePiece(PIECE *piece) {
     piece->rotation = 0;
     piece->x = SPAWN_X;
     piece->y = SPAWN_Y;
+    piece->state = STATE_AIR;
 }
 
 void Game_Init() {
@@ -67,6 +75,8 @@ void Game_Init() {
 
     leftTimer = MOVE_FRAMES;
     rightTimer = MOVE_FRAMES;
+    downTimer = MOVE_FRAMES;
+    gravityTimer = GRAVITY_FRAMES;
 
     // set the first piece
     Game_MakePiece(&currPiece);
@@ -187,6 +197,54 @@ static int Game_CanMoveRight() {
     return 0;
 }
 
+static int Game_CheckBelow(PIECE *piece) {
+    for (int y = 0; y < PIECE_SIZE; y++) {
+        for (int x = 0; x < PIECE_SIZE; x++) {
+            if (pieces[piece->num][piece->rotation][y][x] &&
+                    Game_BoardGet(piece->x + x, piece->y + y + 1)) {
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+static int Game_CanMoveDown() {
+    if (PadData1E & PAD_D) {
+        downTimer = DOWN_FRAMES;
+        gravityTimer = GRAVITY_FRAMES;
+        return 1;
+    }
+
+    else if (PadData1 & PAD_D) {
+        if (downTimer == 0) {
+            downTimer = DOWN_FRAMES;
+            gravityTimer = GRAVITY_FRAMES;
+            return 1;
+        }
+        else {
+            downTimer--;
+        }
+    }
+
+    else if (gravityTimer == 0) {
+        gravityTimer = GRAVITY_FRAMES;
+        return 1;
+    }
+
+    gravityTimer--;
+    return 0;
+}
+
+static int Game_Drop(PIECE *piece) {
+    if (!Game_CheckBelow(piece)) {
+        piece->y++;
+        downTimer = LOCK_FRAMES;
+        return 1;
+    }
+    return 0;
+}
+
 static void Game_Rotate(PIECE *piece, int rotation) {
     Uint8 originalRotation = piece->rotation;
     piece->rotation += rotation;
@@ -217,9 +275,11 @@ static void Game_Rotate(PIECE *piece, int rotation) {
 }
 
 int Game_Run() {
-    if (PadData1E & PAD_A) {
-        Game_CopyPiece(&currPiece);
-        Game_MakePiece(&currPiece);
+    if ((currPiece.state == STATE_AIR) && Game_CheckBelow(&currPiece)) {
+        currPiece.state = STATE_GROUND;
+        downTimer = LOCK_FRAMES;
+        //Game_CopyPiece(&currPiece);
+        //Game_MakePiece(&currPiece);
     }
 
     // clockwise rotation
@@ -231,13 +291,34 @@ int Game_Run() {
     if (PadData1E & PAD_B) {
         Game_Rotate(&currPiece, ROTATE_COUNTERCLOCKWISE);
     }
-    currPiece.rotation %= PIECE_ROTATIONS;
+    
+    // hard drop
+    if (PadData1E & PAD_U) {
+        while (Game_Drop(&currPiece));
+        currPiece.state = STATE_GROUND;
+    }
 
-    if (PadData1E & PAD_D) {
-        currPiece.y++;
-        if (!Game_CheckPiece(&currPiece)) {
-            currPiece.y--;
-        }
+    // soft drop/gravity
+    switch (currPiece.state) {
+        case STATE_AIR:
+            if (Game_CanMoveDown()) {
+                currPiece.y++;
+                if (!Game_CheckPiece(&currPiece)) {
+                    currPiece.y--;
+                }
+            }
+            break;
+
+        case STATE_GROUND:
+            downTimer--;
+            // on ground: drop one block per frame
+            Game_Drop(&currPiece);
+            if ((PadData1 & PAD_D) || (downTimer == 0)) {
+                downTimer = 0;
+                Game_CopyPiece(&currPiece);
+                Game_MakePiece(&currPiece);
+            }
+            break;
     }
 
     if (Game_CanMoveLeft()) {
