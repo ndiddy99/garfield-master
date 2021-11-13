@@ -274,6 +274,43 @@ static void Game_Rotate(PIECE *piece, int rotation) {
     piece->rotation = originalRotation;
 }
 
+static inline void Game_CopyRow(int dst, int src) {
+    for (int i = 0; i < GAME_COLS; i++) {
+        if (src >= 0) {
+            gameBoard[dst][i] = gameBoard[src][i];
+        }
+        else {
+            gameBoard[dst][i] = 0;
+        }
+    }
+}
+
+static inline void Game_MoveDown(int row) {
+    for (int i = row; i >= 0; i--) {
+        Game_CopyRow(i, i - 1);
+    } 
+}
+
+static int Game_CheckLines() {
+    int full;
+    int lineMade;
+    for (int y = 0; y < GAME_ROWS; y++) {
+        full = 1;
+        for (int x = 0; x < GAME_COLS; x++) {
+            if (gameBoard[y][x] == 0) {
+                full = 0;
+                break;
+            }
+        }
+
+        if (full) {
+            Game_MoveDown(y);
+            lineMade = 1;
+        }
+    }
+    return lineMade;
+}
+
 int Game_Run() {
     if ((currPiece.state == STATE_AIR) && Game_CheckBelow(&currPiece)) {
         currPiece.state = STATE_GROUND;
@@ -316,6 +353,7 @@ int Game_Run() {
             if ((PadData1 & PAD_D) || (downTimer == 0)) {
                 downTimer = 0;
                 Game_CopyPiece(&currPiece);
+                Game_CheckLines();
                 Game_MakePiece(&currPiece);
             }
             break;
