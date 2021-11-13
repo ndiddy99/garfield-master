@@ -7,6 +7,7 @@
 #include "rng.h"
 #include "scroll.h"
 #include "sprite.h"
+#include "sound.h"
 #include "vblank.h"
 
 static int blockStart;
@@ -26,6 +27,10 @@ volatile Uint16 *boardVram;
 #define SPAWN_Y (-1)
 static PIECE currPiece;
 
+#define PREVIEW_X (15)
+#define PREVIEW_Y (5)
+static PIECE nextPiece;
+
 #define MOVE_FRAMES (10)
 #define DAS_FRAMES (2)
 static int leftTimer;
@@ -42,12 +47,20 @@ static int gravityTimer;
 #define ROTATE_COUNTERCLOCKWISE (1)
 
 // initializes a new piece
-static void Game_MakePiece(PIECE *piece) {
-    piece->num = RNG_Get();
-    piece->rotation = 0;
-    piece->x = SPAWN_X;
-    piece->y = SPAWN_Y;
-    piece->state = STATE_AIR;
+static void Game_MakePiece(PIECE *gamePiece, PIECE *previewPiece) {
+    gamePiece->num = previewPiece->num;
+    gamePiece->rotation = 0;
+    gamePiece->x = SPAWN_X;
+    gamePiece->y = SPAWN_Y;
+    gamePiece->state = STATE_AIR;
+
+    previewPiece->num = RNG_Get();
+    previewPiece->rotation = 0;
+    previewPiece->x = PREVIEW_X;
+    previewPiece->y = PREVIEW_Y;
+    previewPiece->state = STATE_AIR;
+
+    sound_play(previewPiece->num);
 }
 
 void Game_Init() {
@@ -79,7 +92,8 @@ void Game_Init() {
     gravityTimer = GRAVITY_FRAMES;
 
     // set the first piece
-    Game_MakePiece(&currPiece);
+    nextPiece.num = RNG_Get();
+    Game_MakePiece(&currPiece, &nextPiece);
 }
 
 // draws a piece
@@ -354,7 +368,7 @@ int Game_Run() {
                 downTimer = 0;
                 Game_CopyPiece(&currPiece);
                 Game_CheckLines();
-                Game_MakePiece(&currPiece);
+                Game_MakePiece(&currPiece, &nextPiece);
             }
             break;
     }
@@ -378,8 +392,8 @@ int Game_Run() {
     Print_Num(currPiece.rotation, 4, 0);
         
 
-    // Game_Draw(drawPiece);
     Game_DrawPiece(&currPiece);
+    Game_DrawPiece(&nextPiece);
 
     // copy the board to VRAM
     for (int y = 0; y < GAME_ROWS; y++) {

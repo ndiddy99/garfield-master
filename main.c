@@ -46,7 +46,7 @@ int main() {
 	Scroll_Init();
 	Print_Init();
 	Print_Load();
-//	sound_init();
+	sound_init();
     Game_Init();
     
     while (1) {

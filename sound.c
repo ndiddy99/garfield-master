@@ -4,57 +4,10 @@
 
 #include "cd.h"
 #include "sound.h"
+#include "pcmsys.h"
 #include "print.h"
 #include "release.h"
 
-typedef enum {
-    STATE_HALT = 0,
-    STATE_PLAY
-} DRIVER_STATE;
-
-typedef struct {
-    Uint32 state; // what state the driver is in
-    Uint8 *track_addr; // where the song to play is
-    Uint32 ack; // if the 68k has acknowledged the saturn
-} DRIVER_COMMS;
-
-#define SMPC_REG_IREG(i)        (*((volatile unsigned char *)0x20100001+((i) * 2)))
-#define SMPC_REG_COMREG         (*((volatile unsigned char *)0x2010001F))
-#define SMPC_REG_OREG(o)        (*((volatile unsigned char *)0x20100021+((o) * 2)))
-#define SMPC_REG_SR             (*((volatile unsigned char *)0x20100061))
-#define SMPC_REG_SF             (*((volatile unsigned char *)0x20100063))
-#define SMPC_REG_PDR1           (*((volatile unsigned char *)0x20100075))
-#define SMPC_REG_PDR2           (*((volatile unsigned char *)0x20100077))
-#define SMPC_REG_DDR1           (*((volatile unsigned char *)0x20100079))
-#define SMPC_REG_DDR2           (*((volatile unsigned char *)0x2010007B))
-#define SMPC_REG_IOSEL          (*((volatile unsigned char *)0x2010007D))
-#define SMPC_REG_EXLE           (*((volatile unsigned char *)0x2010007F))
-
-#define SMPC_CMD_MSHON              0x00
-#define SMPC_CMD_SSHON              0x02
-#define SMPC_CMD_SSHOFF             0x03
-#define SMPC_CMD_SNDON              0x06
-#define SMPC_CMD_SNDOFF             0x07
-#define SMPC_CMD_CDON               0x08
-#define SMPC_CMD_CDOFF              0x09
-#define SMPC_CMD_CARTON             0x0A
-#define SMPC_CMD_CARTOFF            0x0B
-#define SMPC_CMD_SYSRES             0x0D
-#define SMPC_CMD_CKCHG352           0x0E
-#define SMPC_CMD_CKCHG320           0x0F
-#define SMPC_CMD_INTBACK            0x10
-#define SMPC_CMD_SETTIM             0x16
-#define SMPC_CMD_SETSM              0x17
-#define SMPC_CMD_NMIREQ             0x18
-#define SMPC_CMD_RESENA             0x19
-#define SMPC_CMD_RESDIS             0x1A
-
-#define SNDRAM (0x25A00000)
-#define SATURN_COMMS (*((volatile DRIVER_COMMS *)(SNDRAM + 0x8000)))
-#define ZMD_ADDR ((volatile Uint8 *)(&SATURN_COMMS + sizeof(DRIVER_COMMS)))
-#define MASTER_VOLUME (*((volatile Uint16 *)(SNDRAM + 0x100400)))
-
-#if DEVCART_LOAD == 0
 static void sound_external_audio_enable(Uint8 vol_l, Uint8 vol_r) {
     volatile Uint16 *slot_ptr;
 
@@ -105,13 +58,22 @@ static void sound_external_audio_enable(Uint8 vol_l, Uint8 vol_r) {
 
     *((volatile Uint16 *)(0x25B00400)) = 0x020F;
 }
-#endif
 
-//must be called after cd_init
+//must be called after CD_Init
 void sound_init() {
-#ifndef DEVCART_LOAD
-    sound_external_audio_enable(5, 5);
-#endif
+    if (DEVCART_LOAD == 0) {
+        sound_external_audio_enable(5, 5);
+    }
+    load_drv();
+    CD_ChangeDir("SFX");
+    load_8bit_pcm("I.RAW", 11025);
+    load_8bit_pcm("Z.RAW", 11025);
+    load_8bit_pcm("S.RAW", 11025);
+    load_8bit_pcm("J.RAW", 11025);
+    load_8bit_pcm("L.RAW", 11025);
+    load_8bit_pcm("O.RAW", 11025);
+    load_8bit_pcm("T.RAW", 11025);
+    CD_ChangeDir("..");
 }
 
 
@@ -137,7 +99,6 @@ void sound_cdda(int track, int loop) {
 }
 
 void sound_play(short num) {
-    return;
-    // pcm_play(num, PCM_SEMI, 6);
+    pcm_play(num, PCM_SEMI, 6);
 }
 

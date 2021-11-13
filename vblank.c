@@ -17,6 +17,8 @@
 #include	<sega_xpt.h>
 #include 	<sega_int.h>
 #include	<sega_per.h>
+
+#include "pcmsys.h"
 #include	"vblank.h"
 
 typedef	struct {
@@ -73,6 +75,7 @@ void CheckVblankEnd(void) {
 }
 
 void UsrVblankIn(void) {
+    m68k_com->start = 1;
 	SCL_VblankStart();
 }
 
