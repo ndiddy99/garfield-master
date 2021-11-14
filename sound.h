@@ -25,19 +25,15 @@ typedef enum {
 void sound_cdda(int track, int loop);
 
 typedef enum {
-    SOUND_ROAR = 0,
-    SOUND_SELECT,
-    SOUND_START,
-    SOUND_BLOCK,
-    SOUND_DEATH,
-    SOUND_SHIP,
-    SOUND_GOLD,
-    SOUND_CRACK,
-    SOUND_CAPSULE,
-    SOUND_POWERUP,
-    SOUND_LASER,
-    SOUND_REPLACE,
-    SOUND_CIRCLE,
+    SOUND_I = 0,
+    SOUND_Z,
+    SOUND_S,
+    SOUND_J,
+    SOUND_L,
+    SOUND_O,
+    SOUND_T,
+    SOUND_CLEAR,
+    SOUND_FALL,
 } PCM_INDEX;
 
 //play a pcm sound

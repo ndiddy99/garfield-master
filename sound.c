@@ -73,6 +73,8 @@ void sound_init() {
     load_8bit_pcm("L.RAW", 11025);
     load_8bit_pcm("O.RAW", 11025);
     load_8bit_pcm("T.RAW", 11025);
+    load_8bit_pcm("CLEAR.RAW", 11025);
+    load_8bit_pcm("FALL.RAW", 11025);
     CD_ChangeDir("..");
 }
 

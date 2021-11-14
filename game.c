@@ -10,12 +10,23 @@
 #include "sound.h"
 #include "vblank.h"
 
+typedef enum {
+    STATE_NORMAL,
+    STATE_LINE,
+} GAME_STATE;
+
+static int gameState;
+static int gameTimer;
+
+#define LINE_FRAMES (30)
+
 static int blockStart;
 static SPRITE_INFO blockSpr;
 
 #define GAME_ROWS (20)
 #define GAME_COLS (10)
 static int gameBoard[GAME_ROWS][GAME_COLS];
+static int clearedLines[GAME_ROWS];
 
 #define ROW_OFFSET (64)
 #define TILE_SIZE (8)
@@ -85,7 +96,11 @@ void Game_Init() {
             gameBoard[y][x] = 0;
         }
     }
+    
+    // set up game state
+    gameState = STATE_NORMAL;
 
+    // initialize movement timers
     leftTimer = MOVE_FRAMES;
     rightTimer = MOVE_FRAMES;
     downTimer = MOVE_FRAMES;
@@ -307,6 +322,36 @@ static inline void Game_MoveDown(int row) {
 
 static int Game_CheckLines() {
     int full;
+    int lineMade = 0;
+
+    // clear the "cleared lines" array
+    for (int i = 0; i < GAME_ROWS; i++) {
+        clearedLines[i] = 0;
+    }
+
+    // check and mark all filled lines
+    for (int y = 0; y < GAME_ROWS; y++) {
+        full = 1;
+        for (int x = 0; x < GAME_COLS; x++) {
+            if (gameBoard[y][x] == 0) {
+                full = 0;
+                break;
+            }
+        }
+
+        if (full) {
+            for (int x = 0; x < GAME_COLS; x++) {
+                gameBoard[y][x] = 0;
+            }
+            clearedLines[y] = 1;
+            lineMade = 1;
+        }
+    }
+    return lineMade;
+}
+
+static int Game_RemoveLines() {
+    int full;
     int lineMade;
     for (int y = 0; y < GAME_ROWS; y++) {
         full = 1;
@@ -325,12 +370,10 @@ static int Game_CheckLines() {
     return lineMade;
 }
 
-int Game_Run() {
+static int Game_Normal() {
     if ((currPiece.state == STATE_AIR) && Game_CheckBelow(&currPiece)) {
         currPiece.state = STATE_GROUND;
         downTimer = LOCK_FRAMES;
-        //Game_CopyPiece(&currPiece);
-        //Game_MakePiece(&currPiece);
     }
 
     // clockwise rotation
@@ -367,7 +410,11 @@ int Game_Run() {
             if ((PadData1 & PAD_D) || (downTimer == 0)) {
                 downTimer = 0;
                 Game_CopyPiece(&currPiece);
-                Game_CheckLines();
+                if (Game_CheckLines()) {
+                    gameState = STATE_LINE;
+                    gameTimer = LINE_FRAMES;
+                    sound_play(SOUND_CLEAR);
+                }
                 Game_MakePiece(&currPiece, &nextPiece);
             }
             break;
@@ -390,9 +437,11 @@ int Game_Run() {
     Print_Num(currPiece.x, 2, 0);
     Print_Num(currPiece.y, 3, 0);
     Print_Num(currPiece.rotation, 4, 0);
-        
-
-    Game_DrawPiece(&currPiece);
+     
+    // don't draw the piece if we're clearing the line   
+    if (gameState == STATE_NORMAL) {
+        Game_DrawPiece(&currPiece);
+    }
     Game_DrawPiece(&nextPiece);
 
     // copy the board to VRAM
@@ -401,5 +450,36 @@ int Game_Run() {
             boardVram[(y * ROW_OFFSET) + x] = (gameBoard[y][x] * 2);
         }
     }
+    return 0;
+}
+
+static void Game_Line() {
+    if (gameTimer > 0) {
+        gameTimer--;
+    }
+    else {
+        // delete all cleared rows
+        for (int i = 0; i < GAME_ROWS; i++) {
+            if (clearedLines[i]) {
+                Game_MoveDown(i);
+            }
+        }
+        sound_play(SOUND_FALL);
+        gameState = STATE_NORMAL;
+    }
+    Game_DrawPiece(&nextPiece);
+}
+
+int Game_Run() {
+    switch (gameState) {
+        case STATE_NORMAL:
+            Game_Normal();
+            break;
+
+        case STATE_LINE:
+            Game_Line();
+            break;
+    }
+
     return 0;
 }
