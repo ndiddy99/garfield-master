@@ -50,11 +50,6 @@ int main() {
     Game_Init();
     
     while (1) {
-        frame++;
-
-		Print_String("Hello", 0, 0);
-		Print_Num(frame, 1, 0);
-
 		// if the cd drive is opened, return to menu (don't do this with devcart
 		// because leaving the door open skips the boot animation which is nice)
 		if (!DEVCART_LOAD) {

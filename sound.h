@@ -34,6 +34,9 @@ typedef enum {
     SOUND_T,
     SOUND_CLEAR,
     SOUND_FALL,
+    SOUND_LAND,
+    SOUND_LOCK,
+    SOUND_ROTATE,
 } PCM_INDEX;
 
 //play a pcm sound

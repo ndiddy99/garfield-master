@@ -75,6 +75,9 @@ void sound_init() {
     load_8bit_pcm("T.RAW", 11025);
     load_8bit_pcm("CLEAR.RAW", 11025);
     load_8bit_pcm("FALL.RAW", 11025);
+    load_8bit_pcm("LAND.RAW", 11025);
+    load_8bit_pcm("LOCK.RAW", 22050);
+    load_8bit_pcm("ROTATE.RAW", 11025);
     CD_ChangeDir("..");
 }
 

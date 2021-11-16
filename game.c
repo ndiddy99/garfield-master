@@ -50,6 +50,7 @@ static int rightTimer;
 #define DOWN_FRAMES (3)
 #define LOCK_FRAMES (30)
 static int downTimer;
+static int lockTimer;
 
 #define GRAVITY_FRAMES (10)
 static int gravityTimer;
@@ -63,13 +64,11 @@ static void Game_MakePiece(PIECE *gamePiece, PIECE *previewPiece) {
     gamePiece->rotation = 0;
     gamePiece->x = SPAWN_X;
     gamePiece->y = SPAWN_Y;
-    gamePiece->state = STATE_AIR;
 
     previewPiece->num = RNG_Get();
     previewPiece->rotation = 0;
     previewPiece->x = PREVIEW_X;
     previewPiece->y = PREVIEW_Y;
-    previewPiece->state = STATE_AIR;
 
     sound_play(previewPiece->num);
 }
@@ -104,6 +103,7 @@ void Game_Init() {
     leftTimer = MOVE_FRAMES;
     rightTimer = MOVE_FRAMES;
     downTimer = MOVE_FRAMES;
+    lockTimer = -1;
     gravityTimer = GRAVITY_FRAMES;
 
     // set the first piece
@@ -268,7 +268,6 @@ static int Game_CanMoveDown() {
 static int Game_Drop(PIECE *piece) {
     if (!Game_CheckBelow(piece)) {
         piece->y++;
-        downTimer = LOCK_FRAMES;
         return 1;
     }
     return 0;
@@ -350,30 +349,22 @@ static int Game_CheckLines() {
     return lineMade;
 }
 
-static int Game_RemoveLines() {
-    int full;
-    int lineMade;
-    for (int y = 0; y < GAME_ROWS; y++) {
-        full = 1;
-        for (int x = 0; x < GAME_COLS; x++) {
-            if (gameBoard[y][x] == 0) {
-                full = 0;
-                break;
-            }
-        }
+static int Game_Normal() {
+    int lockSound = 1;
 
-        if (full) {
-            Game_MoveDown(y);
-            lineMade = 1;
+    if ((lockTimer == -1) && Game_CheckBelow(&currPiece)) {
+        lockTimer = LOCK_FRAMES;
+        sound_play(SOUND_LAND);
+
+        // don't play lock sound & lock immediately if player's holding down
+        // when piece lands (aka soft drop)
+        if (PadData1 & PAD_D) {
+            lockSound = 0;
+            lockTimer = 0;
         }
     }
-    return lineMade;
-}
-
-static int Game_Normal() {
-    if ((currPiece.state == STATE_AIR) && Game_CheckBelow(&currPiece)) {
-        currPiece.state = STATE_GROUND;
-        downTimer = LOCK_FRAMES;
+    else if (!Game_CheckBelow(&currPiece)) {
+        lockTimer = -1;
     }
 
     // clockwise rotation
@@ -387,39 +378,40 @@ static int Game_Normal() {
     }
     
     // hard drop
-    if (PadData1E & PAD_U) {
+    if ((PadData1E & PAD_U) && (lockTimer == -1)) {
         while (Game_Drop(&currPiece));
-        currPiece.state = STATE_GROUND;
+        lockTimer = LOCK_FRAMES;
+        sound_play(SOUND_LAND);
     }
 
     // soft drop/gravity
-    switch (currPiece.state) {
-        case STATE_AIR:
-            if (Game_CanMoveDown()) {
-                currPiece.y++;
-                if (!Game_CheckPiece(&currPiece)) {
-                    currPiece.y--;
-                }
-            }
-            break;
-
-        case STATE_GROUND:
-            downTimer--;
-            // on ground: drop one block per frame
-            Game_Drop(&currPiece);
-            if ((PadData1 & PAD_D) || (downTimer == 0)) {
-                downTimer = 0;
-                Game_CopyPiece(&currPiece);
-                if (Game_CheckLines()) {
-                    gameState = STATE_LINE;
-                    gameTimer = LINE_FRAMES;
-                    sound_play(SOUND_CLEAR);
-                }
-                Game_MakePiece(&currPiece, &nextPiece);
-            }
-            break;
+    if (Game_CanMoveDown()) {
+        Game_Drop(&currPiece);
     }
 
+    // allow player to interrupt lock timer if we're on the ground
+    if ((lockTimer > 0) && (PadData1 & PAD_D)) {
+        lockTimer = 0;
+    }
+
+    if (lockTimer == 0) {
+        lockTimer = -1;
+        Game_CopyPiece(&currPiece);
+        if (Game_CheckLines()) {
+            gameState = STATE_LINE;
+            gameTimer = LINE_FRAMES;
+            sound_play(SOUND_CLEAR);
+        }
+        if (lockSound) {
+            sound_play(SOUND_LOCK);
+        }
+        Game_MakePiece(&currPiece, &nextPiece);
+    }
+    else if (lockTimer > 0) {
+        lockTimer--;
+    }
+
+    // horizontal movement
     if (Game_CanMoveLeft()) {
         currPiece.x--;
         if (!Game_CheckPiece(&currPiece)) {
@@ -434,9 +426,8 @@ static int Game_Normal() {
         }
     }
 
-    Print_Num(currPiece.x, 2, 0);
-    Print_Num(currPiece.y, 3, 0);
-    Print_Num(currPiece.rotation, 4, 0);
+    Print_Num(downTimer, 0, 0);
+    Print_Num(gravityTimer, 1, 0);
      
     // don't draw the piece if we're clearing the line   
     if (gameState == STATE_NORMAL) {
