@@ -226,6 +226,7 @@ static int Game_CanMoveRight() {
     return 0;
 }
 
+// returns 1 if the piece is on ground or another piece
 static int Game_CheckBelow(PIECE *piece) {
     for (int y = 0; y < PIECE_SIZE; y++) {
         for (int x = 0; x < PIECE_SIZE; x++) {
@@ -273,33 +274,56 @@ static int Game_Drop(PIECE *piece) {
     return 0;
 }
 
-static void Game_Rotate(PIECE *piece, int rotation) {
+static int Game_Rotate(PIECE *piece, int rotation) {
+    int originalX = piece->x;
+    int originalY = piece->y;
     Uint8 originalRotation = piece->rotation;
     piece->rotation += rotation;
     piece->rotation %= PIECE_ROTATIONS;
     if (Game_CheckPiece(piece)) {
-        return;
+        return 1;
     }
+
+    // ceiling kicks
+    if ((piece->y == SPAWN_Y) && !Game_CheckBelow(piece)) {
+        piece->y++;
+        if (Game_CheckPiece(piece)) {
+            return 1;
+        }
+    } 
 
     if (Game_CanKick(piece)) {
         // try going to the left
         piece->x++;
         if (Game_CheckPiece(piece)) {
-            return;
+            return 1;
         }
 
         // try going to the left
         piece->x -= 2;
         if (Game_CheckPiece(piece)) {
-            return;
+            return 1;
         }
-
-        // move piece back to where it originally was
-        piece->x++;
     }
     
-    // rotate back
+    // move back
+    piece->x = originalX;
+    piece->y = originalY;
     piece->rotation = originalRotation;
+    return 0;
+}
+
+// buffer in next rotate before piece spawns
+static void Game_BufferRotate() {
+    if (PadData1 & PAD_C) {
+        Game_Rotate(&currPiece, ROTATE_CLOCKWISE);
+        sound_play(SOUND_ROTATE);
+    }
+
+    if (PadData1 & PAD_B) {
+        Game_Rotate(&currPiece, ROTATE_COUNTERCLOCKWISE);
+        sound_play(SOUND_ROTATE);
+    }
 }
 
 static inline void Game_CopyRow(int dst, int src) {
@@ -402,10 +426,15 @@ static int Game_Normal() {
             gameTimer = LINE_FRAMES;
             sound_play(SOUND_CLEAR);
         }
+        
         if (lockSound) {
             sound_play(SOUND_LOCK);
         }
+
         Game_MakePiece(&currPiece, &nextPiece);
+        if (gameState != STATE_LINE) {
+            Game_BufferRotate();
+        }
     }
     else if (lockTimer > 0) {
         lockTimer--;
@@ -457,6 +486,7 @@ static void Game_Line() {
         }
         sound_play(SOUND_FALL);
         gameState = STATE_NORMAL;
+        Game_BufferRotate();
     }
     Game_DrawPiece(&nextPiece);
 }
