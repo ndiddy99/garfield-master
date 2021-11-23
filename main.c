@@ -46,8 +46,17 @@ int main() {
 	Scroll_Init();
 	Print_Init();
 	Print_Load();
-	sound_init();
+	Sound_Init();
     Game_Init();
+
+    CD_ChangeDir("BG");
+    CD_Load("GARFIELD.TLE", (void *)LWRAM);
+    Scroll_LoadTile((void *)LWRAM, (volatile void *)SCL_VDP2_VRAM_B0, SCL_RBG0, 0);
+    CD_ChangeDir("..");
+    
+    for (int i = 0; i < 0x4000; i++) {
+        ((volatile Uint16 *)SCL_VDP2_VRAM_B1)[i] = (i % 16) * 2;
+    }
     
     while (1) {
 		// if the cd drive is opened, return to menu (don't do this with devcart
@@ -72,6 +81,35 @@ int main() {
 		Sprite_StartDraw();
         
         Game_Run();
+       
+        Fixed32 r = MTH_FIXED(2);
+
+        if(PadData1){
+			SCL_Open(SCL_RBG_TB_A);
+			if(PadData1 & PAD_U)
+				SCL_Move( 0, r, 0);
+			else if(PadData1 & PAD_D)
+				SCL_Move( 0,-r, 0);
+			if(PadData1 & PAD_R)
+				SCL_Move(-r, 0, 0);
+			else if(PadData1 & PAD_L)
+				SCL_Move( r, 0, 0);
+			if(PadData1 & PAD_RB)
+				SCL_Move( 0, 0,-r);
+			else if(PadData1 & PAD_LB)
+				SCL_Move( 0, 0, r);
+			if((PadData1 & PAD_Z))
+				SCL_Rotate(0,r,0);
+			if((PadData1 & PAD_Y))
+				SCL_Rotate(0,0,r);
+			if((PadData1 & PAD_X))
+				SCL_Rotate(r,0,0);
+			if((PadData1 & PAD_S)) {
+				SCL_MoveTo(0,0,0);
+				SCL_RotateTo(0,0,0,SCL_X_AXIS);
+			}
+			SCL_Close();
+		}
         
 		Sprite_DrawAll();
 		if (DEBUG) {

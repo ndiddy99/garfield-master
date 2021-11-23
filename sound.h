@@ -2,12 +2,7 @@
 #define SOUND_H
 
 //must be called after cd_init
-void sound_init(void);
-
-// play a vgm file off the disc
-void sound_vgm_load(char *filename);
-void sound_vgm_play(void);
-void sound_vgm_stop(void);
+void Sound_Init(void);
 
 #define CDDA_START (2)
 typedef enum {
@@ -22,7 +17,7 @@ typedef enum {
 } CDDA_INDEX;
 
 //play an audio track. loop: 1 if we want to loop the track
-void sound_cdda(int track, int loop);
+void Sound_CDDA(int track, int loop);
 
 typedef enum {
     SOUND_I = 0,
@@ -40,5 +35,5 @@ typedef enum {
 } PCM_INDEX;
 
 //play a pcm sound
-void sound_play(short num);
+void Sound_Play(short num);
 #endif

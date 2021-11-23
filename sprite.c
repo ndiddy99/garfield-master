@@ -36,7 +36,7 @@ void Sprite_Init() {
 	SCL_Vdp2Init();
 	SPR_2Initial(&work2D);
 	SPR_2SetTvMode(SPR_TV_NORMAL, SPR_TV_320X224, OFF);
-	SCL_SetColRamMode(SCL_CRM24_1024);
+	SCL_SetColRamMode(SCL_CRM15_2048);
     SCL_SetSpriteMode(SCL_TYPE5, SCL_MIX, SCL_SP_WINDOW);
 	SCL_AllocColRam(SCL_SPR, 256, OFF);
 

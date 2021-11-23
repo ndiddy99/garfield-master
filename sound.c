@@ -8,7 +8,7 @@
 #include "print.h"
 #include "release.h"
 
-static void sound_external_audio_enable(Uint8 vol_l, Uint8 vol_r) {
+static void Sound_CDVolume(Uint8 vol_l, Uint8 vol_r) {
     volatile Uint16 *slot_ptr;
 
     //max sound volume is 7
@@ -60,9 +60,9 @@ static void sound_external_audio_enable(Uint8 vol_l, Uint8 vol_r) {
 }
 
 //must be called after CD_Init
-void sound_init() {
+void Sound_Init() {
     if (DEVCART_LOAD == 0) {
-        sound_external_audio_enable(5, 5);
+        Sound_CDVolume(5, 5);
     }
     load_drv();
     CD_ChangeDir("SFX");
@@ -82,7 +82,7 @@ void sound_init() {
 }
 
 
-void sound_cdda(int track, int loop) {
+void Sound_CDDA(int track, int loop) {
     if (DEVCART_LOAD) {
         return;
     }
@@ -103,7 +103,7 @@ void sound_cdda(int track, int loop) {
     CDC_CdPlay(&ply);
 }
 
-void sound_play(short num) {
+void Sound_Play(short num) {
     pcm_play(num, PCM_SEMI, 6);
 }
 

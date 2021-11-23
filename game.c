@@ -70,7 +70,7 @@ static void Game_MakePiece(PIECE *gamePiece, PIECE *previewPiece) {
     previewPiece->x = PREVIEW_X;
     previewPiece->y = PREVIEW_Y;
 
-    sound_play(previewPiece->num);
+    Sound_Play(previewPiece->num);
 }
 
 void Game_Init() {
@@ -317,12 +317,12 @@ static int Game_Rotate(PIECE *piece, int rotation) {
 static void Game_BufferRotate() {
     if (PadData1 & PAD_C) {
         Game_Rotate(&currPiece, ROTATE_CLOCKWISE);
-        sound_play(SOUND_ROTATE);
+        Sound_Play(SOUND_ROTATE);
     }
 
     if (PadData1 & PAD_B) {
         Game_Rotate(&currPiece, ROTATE_COUNTERCLOCKWISE);
-        sound_play(SOUND_ROTATE);
+        Sound_Play(SOUND_ROTATE);
     }
 }
 
@@ -378,7 +378,7 @@ static int Game_Normal() {
 
     if ((lockTimer == -1) && Game_CheckBelow(&currPiece)) {
         lockTimer = LOCK_FRAMES;
-        sound_play(SOUND_LAND);
+        Sound_Play(SOUND_LAND);
 
         // don't play lock sound & lock immediately if player's holding down
         // when piece lands (aka soft drop)
@@ -405,7 +405,7 @@ static int Game_Normal() {
     if ((PadData1E & PAD_U) && (lockTimer == -1)) {
         while (Game_Drop(&currPiece));
         lockTimer = LOCK_FRAMES;
-        sound_play(SOUND_LAND);
+        Sound_Play(SOUND_LAND);
     }
 
     // soft drop/gravity
@@ -424,11 +424,11 @@ static int Game_Normal() {
         if (Game_CheckLines()) {
             gameState = STATE_LINE;
             gameTimer = LINE_FRAMES;
-            sound_play(SOUND_CLEAR);
+            Sound_Play(SOUND_CLEAR);
         }
         
         if (lockSound) {
-            sound_play(SOUND_LOCK);
+            Sound_Play(SOUND_LOCK);
         }
 
         Game_MakePiece(&currPiece, &nextPiece);
@@ -484,7 +484,7 @@ static void Game_Line() {
                 Game_MoveDown(i);
             }
         }
-        sound_play(SOUND_FALL);
+        Sound_Play(SOUND_FALL);
         gameState = STATE_NORMAL;
         Game_BufferRotate();
     }
