@@ -1,6 +1,7 @@
 #include <machine.h>
 #include <stdint.h>
 #include <string.h> //memcpy
+#include <sega_dma.h>
 #define	_SPR2_
 #include <sega_spr.h>
 #include <sega_scl.h> 
@@ -10,6 +11,7 @@
 #include <sega_per.h>
 #include <sega_xpt.h>
 
+#include "bg.h"
 #include "cd.h"
 #include "devcart.h"
 #include "game.h"
@@ -40,25 +42,20 @@ int main() {
 //	set_imask(0); // enable interrupts
 //
 	SCL_Vdp2Init();
-//
+    DMA_ScuInit();
 	CD_Init();
 	Sprite_Init();
 	Scroll_Init();
+    BG_Init();
 	Print_Init();
 	Print_Load();
 	Sound_Init();
     Game_Init();
 
-    CD_ChangeDir("BG");
-    CD_Load("GARFIELD.TLE", (void *)LWRAM);
-    Scroll_LoadTile((void *)LWRAM, (volatile void *)SCL_VDP2_VRAM_B0, SCL_RBG0, 0);
-    CD_ChangeDir("..");
-    
-    for (int i = 0; i < 0x4000; i++) {
-        ((volatile Uint16 *)SCL_VDP2_VRAM_B1)[i] = (i % 16) * 2;
-    }
-    
+    SCL_DisplayFrame();
     while (1) {
+        frame++;
+
 		// if the cd drive is opened, return to menu (don't do this with devcart
 		// because leaving the door open skips the boot animation which is nice)
 		if (!DEVCART_LOAD) {
@@ -80,37 +77,24 @@ int main() {
 
 		Sprite_StartDraw();
         
+        BG_Run();
         Game_Run();
+        if (PadData1E & PAD_X) {
+            BG_Next();
+        }
        
-        Fixed32 r = MTH_FIXED(2);
+    /*    Fixed32 r = MTH_FIXED(0.8);
 
-        if(PadData1){
 			SCL_Open(SCL_RBG_TB_A);
-			if(PadData1 & PAD_U)
-				SCL_Move( 0, r, 0);
-			else if(PadData1 & PAD_D)
-				SCL_Move( 0,-r, 0);
-			if(PadData1 & PAD_R)
-				SCL_Move(-r, 0, 0);
-			else if(PadData1 & PAD_L)
-				SCL_Move( r, 0, 0);
-			if(PadData1 & PAD_RB)
-				SCL_Move( 0, 0,-r);
-			else if(PadData1 & PAD_LB)
-				SCL_Move( 0, 0, r);
-			if((PadData1 & PAD_Z))
-				SCL_Rotate(0,r,0);
-			if((PadData1 & PAD_Y))
-				SCL_Rotate(0,0,r);
-			if((PadData1 & PAD_X))
-				SCL_Rotate(r,0,0);
-			if((PadData1 & PAD_S)) {
-				SCL_MoveTo(0,0,0);
-				SCL_RotateTo(0,0,0,SCL_X_AXIS);
-			}
+				SCL_Move( MTH_FIXED(1), MTH_FIXED(1), 0);
+                if (frame & 1) {
+				    SCL_Rotate(r, 0, 0);
+                }
+                else {
+                    SCL_Rotate(0, r, 0);
+                }
 			SCL_Close();
-		}
-        
+     */   
 		Sprite_DrawAll();
 		if (DEBUG) {
 			Print_Display();

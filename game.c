@@ -455,9 +455,6 @@ static int Game_Normal() {
         }
     }
 
-    Print_Num(downTimer, 0, 0);
-    Print_Num(gravityTimer, 1, 0);
-     
     // don't draw the piece if we're clearing the line   
     if (gameState == STATE_NORMAL) {
         Game_DrawPiece(&currPiece);

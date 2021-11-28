@@ -7,6 +7,7 @@
 #include <string.h>
 
 #include "cd.h"
+#include "hwram.h"
 #include "scroll.h"
 #include "sprite.h"
 #include "vblank.h"
@@ -26,9 +27,6 @@ SPRITE_INFO sprites[SPRITE_LIST_SIZE];
 #define DrawPrtyMax   256
 SPR_2DefineWork(work2D, CommandMax, GourTblMax, LookupTblMax, CharMax, DrawPrtyMax)
 #define ENDCODE_DISABLE (1 << 7)
-
-static Uint8 spriteBuf[65536];
-static Uint16 red[64];
 
 void Sprite_Init() {
 	Sprite_DeleteAll();
@@ -122,19 +120,15 @@ static int Sprite_LoadRGB(Uint8 *buffer, int *count) {
 }
 
 int Sprite_Load(char *filename, int *count) {
-	CD_Load(filename, spriteBuf);
+	CD_Load(filename, HWRAM_Buffer);
     Sint32 type;
 
-    for (int i = 0; i < 64; i++) {
-        red[i] = RGB16_COLOR(31, 31, 31);
-    }
-
-    memcpy(&type, spriteBuf, sizeof(type));
+    memcpy(&type, HWRAM_Buffer, sizeof(type));
     if (type == 0) {
-        return Sprite_LoadPal(spriteBuf + sizeof(type), count);
+        return Sprite_LoadPal(HWRAM_Buffer + sizeof(type), count);
     }
     else {
-        return Sprite_LoadRGB(spriteBuf + sizeof(type), count);
+        return Sprite_LoadRGB(HWRAM_Buffer + sizeof(type), count);
     }
 }
 

@@ -128,7 +128,7 @@ void Scroll_Init(void) {
     SCL_InitRotateTable(SCL_VDP2_VRAM_B1 + 0x10000, 1, SCL_RBG0, SCL_NON);
     SCL_InitConfigTb(&scfg[4]);
     scfg[4].dispenbl = ON;
-    scfg[4].charsize = SCL_CHAR_SIZE_1X1;
+    scfg[4].charsize = SCL_CHAR_SIZE_2X2;
     scfg[4].pnamesize = SCL_PN1WORD;
     scfg[4].flip = SCL_PN_10BIT;
     scfg[4].platesize = SCL_PL_SIZE_1X1;
@@ -161,6 +161,9 @@ void Scroll_Init(void) {
 }
 
 int Scroll_LoadTile(void *src, volatile void *dest, Uint32 object, Uint16 palno) {
+    Uint32 imageSize;
+    char *tileData = Scroll_TilePtr(src, &imageSize);
+
 	Uint32 palLen;
 	memcpy(&palLen, src, sizeof(palLen));
 	src += 4;
@@ -170,32 +173,32 @@ int Scroll_LoadTile(void *src, volatile void *dest, Uint32 object, Uint16 palno)
     src += 4;
 
 	SCL_SetColRam(object, palno, palLen, src);
-	src += (palLen * palSize * 2);
-
-	Uint32 image_size;
-	memcpy(&image_size, src, sizeof(image_size));
-	src += sizeof(Uint32);
 	if (dest) {
-		for (int i = 0; i < image_size; i++) {
-			((volatile char *)dest)[i] = ((char *)src)[i];
+		for (int i = 0; i < imageSize; i++) {
+			((volatile char *)dest)[i] = tileData[i];
 		}
 	}
 	if (palLen == 16) {
-		return image_size / 128;
+		return imageSize / 128;
 	}
 	else {
-		return image_size / 256;
+		return imageSize / 256;
 	}
 }
 
 char *Scroll_TilePtr(void *buff, int *size) {
-	Sint32 palLen;
+	Uint32 palLen;
 	memcpy(&palLen, buff, sizeof(palLen));
-	buff += (palLen + 1) * sizeof(palLen);
+	buff += 4;
+
+    Uint32 palSize;
+    memcpy(&palSize, buff, sizeof(palSize));
+    buff += (palLen * palSize * 2) + 4;
+
 	if (size) {
-		memcpy(size, buff, sizeof(*size));
+		memcpy(size, buff, 4);
 	}
-	buff += sizeof(size);
+	buff += 4;
 	return (char *)buff;
 }
 

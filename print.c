@@ -6,8 +6,8 @@
 #include "sprite.h"
 #include "print.h"
 
-#define ROWS 60
-#define COLS 88
+#define ROWS 30
+#define COLS 44
 #define FONT_X 8
 #define FONT_Y 8
 Uint8 text[ROWS][COLS];
