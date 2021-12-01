@@ -79,10 +79,22 @@ void Game_Init() {
     CD_ChangeDir("GAME");
     
     blockStart = Sprite_Load("BLOCKS.SPR", NULL); // sprites for active blocks
-
+    
+    // load piece tiles
     CD_Load("PLACED.TLE", gameBuf);
-    Scroll_LoadTile(gameBuf, (volatile void *)SCL_VDP2_VRAM_A1, SCL_NBG0, 0);
+    int blockBytes = Scroll_LoadTile(gameBuf, (volatile void *)SCL_VDP2_VRAM_A1, SCL_NBG0, 0);
     boardVram = (volatile Uint16 *)MAP_PTR(0) + (BOARD_ROW * ROW_OFFSET) + BOARD_COL;
+
+    // load border tiles
+    CD_Load("BORDER.TLE", gameBuf);
+    Scroll_LoadTile(gameBuf, (volatile void *)(SCL_VDP2_VRAM_A1 + blockBytes), SCL_NBG1, 0);
+    int counter = (blockBytes / 64);
+    for (int y = 0; y < 25; y++) {
+        for (int x = 0; x < 13; x++) {
+            ((volatile Uint16 *)MAP_PTR(1))[(y + BOARD_ROW - 1) * ROW_OFFSET + (x + BOARD_COL - 2)] = (counter * 2);
+            counter++;
+        }
+    }
    
     CD_ChangeDir("..");
 

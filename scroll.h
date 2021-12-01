@@ -19,6 +19,7 @@ void Scroll_Init(void);
 // dest: where in VRAM to load the tile file (or NULL for "don't load into vram")
 // object: what screen to load the palette to
 // palno: the color to load the palette from the file at
+// returns the number of bytes loaded into VRAM (different from the file size)
 int Scroll_LoadTile(void *src, volatile void *dest, Uint32 object, Uint16 palno);
 // Returns a pointer to the start of the tile file's graphics
 char *Scroll_TilePtr(void *buff, int *size);

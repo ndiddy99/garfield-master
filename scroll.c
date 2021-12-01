@@ -22,7 +22,7 @@ Uint32 vram[] = {
 
 Uint32 charOffsets[] = {
 	SCL_VDP2_VRAM_A1 - SCL_VDP2_VRAM, //NBG0
-	SCL_VDP2_VRAM_B1 - SCL_VDP2_VRAM, //NBG1
+	SCL_VDP2_VRAM_A1 - SCL_VDP2_VRAM, //NBG1
 	SCL_VDP2_VRAM_B1 - SCL_VDP2_VRAM, //NBG2
 	SCL_VDP2_VRAM_B1 - SCL_VDP2_VRAM, //NBG3
 };
@@ -76,7 +76,7 @@ void Scroll_Init(void) {
     }
     SCL_AllocColRam(SCL_RBG0, 256, OFF);
 	SCL_AllocColRam(SCL_NBG0, 256, OFF);
-	SCL_AllocColRam(SCL_NBG1 | SCL_NBG2 | SCL_NBG3, 64, OFF);
+	SCL_AllocColRam(SCL_NBG1 | SCL_NBG2 | SCL_NBG3, 256, OFF);
 
 	BackCol = 0x0000; //set the background color to black
 	SCL_SetBack(SCL_VDP2_VRAM+0x80000-2,1,&BackCol);
@@ -107,8 +107,8 @@ void Scroll_Init(void) {
     // NBG1
 	memcpy((void *)&scfg[1], (void *)&scfg[0], sizeof(SclConfig));
 	scfg[1].dispenbl = ON;
-	scfg[1].platesize = SCL_PL_SIZE_1X1;
-	scfg[1].coltype = SCL_COL_TYPE_16;
+	scfg[1].platesize = SCL_PL_SIZE_2X1;
+	scfg[1].coltype = SCL_COL_TYPE_256;
 	for(i=0;i<4;i++)   scfg[1].plate_addr[i] = vram[1];
 	SCL_SetConfig(SCL_NBG1, &scfg[1]);
 
@@ -161,7 +161,7 @@ void Scroll_Init(void) {
 }
 
 int Scroll_LoadTile(void *src, volatile void *dest, Uint32 object, Uint16 palno) {
-    Uint32 imageSize;
+    int imageSize;
     char *tileData = Scroll_TilePtr(src, &imageSize);
 
 	Uint32 palLen;
@@ -178,12 +178,8 @@ int Scroll_LoadTile(void *src, volatile void *dest, Uint32 object, Uint16 palno)
 			((volatile char *)dest)[i] = tileData[i];
 		}
 	}
-	if (palLen == 16) {
-		return imageSize / 128;
-	}
-	else {
-		return imageSize / 256;
-	}
+
+    return imageSize;
 }
 
 char *Scroll_TilePtr(void *buff, int *size) {

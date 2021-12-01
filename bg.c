@@ -89,7 +89,7 @@ void BG_Init() {
 void BG_Run() {
     switch (bgState) {
         case STATE_BUFFER:
-            Print_String("BUFF", 0, 0);
+            //Print_String("BUFF", 0, 0);
             memcpy(&HWRAM_Buffer[copyCursor], bgAddrs[currBG] + copyCursor, BUFFER_BYTES);
             copyCursor += BUFFER_BYTES;
             if (copyCursor >= bgLengths[currBG]) {
@@ -99,7 +99,7 @@ void BG_Run() {
             break;
 
         case STATE_FADEOUT:
-            Print_String("FADE", 0, 0);
+            //Print_String("FADE", 0, 0);
             frames++;
             if (frames >= FADE_FRAMES) {
                 copyCursor = 0;
@@ -110,7 +110,7 @@ void BG_Run() {
             break;
 
         case STATE_COPY:
-            Print_String("COPY", 0, 0);
+            //Print_String("COPY", 0, 0);
             DMA_ScuMemCopy(chrVram + copyCursor, &HWRAM_Buffer[copyCursor + copyOffset], DMA_BYTES);
             copyCursor += DMA_BYTES;
             if (copyCursor >= bgLengths[currBG]) {
@@ -125,7 +125,7 @@ void BG_Run() {
             break;
 
         case STATE_NONE:
-            Print_String("NONE", 0, 0);
+            //Print_String("NONE", 0, 0);
             break;
     }
 }

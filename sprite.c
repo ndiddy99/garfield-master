@@ -36,7 +36,6 @@ void Sprite_Init() {
 	SPR_2SetTvMode(SPR_TV_NORMAL, SPR_TV_320X224, OFF);
 	SCL_SetColRamMode(SCL_CRM15_2048);
     SCL_SetSpriteMode(SCL_TYPE5, SCL_MIX, SCL_SP_WINDOW);
-	SCL_AllocColRam(SCL_SPR, 256, OFF);
 
 	SetVblank(); //setup vblank routine
 	set_imask(0);

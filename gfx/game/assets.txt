@@ -1,2 +1,3 @@
 sr blocks
 t11 placed.bmp
+t11 border.bmp
