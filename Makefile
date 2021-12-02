@@ -16,7 +16,7 @@ AS = sh-elf-as
 OBJCOPY = sh-elf-objcopy
 ISO = mkisofs
 
-CFLAGS  = -O0 -g -Wall -std=gnu11 -m2 -DMODEL_S -I$(SEGALIB)/include
+CFLAGS  = -O2 -g -Wall -std=gnu11 -m2 -DMODEL_S -I$(SEGALIB)/include
 ASFLAGS =
 LDFLAGS = -T $(LOCATE_FILE) -e $(ENTRY_POINT) -nostartfiles
 ISOFLAGS = -sysid "SEGA SATURN" -volid "SaturnApp" -volset "SaturnApp" -publisher "SEGA ENTERPRISES, LTD." -preparer "SEGA ENTERPRISES, LTD." \

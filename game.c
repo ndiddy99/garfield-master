@@ -15,6 +15,14 @@ typedef enum {
     STATE_LINE,
 } GAME_STATE;
 
+static int borderBase;
+#define BORDER_WIDTH (13)
+#define BORDER_HEIGHT (22)
+#define NEXT_TILE (borderBase + 286) 
+#define SCORE_TILE (borderBase + 290)
+#define LEVEL_TILE (borderBase + 294)
+#define DIGITS_TILE (borderBase + 299)
+
 static int gameState;
 static int gameTimer;
 
@@ -30,17 +38,25 @@ static int clearedLines[GAME_ROWS];
 
 #define ROW_OFFSET (64)
 #define TILE_SIZE (8)
-#define BOARD_ROW (4)
-#define BOARD_COL (8)
+#define BOARD_X (10)
+#define BOARD_Y (5)
 volatile Uint16 *boardVram;
 
 #define SPAWN_X (4)
 #define SPAWN_Y (-1)
 static PIECE currPiece;
 
-#define PREVIEW_X (15)
-#define PREVIEW_Y (5)
+#define PREVIEW_X (4)
+#define PREVIEW_Y (-4)
 static PIECE nextPiece;
+
+#define SCORE_X (22)
+#define SCORE_Y (10)
+static int score;
+
+#define LEVEL_X (SCORE_X)
+#define LEVEL_Y (SCORE_Y + 6)
+static int level;
 
 #define MOVE_FRAMES (10)
 #define DAS_FRAMES (2)
@@ -69,7 +85,8 @@ static void Game_MakePiece(PIECE *gamePiece, PIECE *previewPiece) {
     previewPiece->rotation = 0;
     previewPiece->x = PREVIEW_X;
     previewPiece->y = PREVIEW_Y;
-
+    
+    level++;
     Sound_Play(previewPiece->num);
 }
 
@@ -79,22 +96,41 @@ void Game_Init() {
     CD_ChangeDir("GAME");
     
     blockStart = Sprite_Load("BLOCKS.SPR", NULL); // sprites for active blocks
+    boardVram = (volatile Uint16 *)MAP_PTR(0) + (BOARD_Y * ROW_OFFSET) + BOARD_X;
     
     // load piece tiles
     CD_Load("PLACED.TLE", gameBuf);
     int blockBytes = Scroll_LoadTile(gameBuf, (volatile void *)SCL_VDP2_VRAM_A1, SCL_NBG0, 0);
-    boardVram = (volatile Uint16 *)MAP_PTR(0) + (BOARD_ROW * ROW_OFFSET) + BOARD_COL;
+    borderBase = blockBytes / 64;
 
     // load border tiles
     CD_Load("BORDER.TLE", gameBuf);
     Scroll_LoadTile(gameBuf, (volatile void *)(SCL_VDP2_VRAM_A1 + blockBytes), SCL_NBG1, 0);
-    int counter = (blockBytes / 64);
-    for (int y = 0; y < 25; y++) {
-        for (int x = 0; x < 13; x++) {
-            ((volatile Uint16 *)MAP_PTR(1))[(y + BOARD_ROW - 1) * ROW_OFFSET + (x + BOARD_COL - 2)] = (counter * 2);
+    int counter = borderBase;
+    for (int y = 0; y < BORDER_HEIGHT; y++) {
+        for (int x = 0; x < BORDER_WIDTH; x++) {
+            ((volatile Uint16 *)MAP_PTR(1))[(y + BOARD_Y - 1) * ROW_OFFSET + (x + BOARD_X - 2)] = (counter * 2);
             counter++;
         }
     }
+
+    // load next text
+    for (int i = 0; i < 4; i++) { 
+        ((volatile Uint16 *)MAP_PTR(1))[(BOARD_Y + PREVIEW_Y + 2) * ROW_OFFSET 
+            + BOARD_X + PREVIEW_X - 4 + i] = (NEXT_TILE + i) * 2; 
+    }
+
+    // setup score
+    for (int i = 0; i < 4; i++) { 
+        ((volatile Uint16 *)MAP_PTR(1))[SCORE_Y * ROW_OFFSET + SCORE_X + i] = (SCORE_TILE + i) * 2; 
+    }
+    score = 0;
+
+    // setup level
+    for (int i = 0; i < 4; i++) { 
+        ((volatile Uint16 *)MAP_PTR(1))[LEVEL_Y * ROW_OFFSET + LEVEL_X + i] = (LEVEL_TILE + i) * 2; 
+    }
+    level = 0;
    
     CD_ChangeDir("..");
 
@@ -133,11 +169,30 @@ static void Game_DrawPiece(PIECE *piece) {
             if (tileNo != 0) {
                 // subtract 1 from the sprite number because the piece arrays have the first
                 // block sprite as 1 and 0 as "nothing"
-                Sprite_Make(blockStart + tileNo - 1, MTH_IntToFixed((BOARD_COL + piece->x + x) * TILE_SIZE),
-                        MTH_IntToFixed((BOARD_ROW + piece->y + y) * TILE_SIZE), &blockSpr);
+                Sprite_Make(blockStart + tileNo - 1, MTH_IntToFixed((BOARD_X + piece->x + x) * TILE_SIZE),
+                        MTH_IntToFixed((BOARD_Y + piece->y + y) * TILE_SIZE), &blockSpr);
                 Sprite_Draw(&blockSpr);
             }
         }
+    }
+}
+
+// draws the score and level
+static void Game_DrawNums() {
+    int tmp = score;
+    volatile Uint16 *scorePtr = (volatile Uint16 *)MAP_PTR(1) + ((SCORE_Y + 1) * ROW_OFFSET) + SCORE_X;
+    for (int i = 0; i < 6; i++) {
+        scorePtr[5 - i] = (DIGITS_TILE + (tmp % 10)) * 2;
+        scorePtr[ROW_OFFSET + (5 - i)] = (DIGITS_TILE + (tmp % 10) + BORDER_WIDTH) * 2;
+        tmp /= 10;
+    }
+
+    tmp = level;
+    volatile Uint16 *levelPtr = (volatile Uint16 *)MAP_PTR(1) + ((LEVEL_Y + 1) * ROW_OFFSET) + LEVEL_X;
+    for (int i = 0; i < 3; i++) {
+        levelPtr[2 - i] = (DIGITS_TILE + (tmp % 10)) * 2;
+        levelPtr[ROW_OFFSET + (2 - i)] = (DIGITS_TILE + (tmp % 10) + BORDER_WIDTH) * 2;
+        tmp /= 10;
     }
 }
 
@@ -437,6 +492,7 @@ static int Game_Normal() {
             gameState = STATE_LINE;
             gameTimer = LINE_FRAMES;
             Sound_Play(SOUND_CLEAR);
+            score += 100;
         }
         
         if (lockSound) {
@@ -510,6 +566,8 @@ int Game_Run() {
             Game_Line();
             break;
     }
+
+    Game_DrawNums();
 
     return 0;
 }
