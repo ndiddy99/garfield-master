@@ -51,8 +51,11 @@ static PIECE currPiece;
 static PIECE nextPiece;
 
 #define SCORE_X (22)
-#define SCORE_Y (10)
+#define SCORE_Y (7)
 static int score;
+// these two are used to calculate the score
+static int drop; 
+static int combo;
 
 #define LEVEL_X (SCORE_X)
 #define LEVEL_Y (SCORE_Y + 6)
@@ -86,7 +89,6 @@ static void Game_MakePiece(PIECE *gamePiece, PIECE *previewPiece) {
     previewPiece->x = PREVIEW_X;
     previewPiece->y = PREVIEW_Y;
     
-    level++;
     Sound_Play(previewPiece->num);
 }
 
@@ -125,6 +127,7 @@ void Game_Init() {
         ((volatile Uint16 *)MAP_PTR(1))[SCORE_Y * ROW_OFFSET + SCORE_X + i] = (SCORE_TILE + i) * 2; 
     }
     score = 0;
+    combo = 1;
 
     // setup level
     for (int i = 0; i < 4; i++) { 
@@ -336,6 +339,7 @@ static int Game_CanMoveDown() {
 static int Game_Drop(PIECE *piece) {
     if (!Game_CheckBelow(piece)) {
         piece->y++;
+        drop++;
         return 1;
     }
     return 0;
@@ -410,9 +414,10 @@ static inline void Game_MoveDown(int row) {
     } 
 }
 
+// returns number of filled lines.
 static int Game_CheckLines() {
     int full;
-    int lineMade = 0;
+    int lines = 0;
 
     // clear the "cleared lines" array
     for (int i = 0; i < GAME_ROWS; i++) {
@@ -434,13 +439,14 @@ static int Game_CheckLines() {
                 gameBoard[y][x] = 0;
             }
             clearedLines[y] = 1;
-            lineMade = 1;
+            lines++;
         }
     }
-    return lineMade;
+    return lines;
 }
 
 static int Game_Normal() {
+    int lines;
     int lockSound = 1;
 
     if ((lockTimer == -1) && Game_CheckBelow(&currPiece)) {
@@ -487,12 +493,23 @@ static int Game_Normal() {
 
     if (lockTimer == 0) {
         lockTimer = -1;
+        drop = 0;
         Game_CopyPiece(&currPiece);
-        if (Game_CheckLines()) {
+        
+        lines = Game_CheckLines();
+        if (lines) {
             gameState = STATE_LINE;
             gameTimer = LINE_FRAMES;
             Sound_Play(SOUND_CLEAR);
-            score += 100;
+            combo = combo + (lines * 2) - 2;
+            level += lines;
+            score += ((((level + lines) / 4) + 1) + drop) * lines * combo;
+        }
+        else {
+            if ((level % 100) != 99) {
+                level++;
+            }
+            combo = 1;
         }
         
         if (lockSound) {
