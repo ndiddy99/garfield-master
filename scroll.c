@@ -57,7 +57,7 @@ Uint32 charOffsets[] = {
 //nbg 0/1/2 tilemaps in A0
 //nbg 0/1/2 graphics in A1
 Uint16	cycleTb[] = {
-	0x012e,0xeeee,
+	0x012e,0xeeff,
 	0x4455,0xee66,
 	0xffff,0xffff,
 	0xffff,0xffff

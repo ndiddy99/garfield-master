@@ -125,7 +125,7 @@ void Game_Init() {
         }
     }
     // set transparent
-    SCL_SetColMixRate(SCL_NBG2, 16);
+    SCL_SetColMixRate(SCL_NBG2, 20);
 
     // load next text
     for (int i = 0; i < 4; i++) { 
