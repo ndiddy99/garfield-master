@@ -14,8 +14,8 @@
 // where in VRAM each tilemap is
 Uint32 vram[] = {
 	SCL_VDP2_VRAM_A0, 
+	SCL_VDP2_VRAM_A0 + 0x8000, 
 	SCL_VDP2_VRAM_A0 + 0x10000, 
-	SCL_VDP2_VRAM_A0, 
 	SCL_VDP2_VRAM_A0 + 0x10000,
     SCL_VDP2_VRAM_B1,
 };
@@ -114,7 +114,7 @@ void Scroll_Init(void) {
 
     // NBG2
 	memcpy((void *)&scfg[2], (void *)&scfg[1], sizeof(SclConfig));
-	scfg[2].dispenbl = OFF;
+	scfg[2].dispenbl = ON;
 	for(i=0;i<4;i++)   scfg[2].plate_addr[i] = vram[2];
 	SCL_SetConfig(SCL_NBG2, &scfg[2]);
 
@@ -147,6 +147,9 @@ void Scroll_Init(void) {
 	SCL_Open(SCL_NBG1);
 		SCL_MoveTo(FIXED(0), FIXED(0), 0);
 	SCL_Close();
+    SCL_Open(SCL_NBG2);
+        SCL_MoveTo(FIXED(0), FIXED(0), 0);
+    SCL_Close();
     SCL_Open(SCL_RBG_TB_A);
         SCL_MoveTo(FIXED(0), FIXED(0), 0);
     SCL_Close();
@@ -157,7 +160,8 @@ void Scroll_Init(void) {
 	SCL_SetPriority(SCL_SPR, 7);
 	SCL_SetPriority(SCL_NBG0, 6);
 	SCL_SetPriority(SCL_NBG1, 5);
-	SCL_SetPriority(SCL_RBG0, 4);
+    SCL_SetPriority(SCL_NBG2, 4);
+	SCL_SetPriority(SCL_RBG0, 3);
 }
 
 int Scroll_LoadTile(void *src, volatile void *dest, Uint32 object, Uint16 palno) {

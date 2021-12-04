@@ -4,6 +4,7 @@
 #include "game.h"
 #include "piece.h"
 #include "print.h"
+#include "release.h"
 #include "rng.h"
 #include "scroll.h"
 #include "sprite.h"
@@ -22,6 +23,7 @@ static int borderBase;
 #define SCORE_TILE (borderBase + 290)
 #define LEVEL_TILE (borderBase + 294)
 #define DIGITS_TILE (borderBase + 299)
+#define BLACK_TILE (borderBase + 309)
 
 static int gameState;
 static int gameTimer;
@@ -115,6 +117,15 @@ void Game_Init() {
             counter++;
         }
     }
+    
+    // load playfield background
+    for (int y = 0; y < GAME_ROWS; y++) {
+        for (int x = 0; x < GAME_COLS; x++) {
+            ((volatile Uint16 *)MAP_PTR(2))[(y + BOARD_Y) * ROW_OFFSET + (x + BOARD_X)] = BLACK_TILE * 2;
+        }
+    }
+    // set transparent
+    SCL_SetColMixRate(SCL_NBG2, 16);
 
     // load next text
     for (int i = 0; i < 4; i++) { 
@@ -448,6 +459,14 @@ static int Game_CheckLines() {
 static int Game_Normal() {
     int lines;
     int lockSound = 1;
+
+    if (DEBUG && (PadData1E & PAD_Z)) {
+        for (int y = 0; y < GAME_ROWS; y++) {
+            for (int x = 0; x < GAME_COLS; x++) {
+                gameBoard[y][x] = 0;
+            }
+        }
+    }
 
     if ((lockTimer == -1) && Game_CheckBelow(&currPiece)) {
         lockTimer = LOCK_FRAMES;

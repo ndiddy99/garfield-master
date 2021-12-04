@@ -50,7 +50,7 @@ void BG_Init() {
     black.red = -255; black.green = -255; black.blue = -255;
     normal.red = 0; normal.green = 0; normal.blue = 0;
 
-    SCL_SetColOffset(SCL_OFFSET_A, SCL_RBG0, -255, -255, -255);
+    SCL_SetColOffset(SCL_OFFSET_A, SCL_RBG0 | SCL_NBG2, -255, -255, -255);
     
     // load all the backgrounds into LWRAM
     char filename[] = "n.TLE";
