@@ -15,6 +15,7 @@
 typedef enum {
     STATE_NORMAL,
     STATE_LINE,
+    STATE_ARE,
 } GAME_STATE;
 
 static int borderBase;
@@ -29,7 +30,8 @@ static int borderBase;
 static int gameState;
 static int gameTimer;
 
-#define LINE_FRAMES (30)
+#define ARE_FRAMES (30)
+#define LINE_FRAMES (41)
 
 static int blockStart;
 static SPRITE_INFO blockSpr;
@@ -65,7 +67,7 @@ static int combo;
 static int level;
 static int levelCursor;
 
-#define MOVE_FRAMES (10)
+#define MOVE_FRAMES (14)
 #define DAS_FRAMES (2)
 static int leftTimer;
 static int rightTimer;
@@ -166,7 +168,7 @@ void Game_Init() {
     // initialize movement timers
     leftTimer = MOVE_FRAMES;
     rightTimer = MOVE_FRAMES;
-    downTimer = MOVE_FRAMES;
+    downTimer = DOWN_FRAMES;
     lockTimer = -1;
     gravityTimer = 0;
 
@@ -537,15 +539,12 @@ static int Game_Normal() {
                 level++;
             }
             combo = 1;
+            gameState = STATE_ARE;
+            gameTimer = ARE_FRAMES;
         }
         
         if (lockSound) {
             Sound_Play(SOUND_LOCK);
-        }
-
-        Game_MakePiece(&currPiece, &nextPiece);
-        if (gameState != STATE_LINE) {
-            Game_BufferRotate();
         }
     }
     else if (lockTimer > 0) {
@@ -567,7 +566,7 @@ static int Game_Normal() {
         }
     }
 
-    // don't draw the piece if we're clearing the line   
+    // don't draw the piece if we're replacing it with another one
     if (gameState == STATE_NORMAL) {
         Game_DrawPiece(&currPiece);
     }
@@ -593,10 +592,31 @@ static void Game_Line() {
                 Game_MoveDown(i);
             }
         }
+        // copy the board to VRAM
+        for (int y = 0; y < GAME_ROWS; y++) {
+            for (int x = 0; x < GAME_COLS; x++) {
+                boardVram[(y * ROW_OFFSET) + x] = (gameBoard[y][x] * 2);
+            }
+        }
         Sound_Play(SOUND_FALL);
+        gameTimer = ARE_FRAMES;
+        gameState = STATE_ARE;
+    }
+    Game_DrawPiece(&nextPiece);
+}
+
+static void Game_Are() {
+    if (gameTimer > 0) {
+        gameTimer--;
+    }
+    else {
+        Game_MakePiece(&currPiece, &nextPiece);
         gameState = STATE_NORMAL;
         Game_BufferRotate();
     }
+    // allow to charge DAS for the next piece
+    Game_CanMoveLeft();
+    Game_CanMoveRight();
     Game_DrawPiece(&nextPiece);
 }
 
@@ -608,6 +628,10 @@ int Game_Run() {
 
         case STATE_LINE:
             Game_Line();
+            break;
+
+        case STATE_ARE:
+            Game_Are();
             break;
     }
 
