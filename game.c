@@ -2,6 +2,7 @@
 
 #include "cd.h"
 #include "game.h"
+#include "gravity.h"
 #include "piece.h"
 #include "print.h"
 #include "release.h"
@@ -62,6 +63,7 @@ static int combo;
 #define LEVEL_X (SCORE_X)
 #define LEVEL_Y (SCORE_Y + 6)
 static int level;
+static int levelCursor;
 
 #define MOVE_FRAMES (10)
 #define DAS_FRAMES (2)
@@ -73,7 +75,6 @@ static int rightTimer;
 static int downTimer;
 static int lockTimer;
 
-#define GRAVITY_FRAMES (10)
 static int gravityTimer;
 
 #define ROTATE_CLOCKWISE (-1)
@@ -145,6 +146,7 @@ void Game_Init() {
         ((volatile Uint16 *)MAP_PTR(1))[LEVEL_Y * ROW_OFFSET + LEVEL_X + i] = (LEVEL_TILE + i) * 2; 
     }
     level = 0;
+    levelCursor = 0;
    
     CD_ChangeDir("..");
 
@@ -166,7 +168,7 @@ void Game_Init() {
     rightTimer = MOVE_FRAMES;
     downTimer = MOVE_FRAMES;
     lockTimer = -1;
-    gravityTimer = GRAVITY_FRAMES;
+    gravityTimer = 0;
 
     // set the first piece
     nextPiece.num = RNG_Get();
@@ -323,24 +325,17 @@ static int Game_CheckBelow(PIECE *piece) {
 static int Game_CanMoveDown() {
     if (PadData1E & PAD_D) {
         downTimer = DOWN_FRAMES;
-        gravityTimer = GRAVITY_FRAMES;
         return 1;
     }
 
     else if (PadData1 & PAD_D) {
         if (downTimer == 0) {
             downTimer = DOWN_FRAMES;
-            gravityTimer = GRAVITY_FRAMES;
             return 1;
         }
         else {
             downTimer--;
         }
-    }
-
-    else if (gravityTimer == 0) {
-        gravityTimer = GRAVITY_FRAMES;
-        return 1;
     }
 
     gravityTimer--;
@@ -500,7 +495,20 @@ static int Game_Normal() {
         Sound_Play(SOUND_LAND);
     }
 
-    // soft drop/gravity
+    // gravity
+    while (level >= levels[levelCursor + 1]) {
+        levelCursor++;
+    }
+    gravityTimer += gravity[levelCursor];
+    Print_Num(gravityTimer, 0, 0);
+    Print_Num(levelCursor, 1, 0);
+    Print_Num(gravity[levelCursor], 2, 0);
+    while (gravityTimer >> 8) {
+        Game_Drop(&currPiece);
+        gravityTimer -= 256;
+    }
+
+    // soft drop
     if (Game_CanMoveDown()) {
         Game_Drop(&currPiece);
     }
