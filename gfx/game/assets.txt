@@ -1,3 +1,4 @@
 sr blocks
+sr icons
 t11 placed.bmp
 t11 border.bmp

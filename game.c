@@ -24,8 +24,9 @@ static int borderBase;
 #define NEXT_TILE (borderBase + 286) 
 #define SCORE_TILE (borderBase + 290)
 #define LEVEL_TILE (borderBase + 294)
-#define DIGITS_TILE (borderBase + 299)
-#define BLACK_TILE (borderBase + 309)
+#define RANKING_TILE (borderBase + 299)
+#define DIGITS_TILE (borderBase + 312)
+#define BLACK_TILE (borderBase + 322)
 
 static int gameState;
 static int gameTimer;
@@ -35,6 +36,13 @@ static int gameTimer;
 
 static int blockStart;
 static SPRITE_INFO blockSpr;
+
+// ranking icon
+#define RANKING_X (22)
+#define RANKING_Y (4)
+static int ranking;
+static int iconStart;
+static SPRITE_INFO iconSpr;
 
 #define GAME_ROWS (20)
 #define GAME_COLS (10)
@@ -56,14 +64,14 @@ static PIECE currPiece;
 static PIECE nextPiece;
 
 #define SCORE_X (22)
-#define SCORE_Y (7)
+#define SCORE_Y (14)
 static int score;
 // these two are used to calculate the score
 static int drop; 
 static int combo;
 
 #define LEVEL_X (SCORE_X)
-#define LEVEL_Y (SCORE_Y + 6)
+#define LEVEL_Y (SCORE_Y + 4)
 static int level;
 static int levelCursor;
 
@@ -103,6 +111,7 @@ void Game_Init() {
     CD_ChangeDir("GAME");
     
     blockStart = Sprite_Load("BLOCKS.SPR", NULL); // sprites for active blocks
+    iconStart = Sprite_Load("ICONS.SPR", NULL);
     boardVram = (volatile Uint16 *)MAP_PTR(0) + (BOARD_Y * ROW_OFFSET) + BOARD_X;
     
     // load piece tiles
@@ -134,6 +143,11 @@ void Game_Init() {
     for (int i = 0; i < 4; i++) { 
         ((volatile Uint16 *)MAP_PTR(1))[(BOARD_Y + PREVIEW_Y + 2) * ROW_OFFSET 
             + BOARD_X + PREVIEW_X - 4 + i] = (NEXT_TILE + i) * 2; 
+    }
+
+    // setup ranking
+    for (int i = 0; i < 5; i++) {
+        ((volatile Uint16 *)MAP_PTR(1))[RANKING_Y * ROW_OFFSET + RANKING_X + i] = (RANKING_TILE + i) * 2;
     }
 
     // setup score
@@ -193,6 +207,11 @@ static void Game_DrawPiece(PIECE *piece) {
             }
         }
     }
+}
+
+static void Game_DrawRanking(int num) {
+    Sprite_Make(iconStart + num, MTH_FIXED((RANKING_X - 1) * 8), MTH_FIXED((RANKING_Y + 1) * 8), &iconSpr);
+    Sprite_Draw(&iconSpr);
 }
 
 // draws the score and level
@@ -491,7 +510,7 @@ static int Game_Normal() {
     }
     
     // hard drop
-    if ((PadData1E & PAD_U) && (lockTimer == -1)) {
+    if ((PadData1 & PAD_U) && (lockTimer == -1)) {
         while (Game_Drop(&currPiece));
         lockTimer = LOCK_FRAMES;
         Sound_Play(SOUND_LAND);
@@ -533,6 +552,9 @@ static int Game_Normal() {
             combo = combo + (lines * 2) - 2;
             level += lines;
             score += ((((level + lines) / 4) + 1) + drop) * lines * combo;
+            while (score >= ranks[ranking + 1]) {
+                ranking++;
+            }
         }
         else {
             if ((level % 100) != 99) {
@@ -570,7 +592,6 @@ static int Game_Normal() {
     if (gameState == STATE_NORMAL) {
         Game_DrawPiece(&currPiece);
     }
-    Game_DrawPiece(&nextPiece);
 
     // copy the board to VRAM
     for (int y = 0; y < GAME_ROWS; y++) {
@@ -602,7 +623,6 @@ static void Game_Line() {
         gameTimer = ARE_FRAMES;
         gameState = STATE_ARE;
     }
-    Game_DrawPiece(&nextPiece);
 }
 
 static void Game_Are() {
@@ -617,7 +637,6 @@ static void Game_Are() {
     // allow to charge DAS for the next piece
     Game_CanMoveLeft();
     Game_CanMoveRight();
-    Game_DrawPiece(&nextPiece);
 }
 
 int Game_Run() {
@@ -634,7 +653,9 @@ int Game_Run() {
             Game_Are();
             break;
     }
-
+    
+    Game_DrawPiece(&nextPiece); 
+    Game_DrawRanking(ranking);
     Game_DrawNums();
 
     return 0;
