@@ -1,6 +1,9 @@
 #ifndef SOUND_H
 #define SOUND_H
 
+// sets cdda volume (between 0 and 7)
+void Sound_CDVolume(Uint8 vol_l, Uint8 vol_r);
+
 //must be called after cd_init
 void Sound_Init(void);
 

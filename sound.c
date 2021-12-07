@@ -8,7 +8,7 @@
 #include "print.h"
 #include "release.h"
 
-static void Sound_CDVolume(Uint8 vol_l, Uint8 vol_r) {
+void Sound_CDVolume(Uint8 vol_l, Uint8 vol_r) {
     volatile Uint16 *slot_ptr;
 
     //max sound volume is 7
@@ -62,7 +62,7 @@ static void Sound_CDVolume(Uint8 vol_l, Uint8 vol_r) {
 //must be called after CD_Init
 void Sound_Init() {
     if (DEVCART_LOAD == 0) {
-        Sound_CDVolume(5, 5);
+        Sound_CDVolume(6, 6);
     }
     load_drv();
     CD_ChangeDir("SFX");

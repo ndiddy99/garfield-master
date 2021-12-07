@@ -90,6 +90,10 @@ static int gravityTimer;
 #define ROTATE_CLOCKWISE (-1)
 #define ROTATE_COUNTERCLOCKWISE (1)
 
+#define GAME_TRACK (3)
+#define MUSIC_VOLUME (6)
+int song;
+
 // initializes a new piece
 static void Game_MakePiece(PIECE *gamePiece, PIECE *previewPiece) {
     gamePiece->num = previewPiece->num;
@@ -189,6 +193,10 @@ void Game_Init() {
     // set the first piece
     nextPiece.num = RNG_Get();
     Game_MakePiece(&currPiece, &nextPiece);
+    
+    Sound_CDVolume(MUSIC_VOLUME, MUSIC_VOLUME);
+    Sound_CDDA(GAME_TRACK, 1);
+    song = 0;
 }
 
 // draws a piece
@@ -473,6 +481,7 @@ static int Game_CheckLines() {
 }
 
 static int Game_Normal() {
+    int oldLevel;
     int lines;
     int lockSound = 1;
 
@@ -545,6 +554,7 @@ static int Game_Normal() {
         Game_CopyPiece(&currPiece);
         
         lines = Game_CheckLines();
+        oldLevel = level;
         if (lines) {
             gameState = STATE_LINE;
             gameTimer = LINE_FRAMES;
@@ -563,6 +573,16 @@ static int Game_Normal() {
             combo = 1;
             gameState = STATE_ARE;
             gameTimer = ARE_FRAMES;
+        }
+
+        if ((songs[song + 1] - level) <= 10) {
+            Sound_CDVolume(0, 0);
+        }
+
+        if ((oldLevel < songs[song + 1]) && (level >= songs[song + 1])) {
+            song++;
+            Sound_CDDA(GAME_TRACK + song, 1);
+            Sound_CDVolume(MUSIC_VOLUME, MUSIC_VOLUME);
         }
         
         if (lockSound) {
