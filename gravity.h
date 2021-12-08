@@ -23,6 +23,6 @@ int ranks[] = {
 
 int songs[] = {
     0, 200, 500, 800, 9999
-}
+};
 
 #endif

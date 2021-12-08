@@ -1,5 +1,6 @@
 #include <sega_scl.h>
 
+#include "bg.h"
 #include "cd.h"
 #include "game.h"
 #include "gravity.h"
@@ -165,7 +166,7 @@ void Game_Init() {
     for (int i = 0; i < 4; i++) { 
         ((volatile Uint16 *)MAP_PTR(1))[LEVEL_Y * ROW_OFFSET + LEVEL_X + i] = (LEVEL_TILE + i) * 2; 
     }
-    level = 0;
+    level = 80;
     levelCursor = 0;
    
     CD_ChangeDir("..");
@@ -567,18 +568,22 @@ static int Game_Normal() {
             }
         }
         else {
-            if ((level % 100) != 99) {
-                level++;
-            }
             combo = 1;
             gameState = STATE_ARE;
             gameTimer = ARE_FRAMES;
         }
 
+        // bg changing
+        if ((level < 500) && (level / 100) > (oldLevel / 100)) {
+                BG_Next();
+        }
+
+        // cut volume before a song change for dramatic effect
         if ((songs[song + 1] - level) <= 10) {
             Sound_CDVolume(0, 0);
         }
 
+        // if we've gotten to a song change, switch to the next song
         if ((oldLevel < songs[song + 1]) && (level >= songs[song + 1])) {
             song++;
             Sound_CDDA(GAME_TRACK + song, 1);
@@ -651,6 +656,9 @@ static void Game_Are() {
     }
     else {
         Game_MakePiece(&currPiece, &nextPiece);
+        if ((level % 100) != 99) {
+            level++;
+        }
         gameState = STATE_NORMAL;
         Game_BufferRotate();
     }
