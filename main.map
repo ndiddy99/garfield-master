@@ -172,7 +172,7 @@ LOAD /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc-Os-4-200.a
  *fill*         0x0000000006010050       0x10 
                 0x0000000006010060                _eentry = ABSOLUTE (.)
 
-.text           0x0000000006010060     0xfe70
+.text           0x0000000006010060     0xfeb0
  *(.text*)
  .text          0x0000000006010060        0x0 entry.o
  .text          0x0000000006010060        0x0 stack.o
@@ -181,1063 +181,1058 @@ LOAD /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc-Os-4-200.a
                 0x0000000006010070                _UsrVblankIn
                 0x0000000006010088                _UsrVblankOut
                 0x0000000006010118                _SetVblank
- .text          0x00000000060101a8      0x2c0 bg.o
+ .text          0x00000000060101a8      0x2c8 bg.o
                 0x00000000060101a8                _BG_Init
                 0x00000000060102f8                _BG_Run
-                0x000000000601042c                _BG_Next
- .text          0x0000000006010468       0xdc cd.o
-                0x0000000006010468                _CD_Init
-                0x0000000006010490                _CD_ChangeDir
-                0x00000000060104d0                _CD_Load
- .text          0x0000000006010544       0x20 crc.o
-                0x0000000006010544                _crc_update
- .text          0x0000000006010564      0x1d4 devcart.o
-                0x00000000060105b8                _Devcart_LoadFile
-                0x0000000006010684                _Devcart_PrintStr
-                0x00000000060106bc                _Devcart_Reset
-                0x0000000006010700                _Devcart_ChangeDir
- .text          0x0000000006010738      0xf44 game.o
-                0x0000000006010a48                _Game_Init
-                0x0000000006010d4c                _Game_Run
- .text          0x000000000601167c        0x0 hwram.o
- .text          0x000000000601167c      0x35c pcmsys.o
-                0x000000000601167c                _smpc_wait_till_ready
-                0x0000000006011690                _smpc_issue_command
-                0x00000000060116a4                _load_driver_binary
-                0x0000000006011718                _load_drv
-                0x0000000006011750                _calculate_bytes_per_blank
-                0x0000000006011780                _load_16bit_pcm
-                0x000000000601187c                _load_8bit_pcm
-                0x0000000006011974                _pcm_play
-                0x0000000006011998                _pcm_parameter_change
-                0x00000000060119b4                _pcm_cease
- .text          0x00000000060119d8        0x0 piece.o
- .text          0x00000000060119d8      0x154 print.o
-                0x00000000060119d8                _Print_Load
-                0x00000000060119e8                _Print_Init
-                0x0000000006011a00                _Print_Num
-                0x0000000006011a44                _Print_String
-                0x0000000006011a9c                _Print_Display
- .text          0x0000000006011b2c       0xf4 rng.o
-                0x0000000006011b2c                _RNG_Init
-                0x0000000006011b80                _RNG_Get
- .text          0x0000000006011c20      0x5ac scroll.o
-                0x0000000006011c20                _Scroll_Init
-                0x0000000006011eb0                _Scroll_TilePtr
-                0x0000000006011f04                _Scroll_LoadTile
-                0x0000000006011f84                _Scroll_MapPtr
-                0x0000000006011fbc                _Scroll_Scale
-                0x0000000006012058                _Scroll_Set
-                0x0000000006012098                _Scroll_Move
-                0x00000000060120d8                _Scroll_ClearMaps
-                0x000000000601211c                _Scroll_ClearVram
-                0x0000000006012138                _Scroll_CharSize
-                0x000000000601216c                _Scroll_Enable
-                0x000000000601219c                _Scroll_MapSize
- .text          0x00000000060121cc      0x204 sound.o
-                0x00000000060121cc                _Sound_CDVolume
-                0x00000000060122b8                _Sound_Init
-                0x0000000006012380                _Sound_CDDA
-                0x00000000060123c0                _Sound_Play
- .text          0x00000000060123d0      0x60c sprite.o
-                0x00000000060123d0                _Sprite_Init
-                0x0000000006012464                _Sprite_Clear
-                0x0000000006012480                _Sprite_Load
-                0x000000000601266c                _Sprite_StartDraw
-                0x000000000601269c                _Sprite_Draw
-                0x00000000060128b4                _Sprite_Make
-                0x00000000060128e0                _Sprite_DrawAll
-                0x000000000601292c                _Sprite_Next
-                0x0000000006012970                _Sprite_ListAdd
-                0x0000000006012984                _Sprite_ListRemove
-                0x00000000060129a8                _Sprite_Delete
-                0x00000000060129bc                _Sprite_DeleteAll
- .text          0x00000000060129dc        0x0 main.o
- .text.startup  0x00000000060129dc      0x124 main.o
-                0x00000000060129dc                _main
- .text          0x0000000006012b00      0x354 ../sbl/segalib/lib/libsat.a(cdc_cmn.o)
-                0x0000000006012b00                _CDC_GetCurStat
-                0x0000000006012b44                _CDC_GetLastStat
-                0x0000000006012b50                _getPeriRsp
-                0x0000000006012bd8                _CDC_GetPeriStat
-                0x0000000006012c1c                _CDC_GetHwInfo
-                0x0000000006012c74                _CDC_TgetToc
-                0x0000000006012ccc                _CDC_GetSes
-                0x0000000006012d04                _CDC_CdInit
-                0x0000000006012d7c                _CDC_CdOpen
-                0x0000000006012da4                _CDC_DataEnd
-                0x0000000006012df8                _CDC_DataReady
- .text          0x0000000006012e54      0x108 ../sbl/segalib/lib/libsat.a(cdc_drv.o)
-                0x0000000006012e54                _analyPos
-                0x0000000006012ea4                _CDC_CdPlay
-                0x0000000006012ef8                _CDC_CdSeek
-                0x0000000006012f30                _CDC_CdScan
- .text          0x0000000006012f5c      0x198 ../sbl/segalib/lib/libsat.a(dma_scu1.o)
-                0x0000000006012f5c                _DMA_ScuInit
-                0x0000000006012f98                _DMA_ScuMemCopy
-                0x000000000601305c                _DMA_ScuResult
- .text          0x00000000060130f4     0x1610 ../sbl/segalib/lib/libsat.a(gfs.o)
-                0x00000000060130f4                _gfs_recovRdErr
-                0x000000000601311c                _GFS_SetErrFunc
-                0x0000000006013140                _GFS_GetErrStat
-                0x0000000006013160                _gfs_mngSetupFuncTbl
-                0x000000000601318c                _gfs_mngInitWork
-                0x000000000601320c                _gfs_mngGetNumFile
-                0x0000000006013264                _GFS_mngAllocGrp
-                0x00000000060132a4                _gfs_mngFreeGrp
-                0x00000000060132aa                _gfs_mngTermAccess
-                0x0000000006013314                _gfs_mngSetErrCode
-                0x0000000006013344                _GFS_SetDir
-                0x00000000060133a8                _GFS_NameToId
-                0x00000000060133f8                _GFS_IdToName
-                0x0000000006013454                _GFS_Tell
-                0x0000000006013494                _GFS_NwIsComplete
-                0x00000000060134bc                _GFS_CdMovePickup
-                0x000000000601351c                _GFS_GetDirInfo
-                0x0000000006013594                _gfs_svrSearchHndl
-                0x00000000060135c8                _gfs_svrAddHndl
-                0x00000000060135fc                _gfs_svrRemoveHndl
-                0x0000000006013670                _GFS_NwStop
-                0x00000000060136c8                _GFS_OpenSub
-                0x0000000006013710                _GFS_Open
-                0x00000000060137b4                _GFS_GetFad
-                0x00000000060137f8                _gfs_SetSct
-                0x0000000006013824                _GFS_NwCdRead
-                0x00000000060138a8                _gfs_GetFinfo
-                0x00000000060138f6                _GFS_GetFileSize
-                0x0000000006013958                _GFS_Seek
-                0x0000000006013a0c                _GFS_IsEof
-                0x0000000006013a6c                _GFS_ByteToSct
-                0x0000000006013ac8                _GFS_GetFileInfo
-                0x0000000006013b3c                _GFS_NwFread
-                0x0000000006013c50                _GFS_NwGetStat
-                0x0000000006013cc4                _GFS_SetGmode
-                0x0000000006013d28                _GFS_SetTmode
-                0x0000000006013d9c                _GFS_SetReadPara
-                0x0000000006013e00                _GFS_SetTransPara
-                0x0000000006013e74                _gfs_transData
-                0x0000000006013f04                _gfs_closeSub
-                0x0000000006013f34                _GFS_Close
-                0x0000000006013f6c                _GFS_LoadDir
-                0x0000000006014008                _gfs_getGmode
-                0x000000000601400e                _gfs_isTaskDone
-                0x0000000006014058                _gfs_convFinStat
-                0x00000000060140bc                _gfs_flowIn
-                0x000000000601413c                _GFS_NwExecOne
-                0x00000000060141cc                _GFS_Fread
-                0x0000000006014314                _GFS_Load
-                0x00000000060143dc                _gfs_loadVol
-                0x00000000060144a0                _gfs_getRootDir
-                0x0000000006014528                _gfs_loadRootDir
-                0x00000000060145b0                _GFS_Init
-                0x000000000601469c                _GFS_NwExecServer
- .text          0x0000000006014704       0x6c ../sbl/segalib/lib/libsat.a(gfs_buf.o)
-                0x0000000006014704                _GFBF_GetTranData
-                0x0000000006014718                _GFBF_GetNumData
-                0x0000000006014730                _GFBF_GetSrcPk
-                0x0000000006014744                _GFBF_GetSctData
-                0x0000000006014758                _GFBF_RtnPk
-                0x000000000601476c                _gfbf_getSctDt
- .text          0x0000000006014770      0x484 ../sbl/segalib/lib/libsat.a(gfs_cdb.o)
-                0x0000000006014770                _GFCB_Setup
-                0x0000000006014834                _GFCB_Close
-                0x0000000006014854                _GFCB_GetLenData
-                0x00000000060148e8                _GFCB_GetLenRoom
-                0x00000000060148ec                _GFCB_SetFilt
-                0x0000000006014944                _GFCB_DeleteAllData
-                0x0000000006014960                _GFCB_Tell
-                0x0000000006014968                _GFCB_Seek
-                0x0000000006014a4c                _GFCB_GetSrcPack
-                0x0000000006014b14                _GFCB_GetSctData
-                0x0000000006014b40                _GFCB_GetDstPack
-                0x0000000006014b44                _GFCB_RtnPk
-                0x0000000006014b84                _GFCB_MovePickup
-                0x0000000006014b94                _GFCB_SetCon
-                0x0000000006014bbc                _GFCB_GetPickup
-                0x0000000006014bdc                _GFCB_IsPuOwner
-                0x0000000006014be8                _GFCB_UngetPickup
- .text          0x0000000006014bf4     0x1504 ../sbl/segalib/lib/libsat.a(gfs_cdc.o)
-                0x0000000006014bf4                _GFCD_AllocFilt
-                0x0000000006014c24                _GFCD_FreeFilt
-                0x0000000006014c4c                _GFCD_AllocBuf
-                0x0000000006014c78                _GFCD_GetBaseFad
-                0x0000000006014ca4                _GFCD_GetPickup
-                0x0000000006014cc8                _GFCD_UngetPickup
-                0x0000000006014cec                _GFCD_IsPuOwner
-                0x0000000006014d04                _GFCD_CheckDelSctData
-                0x0000000006014d2c                _GFCD_CheckMove
-                0x0000000006014d44                _gfcd_isIdleTask
-                0x0000000006014da8                _GFCD_SetTimer
-                0x0000000006014db4                _gfcd_checkEflag
-                0x0000000006014dd0                _gfcd_initCdbMng
-                0x0000000006014e38                _gfcd_setStat
-                0x0000000006014e5c                _GFCD_GetFilt
-                0x0000000006014ea0                _GFCD_EndData
-                0x0000000006014ee4                _GFCD_GetSctInfo
-                0x0000000006014f28                _GFCD_GetFileInfo
-                0x0000000006014ff0                _GFCD_GetBufSiz
-                0x0000000006015020                _gfcd_doSetFiltTsk
-                0x000000000601518c                _GFCD_SetFilt
-                0x0000000006015224                _gfcd_doSetConTsk
-                0x000000000601529c                _GFCD_SetCon
-                0x00000000060152e8                _gfcd_doGetLenDataTsk
-                0x00000000060153e8                _GFCD_GetLenData
-                0x000000000601542c                _gfcd_doReqDataTsk
-                0x00000000060154a0                _GFCD_ReqData
-                0x00000000060154e8                _gfcd_doDelSctDataTsk
-                0x00000000060155f4                _GFCD_DelSctData
-                0x0000000006015640                _gfcd_doMoveSctTsk
-                0x000000000601575c                _GFCD_MoveSctData
-                0x00000000060157b8                _gfcd_doSetFiltConTsk
-                0x00000000060158b4                _GFCD_SetFiltCon
-                0x00000000060159ac                _GFCD_SetCsctFunc
-                0x00000000060159bc                _GFCD_WaitScdqFlag
-                0x0000000006015a00                _GFCD_GetStat
-                0x0000000006015a70                _GFCD_Init
-                0x0000000006015c58                _GFCD_Play
-                0x0000000006015ca8                _GFCD_MovePickup
-                0x0000000006015cf0                _gfcd_doChgDirTsk
-                0x0000000006015e94                _GFCD_ChgDir
-                0x0000000006015efc                _gfcd_doTask
-                0x0000000006015f6c                _GFCD_ExecServer
-                0x0000000006016048                _GFCD_FreeBuf
-                0x00000000060160c4                _GFCD_WaitServer
- .text          0x00000000060160f8      0x600 ../sbl/segalib/lib/libsat.a(gfs_cdf.o)
-                0x00000000060160f8                _GFCF_Init
-                0x0000000006016150                _GFCF_SetSct
-                0x000000000601617c                _GFCF_GetFileInfo
-                0x00000000060161da                _GFCF_Recover
-                0x000000000601621c                _GFCF_Tell
-                0x0000000006016228                _GFCF_Seek
-                0x0000000006016234                _GFCF_cnvIntlvOfs
-                0x0000000006016268                _GFCF_GetStat
-                0x00000000060162b4                _GFCF_StopInBuf
-                0x000000000601632c                _GFCF_MovePickup
-                0x00000000060163b0                _gfcf_getSctSize
-                0x00000000060163e8                _GFCF_Setup
-                0x00000000060164a0                _gfcf_isCdOk
-                0x00000000060164ec                _gfcf_getPlayRange
-                0x00000000060165f4                _GFCF_FlowInBuf
- .text          0x00000000060166f8      0x7e8 ../sbl/segalib/lib/libsat.a(gfs_dir.o)
-                0x00000000060166f8                _GFDR_NameToId
-                0x0000000006016748                _GFDR_GetInfoDirId
-                0x0000000006016754                _GFDR_GetInfoDirName
-                0x0000000006016760                _GFDR_GetAtrDirId
-                0x0000000006016770                _GFDR_GetAtrDirName
-                0x0000000006016780                _GFDR_ChgDir
-                0x00000000060167f0                _GFDR_ChgRoot
-                0x00000000060167fc                _gfdr_open
-                0x000000000601681c                _gfdr_read
-                0x00000000060168d4                _gfdr_readByte
-                0x00000000060168fc                _gfdr_readWord
-                0x0000000006016924                _gfdr_readWordNB
-                0x0000000006016970                _gfdr_readLongNB
-                0x00000000060169b8                _gfdr_readLongNM
-                0x00000000060169d8                _gfdr_setNextRec
-                0x0000000006016a54                _gfdr_readDirEnt
-                0x0000000006016d3c                _gfdr_setDirrecCd
-                0x0000000006016d5a                _gfdr_setupDirIdTbl
-                0x0000000006016dd0                _gfdr_setupDirNameTbl
-                0x0000000006016e70                _GFDR_SetupDirTbl
- .text          0x0000000006016ee0      0x818 ../sbl/segalib/lib/libsat.a(gfs_trn.o)
-                0x0000000006016ee0                _gftr_reqScu
-                0x0000000006016ee4                _gftr_remCpu
-                0x0000000006016ee8                _gftr_execScu
-                0x0000000006016f68                _gftr_remScu
-                0x0000000006016f88                _gftr_reqDma0
-                0x0000000006016f8c                _gftr_reqDma1
-                0x0000000006016f90                _gftr_reqCpu
-                0x0000000006016f94                _GFTR_Setup
-                0x0000000006016fba                _GFTR_SetMode
-                0x0000000006016fc6                _GFTR_SetUnit
-                0x0000000006016fca                _GFTR_SetTransPara
-                0x0000000006016fdc                _GFTR_GetTransPara
-                0x0000000006016fe0                _GFTR_GetNumTrans
-                0x0000000006016fe4                _GFTR_SetTransMax
-                0x0000000006016fea                _GFTR_Start
-                0x0000000006016ff0                _GFTR_Pause
-                0x0000000006016ff6                _gfdma_canUse
-                0x0000000006016ffa                _gfdma_exec
-                0x00000000060170d4                _gftr_execSdma0
-                0x00000000060170f8                _gftr_execSdma1
-                0x000000000601711c                _gftr_reqTrn
-                0x0000000006017170                _gftr_execTrn
-                0x000000000601723c                _gftr_remTrn
-                0x000000000601729c                _gftr_copyFrac
-                0x00000000060172c0                _gfdma_getBytecnt
-                0x00000000060172f0                _gftr_remDma0
-                0x00000000060172fc                _gftr_remDma1
-                0x0000000006017308                _gftr_execCpu
-                0x0000000006017354                _GFTR_GetLenData
-                0x0000000006017358                _GFTR_GetLenRoom
-                0x0000000006017366                _gftr_getSrcPack
-                0x00000000060173e8                _GFTR_Idle
-                0x0000000006017458                _GFTR_GetDstPack
-                0x0000000006017484                _gftr_getDstPack
-                0x00000000060174c4                _gftr_execSub
-                0x00000000060175cc                _GFTR_Exec
-                0x0000000006017624                _GFTR_Stop
-                0x00000000060176c4                _GFTR_RtnDstPk
-                0x00000000060176d2                _GFTR_GetData
-                0x00000000060176e0                _GFTR_SetData
-                0x00000000060176ec                _GFTR_SetTransFunc
- .text          0x00000000060176f8       0x24 ../sbl/segalib/lib/libsat.a(mth_rand.o)
-                0x00000000060176f8                _MTH_InitialRand
-                0x0000000006017704                _MTH_GetRand
- .text          0x000000000601771c       0x78 ../sbl/segalib/lib/libsat.a(mth_fixd.o)
-                0x000000000601771c                _MTH_Mul
-                0x0000000006017730                _MTH_Div
-                0x0000000006017744                _MTH_IntToFixed
-                0x000000000601774c                _MTH_FixedToInt
-                0x0000000006017754                _MTH_Product
- .text          0x0000000006017794      0x5d4 ../sbl/segalib/lib/libsat.a(mth_tri.o)
-                0x0000000006017794                _MTH_Sin
-                0x00000000060177d4                _MTH_Cos
-                0x0000000006017818                _fcos
-                0x000000000601781e                _fsin
-                0x00000000060179b0                _MTH_Atan
- .text          0x0000000006017d68      0xf58 ../sbl/segalib/lib/libsat.a(per_prt.o)
-                0x0000000006018168                _PER_IntFunc
-                0x0000000006018a18                _PER_Init
-                0x0000000006018bc0                _PER_GetPer
- .text          0x0000000006018cc0      0xcbc ../sbl/segalib/lib/libsat.a(spr_2c.o)
-                0x0000000006018cc0                _SPR_2SetTvMode
-                0x0000000006018cd0                _SPR_2FrameChgIntr
-                0x0000000006018ce4                _SPR_2FrameEraseData
-                0x0000000006018d24                _SPR_2SetGourTbl
-                0x0000000006018d54                _SPR_2SetLookupTbl
-                0x0000000006018d70                _SPR_2SetChar
-                0x0000000006018e9c                _SPR_2ClrChar
-                0x0000000006018fa4                _SPR_2ClrAllChar
-                0x0000000006018ff0                _SPR_2Initial
-                0x0000000006019144                _SPR_2GourTblNoToVram
-                0x0000000006019160                _SPR_2LookupTblNoToVram
-                0x0000000006019170                _SPR_2CharNoToVram
-                0x0000000006019184                _SPR_2GetAreaSizeInfo
-                0x00000000060191e4                _SPR_2OpenCommand
-                0x000000000601927c                _SPR_2FlushDrawPrty
-                0x00000000060192bc                _SPR_2CloseCommand
-                0x00000000060193dc                _SPR_2LocalCoord
-                0x0000000006019434                _SPR_2SysClip
-                0x000000000601947c                _SPR_2UserClip
-                0x00000000060194cc                _SPR_2Line
-                0x0000000006019568                _SPR_2PolyLine
-                0x0000000006019608                _SPR_2Polygon
-                0x00000000060196a8                _SPR_2NormSpr
-                0x0000000006019774                _SPR_2ScaleSpr
-                0x000000000601985c                _SPR_2DistSpr
-                0x0000000006019934                _SPR_2Cmd
- .text          0x000000000601997c      0x754 ../sbl/segalib/lib/libsat.a(scl_func.o)
-                0x000000000601997c                _SCL_ParametersInit
-                0x0000000006019a68                _SCL_Vdp2Init
-                0x0000000006019ad0                _SCL_Open
-                0x0000000006019aec                _SCL_Close
-                0x0000000006019b00                _SCL_MoveTo
-                0x0000000006019bf4                _SCL_Move
-                0x0000000006019d20                _SCL_Scale
-                0x0000000006019e24                _SCL_Memcpyw
-                0x0000000006019e38                _SCL_CopyReg
-                0x0000000006019f18                _SCL_SetColRamMode
-                0x0000000006019f68                _SCL_PriIntProc
-                0x000000000601a064                _SCL_ScrollShow
- .text          0x000000000601a0d0      0x384 ../sbl/segalib/lib/libsat.a(scl_fu02.o)
-                0x000000000601a0d0                _SCL_InitVramConfigTb
-                0x000000000601a0de                _SCL_SetVramConfig
- .text          0x000000000601a454      0x62c ../sbl/segalib/lib/libsat.a(scl_fu03.o)
-                0x000000000601a454                _SCL_InitConfigTb
-                0x000000000601a46c                _SCL_SetConfig
- .text          0x000000000601aa80       0x18 ../sbl/segalib/lib/libsat.a(scl_fu04.o)
-                0x000000000601aa80                _SCL_SetCycleTable
- .text          0x000000000601aa98      0xf30 ../sbl/segalib/lib/libsat.a(scl_pri.o)
-                0x000000000601aa98                _SCL_PriorityInit
-                0x000000000601b044                _SCL_GetColRamMode
-                0x000000000601b064                _SCL_AbortAutoVe
-                0x000000000601b070                _SCL_SetColMixRate
-                0x000000000601b3d8                _SCL_IncColOffset
-                0x000000000601b44c                _SCL_AutoExec
-                0x000000000601b878                _SCL_SetShadowBit
- .text          0x000000000601b9c8      0xe38 ../sbl/segalib/lib/libsat.a(scl_ro00.o)
-                0x000000000601baec                _SCL_InitRotateTable
-                0x000000000601bd34                _SCL_RotateZD
-                0x000000000601be74                _SCL_Rotate
- .text          0x000000000601c800       0xfc ../sbl/segalib/lib/libsat.a(scl_ro03.o)
-                0x000000000601c800                _SCL_RotateTo
- .text          0x000000000601c8fc       0x74 ../sbl/segalib/lib/libsat.a(scl_back.o)
-                0x000000000601c8fc                _SCL_SetBack
- .text          0x000000000601c970      0x264 ../sbl/segalib/lib/libsat.a(scl_vblv.o)
-                0x000000000601c970                _SCL_SetFrameInterval
-                0x000000000601c9e8                _SCL_DisplayFrame
-                0x000000000601ca14                _SCL_VblInit
-                0x000000000601ca5c                _SCL_VblankStart
-                0x000000000601cb2c                _SCL_VblankEnd
- .text          0x000000000601cbd4       0x54 ../sbl/segalib/lib/libsat.a(scl_pr01.o)
-                0x000000000601cbd4                _SCL_SetSpriteMode
- .text          0x000000000601cc28       0x90 ../sbl/segalib/lib/libsat.a(scl_pr02.o)
-                0x000000000601cc28                _SCL_SetColRam
- .text          0x000000000601ccb8      0x10c ../sbl/segalib/lib/libsat.a(scl_pr03.o)
-                0x000000000601ccb8                _SCL_FreeColRam
-                0x000000000601cce0                _SCL_AllocColRam
- .text          0x000000000601cdc4       0xac ../sbl/segalib/lib/libsat.a(scl_pr05.o)
-                0x000000000601cdc4                _SCL_GetColRamOffset
- .text          0x000000000601ce70      0x180 ../sbl/segalib/lib/libsat.a(scl_pr06.o)
-                0x000000000601ce70                _SCL_SetColRamOffset
- .text          0x000000000601cff0      0x1c8 ../sbl/segalib/lib/libsat.a(scl_pr07.o)
-                0x000000000601cff0                _SCL_SetPriority
- .text          0x000000000601d1b8      0x13c ../sbl/segalib/lib/libsat.a(scl_pr11.o)
-                0x000000000601d1b8                _SCL_SetAutoColOffset
- .text          0x000000000601d2f4      0x164 ../sbl/segalib/lib/libsat.a(scl_pr12.o)
-                0x000000000601d2f4                _SCL_SetColOffset
- .text          0x000000000601d458      0x234 ../sbl/segalib/lib/libsat.a(cdc_reg.o)
-                0x000000000601d458                _CDC_GetDataPtr
-                0x000000000601d464                _CDC_GetHirqReq
-                0x000000000601d470                _CDC_ClrHirqReq
-                0x000000000601d490                _CDREG_ClrHirqReq
-                0x000000000601d49c                _CDREG_InitHirqReq
-                0x000000000601d4b4                _CDREG_SetHirqFlag
-                0x000000000601d4c4                _CDC_GetHirqMsk
-                0x000000000601d4d0                _CDC_SetHirqMsk
-                0x000000000601d4dc                _CDC_GetMpegPtr
-                0x000000000601d4e8                _CDREG_TgetData
-                0x000000000601d544                _CDREG_WaitHirq
-                0x000000000601d56c                _writeCmd
-                0x000000000601d58c                _CDREG_ReadRsp
-                0x000000000601d5b0                _doCmdRsp
-                0x000000000601d658                _CDREG_CmdRsp
- .text          0x000000000601d68c       0xf4 ../sbl/segalib/lib/libsat.a(cdc_sub.o)
-                0x000000000601d68c                _CDSUB_GetCdstat
-                0x000000000601d6c0                _CDSUB_RspToCdstat
-                0x000000000601d6f2                _CDSUB_CdCmd
-                0x000000000601d754                _CDSUB_UpdStatus
-                0x000000000601d760                _CDSUB_UpdCdstat
-                0x000000000601d77c                _CDSUB_SoftTimer
- .text          0x000000000601d780       0xb4 ../sbl/segalib/lib/libsat.a(cdc_dev.o)
-                0x000000000601d780                _CDC_CdSetCon
-                0x000000000601d7b4                _CDC_CdGetCon
-                0x000000000601d7f4                _CDC_CdGetLastBuf
- .text          0x000000000601d834      0x290 ../sbl/segalib/lib/libsat.a(cdc_sel.o)
-                0x000000000601d834                _CDC_SetFiltRange
-                0x000000000601d870                _CDC_GetFiltRange
-                0x000000000601d8dc                _CDC_SetFiltSubh
-                0x000000000601d92c                _CDC_GetFiltSubh
-                0x000000000601d990                _CDC_SetFiltMode
-                0x000000000601d9c4                _CDC_GetFiltMode
-                0x000000000601da04                _CDC_SetFiltCon
-                0x000000000601da3c                _CDC_GetFiltCon
-                0x000000000601da90                _CDC_ResetSelector
- .text          0x000000000601dac4      0x234 ../sbl/segalib/lib/libsat.a(cdc_bif.o)
-                0x000000000601dac4                _CDC_GetBufSiz
-                0x000000000601db1c                _CDC_GetSctNum
-                0x000000000601db64                _CDC_CalActSiz
-                0x000000000601db94                _chkEselUpdStatus
-                0x000000000601dbc8                _CDC_GetActSiz
-                0x000000000601dc0c                _CDC_GetSctInfo
-                0x000000000601dc64                _CDC_ExeFadSearch
-                0x000000000601dc98                _CDC_GetFadSearch
- .text          0x000000000601dcf8      0x190 ../sbl/segalib/lib/libsat.a(cdc_bio.o)
-                0x000000000601dcf8                _CDC_SetSctLen
-                0x000000000601dd28                _CDC_GetSctData
-                0x000000000601dd58                _CDC_DelSctData
-                0x000000000601dd88                _CDC_GetdelSctData
-                0x000000000601ddb8                _CDC_PutSctData
-                0x000000000601dde8                _CDC_CopySctData
-                0x000000000601de1c                _CDC_MoveSctData
-                0x000000000601de50                _CDC_GetCopyErr
- .text          0x000000000601de88      0x1a4 ../sbl/segalib/lib/libsat.a(cdc_cfs.o)
-                0x000000000601de88                _CDC_ChgDir
-                0x000000000601dec0                _CDC_ReadDir
-                0x000000000601def8                _CDC_GetFileScope
-                0x000000000601df58                _CDC_TgetFileInfo
-                0x000000000601dfb0                _CDC_ReadFile
-                0x000000000601dff0                _CDC_AbortFile
- .text          0x000000000601e02c       0xb0 ../sbl/segalib/lib/libsat.a(csh_main.o)
-                0x000000000601e02c                _CSH_Init
-                0x000000000601e078                _CSH_AllClr
-                0x000000000601e0b8                _CSH_Purge
- .text          0x000000000601e0dc      0x13c ../sbl/segalib/lib/libsat.a(dma_cpu0.o)
-                0x000000000601e0dc                _DMA_CpuSetComPrm
-                0x000000000601e114                _DMA_CpuSetPrm
-                0x000000000601e1c8                _DMA_CpuStart
-                0x000000000601e1d8                _DMA_CpuStop
-                0x000000000601e1ea                _DMA_CpuAllStop
-                0x000000000601e1f8                _DMA_CpuGetComStatus
-                0x000000000601e20a                _DMA_CpuGetStatus
- .text          0x000000000601e218      0x274 ../sbl/segalib/lib/libsat.a(dma_scu0.o)
-                0x000000000601e218                _DMA_ScuIntFunc0
-                0x000000000601e278                _DMA_ScuIntFunc1
-                0x000000000601e2dc                _DMA_ScuIntFunc2
-                0x000000000601e340                _DMA_ScuSetPrm
-                0x000000000601e3a8                _DMA_ScuStart
-                0x000000000601e460                _DMA_ScuGetStatus
- .text          0x000000000601e48c      0x240 ../sbl/segalib/lib/libsat.a(spr_1c.o)
-                0x000000000601e48c                _SPR_SetTvMode
-                0x000000000601e508                _SPR_GetStatus
-                0x000000000601e55c                _SPR_SetEraseData
-                0x000000000601e5f4                _SPR_Initial
-                0x000000000601e6a8                _SPR_WaitDrawEnd
-                0x000000000601e6b8                _SPR_SetEosMode
- .text          0x000000000601e6cc      0x16c ../sbl/segalib/lib/libsat.a(spr_2a.o)
-                0x000000000601e6cc                _SPR_2SetDrawPrty
-                0x000000000601e73c                _SPR_2FlushDrawPrtyBlock
- .text          0x000000000601e838       0x52 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftrt.o)
-                0x000000000601e838                ___ashiftrt_r4_31
-                0x000000000601e838                ___ashiftrt_r4_32
-                0x000000000601e83e                ___ashiftrt_r4_30
-                0x000000000601e840                ___ashiftrt_r4_29
-                0x000000000601e842                ___ashiftrt_r4_28
-                0x000000000601e844                ___ashiftrt_r4_27
-                0x000000000601e846                ___ashiftrt_r4_26
-                0x000000000601e848                ___ashiftrt_r4_25
-                0x000000000601e84a                ___ashiftrt_r4_24
-                0x000000000601e852                ___ashiftrt_r4_23
-                0x000000000601e854                ___ashiftrt_r4_22
-                0x000000000601e856                ___ashiftrt_r4_21
-                0x000000000601e858                ___ashiftrt_r4_20
-                0x000000000601e85a                ___ashiftrt_r4_19
-                0x000000000601e85c                ___ashiftrt_r4_18
-                0x000000000601e85e                ___ashiftrt_r4_17
-                0x000000000601e860                ___ashiftrt_r4_16
-                0x000000000601e866                ___ashiftrt_r4_15
-                0x000000000601e868                ___ashiftrt_r4_14
-                0x000000000601e86a                ___ashiftrt_r4_13
-                0x000000000601e86c                ___ashiftrt_r4_12
-                0x000000000601e86e                ___ashiftrt_r4_11
-                0x000000000601e870                ___ashiftrt_r4_10
-                0x000000000601e872                ___ashiftrt_r4_9
-                0x000000000601e874                ___ashiftrt_r4_8
-                0x000000000601e876                ___ashiftrt_r4_7
-                0x000000000601e878                ___ashiftrt_r4_6
-                0x000000000601e87a                ___ashiftrt_r4_5
-                0x000000000601e87c                ___ashiftrt_r4_4
-                0x000000000601e87e                ___ashiftrt_r4_3
-                0x000000000601e880                ___ashiftrt_r4_2
-                0x000000000601e882                ___ashiftrt_r4_1
-                0x000000000601e886                ___ashiftrt_r4_0
- *fill*         0x000000000601e88a        0x2 
- .text          0x000000000601e88c       0x80 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftrt_n.o)
-                0x000000000601e88c                ___ashrsi3
- .text          0x000000000601e90c       0xbc /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftlt.o)
-                0x000000000601e90c                ___ashlsi3
-                0x000000000601e910                ___ashlsi3_r0
- .text          0x000000000601e9c8       0x78 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_movmem.o)
-                0x000000000601e9c8                ___movmem
-                0x000000000601e9c8                ___movstr
-                0x000000000601e9fc                ___movmemSI64
-                0x000000000601e9fc                ___movstrSI64
-                0x000000000601ea00                ___movmemSI60
-                0x000000000601ea00                ___movstrSI60
-                0x000000000601ea04                ___movstrSI56
-                0x000000000601ea04                ___movmemSI56
-                0x000000000601ea08                ___movmemSI52
-                0x000000000601ea08                ___movstrSI52
-                0x000000000601ea0c                ___movstrSI48
-                0x000000000601ea0c                ___movmemSI48
-                0x000000000601ea10                ___movmemSI44
-                0x000000000601ea10                ___movstrSI44
-                0x000000000601ea14                ___movstrSI40
-                0x000000000601ea14                ___movmemSI40
-                0x000000000601ea18                ___movstrSI36
-                0x000000000601ea18                ___movmemSI36
-                0x000000000601ea1c                ___movstrSI32
-                0x000000000601ea1c                ___movmemSI32
-                0x000000000601ea20                ___movmemSI28
-                0x000000000601ea20                ___movstrSI28
-                0x000000000601ea24                ___movmemSI24
-                0x000000000601ea24                ___movstrSI24
-                0x000000000601ea28                ___movmemSI20
-                0x000000000601ea28                ___movstrSI20
-                0x000000000601ea2c                ___movstrSI16
-                0x000000000601ea2c                ___movmemSI16
-                0x000000000601ea30                ___movmemSI12
-                0x000000000601ea30                ___movstrSI12
-                0x000000000601ea34                ___movstrSI8
-                0x000000000601ea34                ___movmemSI8
-                0x000000000601ea38                ___movstrSI4
-                0x000000000601ea38                ___movmemSI4
- .text          0x000000000601ea40       0xa0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_sdivsi3.o)
-                0x000000000601ea40                ___sdivsi3
- .text          0x000000000601eae0       0x6c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_udivsi3.o)
-                0x000000000601eb02                ___udivsi3
- .text          0x000000000601eb4c      0x208 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
-                0x000000000601eb4c                ___muldf3
- .text          0x000000000601ed54       0xa8 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
-                0x000000000601ed54                ___floatsidf
- .text          0x000000000601edfc       0xa0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
-                0x000000000601edfc                ___fixdfsi
- .text          0x000000000601ee9c        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
- .text          0x000000000601ee9c       0xbc /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_lshiftrt.o)
-                0x000000000601ee9c                ___lshrsi3
-                0x000000000601eea0                ___lshrsi3_r0
- .text          0x000000000601ef58       0x74 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
-                0x000000000601ef58                ___clzsi2
- .text          0x000000000601efcc      0x29c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
-                0x000000000601efcc                ___pack_d
- .text          0x000000000601f268       0xcc /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
-                0x000000000601f268                ___unpack_d
- .text          0x000000000601f334        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
- .text          0x000000000601f334       0x64 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
-                0x000000000601f334                _memcmp
- .text          0x000000000601f398       0x94 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcpy.o)
-                0x000000000601f398                _memcpy
- .text          0x000000000601f42c       0xcc /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
-                0x000000000601f42c                _memmove
- .text          0x000000000601f4f8       0x40 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memset.o)
-                0x000000000601f4f8                _memset
- .text          0x000000000601f538       0x3c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strcpy.o)
-                0x000000000601f538                _strcpy
- .text          0x000000000601f574       0xd0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
-                0x000000000601f574                _strncmp
- .text          0x000000000601f644       0xd4 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
-                0x000000000601f644                _strncpy
+                0x0000000006010434                _BG_Next
+ .text          0x0000000006010470       0xdc cd.o
+                0x0000000006010470                _CD_Init
+                0x0000000006010498                _CD_ChangeDir
+                0x00000000060104d8                _CD_Load
+ .text          0x000000000601054c       0x20 crc.o
+                0x000000000601054c                _crc_update
+ .text          0x000000000601056c      0x1d4 devcart.o
+                0x00000000060105c0                _Devcart_LoadFile
+                0x000000000601068c                _Devcart_PrintStr
+                0x00000000060106c4                _Devcart_Reset
+                0x0000000006010708                _Devcart_ChangeDir
+ .text          0x0000000006010740      0xf78 game.o
+                0x0000000006010a50                _Game_Init
+                0x0000000006010d54                _Game_Run
+ .text          0x00000000060116b8        0x0 hwram.o
+ .text          0x00000000060116b8      0x35c pcmsys.o
+                0x00000000060116b8                _smpc_wait_till_ready
+                0x00000000060116cc                _smpc_issue_command
+                0x00000000060116e0                _load_driver_binary
+                0x0000000006011754                _load_drv
+                0x000000000601178c                _calculate_bytes_per_blank
+                0x00000000060117bc                _load_16bit_pcm
+                0x00000000060118b8                _load_8bit_pcm
+                0x00000000060119b0                _pcm_play
+                0x00000000060119d4                _pcm_parameter_change
+                0x00000000060119f0                _pcm_cease
+ .text          0x0000000006011a14        0x0 piece.o
+ .text          0x0000000006011a14      0x154 print.o
+                0x0000000006011a14                _Print_Load
+                0x0000000006011a24                _Print_Init
+                0x0000000006011a3c                _Print_Num
+                0x0000000006011a80                _Print_String
+                0x0000000006011ad8                _Print_Display
+ .text          0x0000000006011b68       0xf4 rng.o
+                0x0000000006011b68                _RNG_Init
+                0x0000000006011bbc                _RNG_Get
+ .text          0x0000000006011c5c      0x5ac scroll.o
+                0x0000000006011c5c                _Scroll_Init
+                0x0000000006011eec                _Scroll_TilePtr
+                0x0000000006011f40                _Scroll_LoadTile
+                0x0000000006011fc0                _Scroll_MapPtr
+                0x0000000006011ff8                _Scroll_Scale
+                0x0000000006012094                _Scroll_Set
+                0x00000000060120d4                _Scroll_Move
+                0x0000000006012114                _Scroll_ClearMaps
+                0x0000000006012158                _Scroll_ClearVram
+                0x0000000006012174                _Scroll_CharSize
+                0x00000000060121a8                _Scroll_Enable
+                0x00000000060121d8                _Scroll_MapSize
+ .text          0x0000000006012208      0x204 sound.o
+                0x0000000006012208                _Sound_CDVolume
+                0x00000000060122f4                _Sound_Init
+                0x00000000060123bc                _Sound_CDDA
+                0x00000000060123fc                _Sound_Play
+ .text          0x000000000601240c      0x60c sprite.o
+                0x000000000601240c                _Sprite_Init
+                0x00000000060124a0                _Sprite_Clear
+                0x00000000060124bc                _Sprite_Load
+                0x00000000060126a8                _Sprite_StartDraw
+                0x00000000060126d8                _Sprite_Draw
+                0x00000000060128f0                _Sprite_Make
+                0x000000000601291c                _Sprite_DrawAll
+                0x0000000006012968                _Sprite_Next
+                0x00000000060129ac                _Sprite_ListAdd
+                0x00000000060129c0                _Sprite_ListRemove
+                0x00000000060129e4                _Sprite_Delete
+                0x00000000060129f8                _Sprite_DeleteAll
+ .text          0x0000000006012a18        0x0 main.o
+ .text.startup  0x0000000006012a18      0x124 main.o
+                0x0000000006012a18                _main
+ .text          0x0000000006012b3c      0x354 ../sbl/segalib/lib/libsat.a(cdc_cmn.o)
+                0x0000000006012b3c                _CDC_GetCurStat
+                0x0000000006012b80                _CDC_GetLastStat
+                0x0000000006012b8c                _getPeriRsp
+                0x0000000006012c14                _CDC_GetPeriStat
+                0x0000000006012c58                _CDC_GetHwInfo
+                0x0000000006012cb0                _CDC_TgetToc
+                0x0000000006012d08                _CDC_GetSes
+                0x0000000006012d40                _CDC_CdInit
+                0x0000000006012db8                _CDC_CdOpen
+                0x0000000006012de0                _CDC_DataEnd
+                0x0000000006012e34                _CDC_DataReady
+ .text          0x0000000006012e90      0x108 ../sbl/segalib/lib/libsat.a(cdc_drv.o)
+                0x0000000006012e90                _analyPos
+                0x0000000006012ee0                _CDC_CdPlay
+                0x0000000006012f34                _CDC_CdSeek
+                0x0000000006012f6c                _CDC_CdScan
+ .text          0x0000000006012f98      0x198 ../sbl/segalib/lib/libsat.a(dma_scu1.o)
+                0x0000000006012f98                _DMA_ScuInit
+                0x0000000006012fd4                _DMA_ScuMemCopy
+                0x0000000006013098                _DMA_ScuResult
+ .text          0x0000000006013130     0x1610 ../sbl/segalib/lib/libsat.a(gfs.o)
+                0x0000000006013130                _gfs_recovRdErr
+                0x0000000006013158                _GFS_SetErrFunc
+                0x000000000601317c                _GFS_GetErrStat
+                0x000000000601319c                _gfs_mngSetupFuncTbl
+                0x00000000060131c8                _gfs_mngInitWork
+                0x0000000006013248                _gfs_mngGetNumFile
+                0x00000000060132a0                _GFS_mngAllocGrp
+                0x00000000060132e0                _gfs_mngFreeGrp
+                0x00000000060132e6                _gfs_mngTermAccess
+                0x0000000006013350                _gfs_mngSetErrCode
+                0x0000000006013380                _GFS_SetDir
+                0x00000000060133e4                _GFS_NameToId
+                0x0000000006013434                _GFS_IdToName
+                0x0000000006013490                _GFS_Tell
+                0x00000000060134d0                _GFS_NwIsComplete
+                0x00000000060134f8                _GFS_CdMovePickup
+                0x0000000006013558                _GFS_GetDirInfo
+                0x00000000060135d0                _gfs_svrSearchHndl
+                0x0000000006013604                _gfs_svrAddHndl
+                0x0000000006013638                _gfs_svrRemoveHndl
+                0x00000000060136ac                _GFS_NwStop
+                0x0000000006013704                _GFS_OpenSub
+                0x000000000601374c                _GFS_Open
+                0x00000000060137f0                _GFS_GetFad
+                0x0000000006013834                _gfs_SetSct
+                0x0000000006013860                _GFS_NwCdRead
+                0x00000000060138e4                _gfs_GetFinfo
+                0x0000000006013932                _GFS_GetFileSize
+                0x0000000006013994                _GFS_Seek
+                0x0000000006013a48                _GFS_IsEof
+                0x0000000006013aa8                _GFS_ByteToSct
+                0x0000000006013b04                _GFS_GetFileInfo
+                0x0000000006013b78                _GFS_NwFread
+                0x0000000006013c8c                _GFS_NwGetStat
+                0x0000000006013d00                _GFS_SetGmode
+                0x0000000006013d64                _GFS_SetTmode
+                0x0000000006013dd8                _GFS_SetReadPara
+                0x0000000006013e3c                _GFS_SetTransPara
+                0x0000000006013eb0                _gfs_transData
+                0x0000000006013f40                _gfs_closeSub
+                0x0000000006013f70                _GFS_Close
+                0x0000000006013fa8                _GFS_LoadDir
+                0x0000000006014044                _gfs_getGmode
+                0x000000000601404a                _gfs_isTaskDone
+                0x0000000006014094                _gfs_convFinStat
+                0x00000000060140f8                _gfs_flowIn
+                0x0000000006014178                _GFS_NwExecOne
+                0x0000000006014208                _GFS_Fread
+                0x0000000006014350                _GFS_Load
+                0x0000000006014418                _gfs_loadVol
+                0x00000000060144dc                _gfs_getRootDir
+                0x0000000006014564                _gfs_loadRootDir
+                0x00000000060145ec                _GFS_Init
+                0x00000000060146d8                _GFS_NwExecServer
+ .text          0x0000000006014740       0x6c ../sbl/segalib/lib/libsat.a(gfs_buf.o)
+                0x0000000006014740                _GFBF_GetTranData
+                0x0000000006014754                _GFBF_GetNumData
+                0x000000000601476c                _GFBF_GetSrcPk
+                0x0000000006014780                _GFBF_GetSctData
+                0x0000000006014794                _GFBF_RtnPk
+                0x00000000060147a8                _gfbf_getSctDt
+ .text          0x00000000060147ac      0x484 ../sbl/segalib/lib/libsat.a(gfs_cdb.o)
+                0x00000000060147ac                _GFCB_Setup
+                0x0000000006014870                _GFCB_Close
+                0x0000000006014890                _GFCB_GetLenData
+                0x0000000006014924                _GFCB_GetLenRoom
+                0x0000000006014928                _GFCB_SetFilt
+                0x0000000006014980                _GFCB_DeleteAllData
+                0x000000000601499c                _GFCB_Tell
+                0x00000000060149a4                _GFCB_Seek
+                0x0000000006014a88                _GFCB_GetSrcPack
+                0x0000000006014b50                _GFCB_GetSctData
+                0x0000000006014b7c                _GFCB_GetDstPack
+                0x0000000006014b80                _GFCB_RtnPk
+                0x0000000006014bc0                _GFCB_MovePickup
+                0x0000000006014bd0                _GFCB_SetCon
+                0x0000000006014bf8                _GFCB_GetPickup
+                0x0000000006014c18                _GFCB_IsPuOwner
+                0x0000000006014c24                _GFCB_UngetPickup
+ .text          0x0000000006014c30     0x1504 ../sbl/segalib/lib/libsat.a(gfs_cdc.o)
+                0x0000000006014c30                _GFCD_AllocFilt
+                0x0000000006014c60                _GFCD_FreeFilt
+                0x0000000006014c88                _GFCD_AllocBuf
+                0x0000000006014cb4                _GFCD_GetBaseFad
+                0x0000000006014ce0                _GFCD_GetPickup
+                0x0000000006014d04                _GFCD_UngetPickup
+                0x0000000006014d28                _GFCD_IsPuOwner
+                0x0000000006014d40                _GFCD_CheckDelSctData
+                0x0000000006014d68                _GFCD_CheckMove
+                0x0000000006014d80                _gfcd_isIdleTask
+                0x0000000006014de4                _GFCD_SetTimer
+                0x0000000006014df0                _gfcd_checkEflag
+                0x0000000006014e0c                _gfcd_initCdbMng
+                0x0000000006014e74                _gfcd_setStat
+                0x0000000006014e98                _GFCD_GetFilt
+                0x0000000006014edc                _GFCD_EndData
+                0x0000000006014f20                _GFCD_GetSctInfo
+                0x0000000006014f64                _GFCD_GetFileInfo
+                0x000000000601502c                _GFCD_GetBufSiz
+                0x000000000601505c                _gfcd_doSetFiltTsk
+                0x00000000060151c8                _GFCD_SetFilt
+                0x0000000006015260                _gfcd_doSetConTsk
+                0x00000000060152d8                _GFCD_SetCon
+                0x0000000006015324                _gfcd_doGetLenDataTsk
+                0x0000000006015424                _GFCD_GetLenData
+                0x0000000006015468                _gfcd_doReqDataTsk
+                0x00000000060154dc                _GFCD_ReqData
+                0x0000000006015524                _gfcd_doDelSctDataTsk
+                0x0000000006015630                _GFCD_DelSctData
+                0x000000000601567c                _gfcd_doMoveSctTsk
+                0x0000000006015798                _GFCD_MoveSctData
+                0x00000000060157f4                _gfcd_doSetFiltConTsk
+                0x00000000060158f0                _GFCD_SetFiltCon
+                0x00000000060159e8                _GFCD_SetCsctFunc
+                0x00000000060159f8                _GFCD_WaitScdqFlag
+                0x0000000006015a3c                _GFCD_GetStat
+                0x0000000006015aac                _GFCD_Init
+                0x0000000006015c94                _GFCD_Play
+                0x0000000006015ce4                _GFCD_MovePickup
+                0x0000000006015d2c                _gfcd_doChgDirTsk
+                0x0000000006015ed0                _GFCD_ChgDir
+                0x0000000006015f38                _gfcd_doTask
+                0x0000000006015fa8                _GFCD_ExecServer
+                0x0000000006016084                _GFCD_FreeBuf
+                0x0000000006016100                _GFCD_WaitServer
+ .text          0x0000000006016134      0x600 ../sbl/segalib/lib/libsat.a(gfs_cdf.o)
+                0x0000000006016134                _GFCF_Init
+                0x000000000601618c                _GFCF_SetSct
+                0x00000000060161b8                _GFCF_GetFileInfo
+                0x0000000006016216                _GFCF_Recover
+                0x0000000006016258                _GFCF_Tell
+                0x0000000006016264                _GFCF_Seek
+                0x0000000006016270                _GFCF_cnvIntlvOfs
+                0x00000000060162a4                _GFCF_GetStat
+                0x00000000060162f0                _GFCF_StopInBuf
+                0x0000000006016368                _GFCF_MovePickup
+                0x00000000060163ec                _gfcf_getSctSize
+                0x0000000006016424                _GFCF_Setup
+                0x00000000060164dc                _gfcf_isCdOk
+                0x0000000006016528                _gfcf_getPlayRange
+                0x0000000006016630                _GFCF_FlowInBuf
+ .text          0x0000000006016734      0x7e8 ../sbl/segalib/lib/libsat.a(gfs_dir.o)
+                0x0000000006016734                _GFDR_NameToId
+                0x0000000006016784                _GFDR_GetInfoDirId
+                0x0000000006016790                _GFDR_GetInfoDirName
+                0x000000000601679c                _GFDR_GetAtrDirId
+                0x00000000060167ac                _GFDR_GetAtrDirName
+                0x00000000060167bc                _GFDR_ChgDir
+                0x000000000601682c                _GFDR_ChgRoot
+                0x0000000006016838                _gfdr_open
+                0x0000000006016858                _gfdr_read
+                0x0000000006016910                _gfdr_readByte
+                0x0000000006016938                _gfdr_readWord
+                0x0000000006016960                _gfdr_readWordNB
+                0x00000000060169ac                _gfdr_readLongNB
+                0x00000000060169f4                _gfdr_readLongNM
+                0x0000000006016a14                _gfdr_setNextRec
+                0x0000000006016a90                _gfdr_readDirEnt
+                0x0000000006016d78                _gfdr_setDirrecCd
+                0x0000000006016d96                _gfdr_setupDirIdTbl
+                0x0000000006016e0c                _gfdr_setupDirNameTbl
+                0x0000000006016eac                _GFDR_SetupDirTbl
+ .text          0x0000000006016f1c      0x818 ../sbl/segalib/lib/libsat.a(gfs_trn.o)
+                0x0000000006016f1c                _gftr_reqScu
+                0x0000000006016f20                _gftr_remCpu
+                0x0000000006016f24                _gftr_execScu
+                0x0000000006016fa4                _gftr_remScu
+                0x0000000006016fc4                _gftr_reqDma0
+                0x0000000006016fc8                _gftr_reqDma1
+                0x0000000006016fcc                _gftr_reqCpu
+                0x0000000006016fd0                _GFTR_Setup
+                0x0000000006016ff6                _GFTR_SetMode
+                0x0000000006017002                _GFTR_SetUnit
+                0x0000000006017006                _GFTR_SetTransPara
+                0x0000000006017018                _GFTR_GetTransPara
+                0x000000000601701c                _GFTR_GetNumTrans
+                0x0000000006017020                _GFTR_SetTransMax
+                0x0000000006017026                _GFTR_Start
+                0x000000000601702c                _GFTR_Pause
+                0x0000000006017032                _gfdma_canUse
+                0x0000000006017036                _gfdma_exec
+                0x0000000006017110                _gftr_execSdma0
+                0x0000000006017134                _gftr_execSdma1
+                0x0000000006017158                _gftr_reqTrn
+                0x00000000060171ac                _gftr_execTrn
+                0x0000000006017278                _gftr_remTrn
+                0x00000000060172d8                _gftr_copyFrac
+                0x00000000060172fc                _gfdma_getBytecnt
+                0x000000000601732c                _gftr_remDma0
+                0x0000000006017338                _gftr_remDma1
+                0x0000000006017344                _gftr_execCpu
+                0x0000000006017390                _GFTR_GetLenData
+                0x0000000006017394                _GFTR_GetLenRoom
+                0x00000000060173a2                _gftr_getSrcPack
+                0x0000000006017424                _GFTR_Idle
+                0x0000000006017494                _GFTR_GetDstPack
+                0x00000000060174c0                _gftr_getDstPack
+                0x0000000006017500                _gftr_execSub
+                0x0000000006017608                _GFTR_Exec
+                0x0000000006017660                _GFTR_Stop
+                0x0000000006017700                _GFTR_RtnDstPk
+                0x000000000601770e                _GFTR_GetData
+                0x000000000601771c                _GFTR_SetData
+                0x0000000006017728                _GFTR_SetTransFunc
+ .text          0x0000000006017734       0x24 ../sbl/segalib/lib/libsat.a(mth_rand.o)
+                0x0000000006017734                _MTH_InitialRand
+                0x0000000006017740                _MTH_GetRand
+ .text          0x0000000006017758       0x78 ../sbl/segalib/lib/libsat.a(mth_fixd.o)
+                0x0000000006017758                _MTH_Mul
+                0x000000000601776c                _MTH_Div
+                0x0000000006017780                _MTH_IntToFixed
+                0x0000000006017788                _MTH_FixedToInt
+                0x0000000006017790                _MTH_Product
+ .text          0x00000000060177d0      0x5d4 ../sbl/segalib/lib/libsat.a(mth_tri.o)
+                0x00000000060177d0                _MTH_Sin
+                0x0000000006017810                _MTH_Cos
+                0x0000000006017854                _fcos
+                0x000000000601785a                _fsin
+                0x00000000060179ec                _MTH_Atan
+ .text          0x0000000006017da4      0xf58 ../sbl/segalib/lib/libsat.a(per_prt.o)
+                0x00000000060181a4                _PER_IntFunc
+                0x0000000006018a54                _PER_Init
+                0x0000000006018bfc                _PER_GetPer
+ .text          0x0000000006018cfc      0xcbc ../sbl/segalib/lib/libsat.a(spr_2c.o)
+                0x0000000006018cfc                _SPR_2SetTvMode
+                0x0000000006018d0c                _SPR_2FrameChgIntr
+                0x0000000006018d20                _SPR_2FrameEraseData
+                0x0000000006018d60                _SPR_2SetGourTbl
+                0x0000000006018d90                _SPR_2SetLookupTbl
+                0x0000000006018dac                _SPR_2SetChar
+                0x0000000006018ed8                _SPR_2ClrChar
+                0x0000000006018fe0                _SPR_2ClrAllChar
+                0x000000000601902c                _SPR_2Initial
+                0x0000000006019180                _SPR_2GourTblNoToVram
+                0x000000000601919c                _SPR_2LookupTblNoToVram
+                0x00000000060191ac                _SPR_2CharNoToVram
+                0x00000000060191c0                _SPR_2GetAreaSizeInfo
+                0x0000000006019220                _SPR_2OpenCommand
+                0x00000000060192b8                _SPR_2FlushDrawPrty
+                0x00000000060192f8                _SPR_2CloseCommand
+                0x0000000006019418                _SPR_2LocalCoord
+                0x0000000006019470                _SPR_2SysClip
+                0x00000000060194b8                _SPR_2UserClip
+                0x0000000006019508                _SPR_2Line
+                0x00000000060195a4                _SPR_2PolyLine
+                0x0000000006019644                _SPR_2Polygon
+                0x00000000060196e4                _SPR_2NormSpr
+                0x00000000060197b0                _SPR_2ScaleSpr
+                0x0000000006019898                _SPR_2DistSpr
+                0x0000000006019970                _SPR_2Cmd
+ .text          0x00000000060199b8      0x754 ../sbl/segalib/lib/libsat.a(scl_func.o)
+                0x00000000060199b8                _SCL_ParametersInit
+                0x0000000006019aa4                _SCL_Vdp2Init
+                0x0000000006019b0c                _SCL_Open
+                0x0000000006019b28                _SCL_Close
+                0x0000000006019b3c                _SCL_MoveTo
+                0x0000000006019c30                _SCL_Move
+                0x0000000006019d5c                _SCL_Scale
+                0x0000000006019e60                _SCL_Memcpyw
+                0x0000000006019e74                _SCL_CopyReg
+                0x0000000006019f54                _SCL_SetColRamMode
+                0x0000000006019fa4                _SCL_PriIntProc
+                0x000000000601a0a0                _SCL_ScrollShow
+ .text          0x000000000601a10c      0x384 ../sbl/segalib/lib/libsat.a(scl_fu02.o)
+                0x000000000601a10c                _SCL_InitVramConfigTb
+                0x000000000601a11a                _SCL_SetVramConfig
+ .text          0x000000000601a490      0x62c ../sbl/segalib/lib/libsat.a(scl_fu03.o)
+                0x000000000601a490                _SCL_InitConfigTb
+                0x000000000601a4a8                _SCL_SetConfig
+ .text          0x000000000601aabc       0x18 ../sbl/segalib/lib/libsat.a(scl_fu04.o)
+                0x000000000601aabc                _SCL_SetCycleTable
+ .text          0x000000000601aad4      0xf30 ../sbl/segalib/lib/libsat.a(scl_pri.o)
+                0x000000000601aad4                _SCL_PriorityInit
+                0x000000000601b080                _SCL_GetColRamMode
+                0x000000000601b0a0                _SCL_AbortAutoVe
+                0x000000000601b0ac                _SCL_SetColMixRate
+                0x000000000601b414                _SCL_IncColOffset
+                0x000000000601b488                _SCL_AutoExec
+                0x000000000601b8b4                _SCL_SetShadowBit
+ .text          0x000000000601ba04      0xe38 ../sbl/segalib/lib/libsat.a(scl_ro00.o)
+                0x000000000601bb28                _SCL_InitRotateTable
+                0x000000000601bd70                _SCL_RotateZD
+                0x000000000601beb0                _SCL_Rotate
+ .text          0x000000000601c83c       0xfc ../sbl/segalib/lib/libsat.a(scl_ro03.o)
+                0x000000000601c83c                _SCL_RotateTo
+ .text          0x000000000601c938       0x74 ../sbl/segalib/lib/libsat.a(scl_back.o)
+                0x000000000601c938                _SCL_SetBack
+ .text          0x000000000601c9ac      0x264 ../sbl/segalib/lib/libsat.a(scl_vblv.o)
+                0x000000000601c9ac                _SCL_SetFrameInterval
+                0x000000000601ca24                _SCL_DisplayFrame
+                0x000000000601ca50                _SCL_VblInit
+                0x000000000601ca98                _SCL_VblankStart
+                0x000000000601cb68                _SCL_VblankEnd
+ .text          0x000000000601cc10       0x54 ../sbl/segalib/lib/libsat.a(scl_pr01.o)
+                0x000000000601cc10                _SCL_SetSpriteMode
+ .text          0x000000000601cc64       0x90 ../sbl/segalib/lib/libsat.a(scl_pr02.o)
+                0x000000000601cc64                _SCL_SetColRam
+ .text          0x000000000601ccf4      0x10c ../sbl/segalib/lib/libsat.a(scl_pr03.o)
+                0x000000000601ccf4                _SCL_FreeColRam
+                0x000000000601cd1c                _SCL_AllocColRam
+ .text          0x000000000601ce00       0xac ../sbl/segalib/lib/libsat.a(scl_pr05.o)
+                0x000000000601ce00                _SCL_GetColRamOffset
+ .text          0x000000000601ceac      0x180 ../sbl/segalib/lib/libsat.a(scl_pr06.o)
+                0x000000000601ceac                _SCL_SetColRamOffset
+ .text          0x000000000601d02c      0x1c8 ../sbl/segalib/lib/libsat.a(scl_pr07.o)
+                0x000000000601d02c                _SCL_SetPriority
+ .text          0x000000000601d1f4      0x13c ../sbl/segalib/lib/libsat.a(scl_pr11.o)
+                0x000000000601d1f4                _SCL_SetAutoColOffset
+ .text          0x000000000601d330      0x164 ../sbl/segalib/lib/libsat.a(scl_pr12.o)
+                0x000000000601d330                _SCL_SetColOffset
+ .text          0x000000000601d494      0x234 ../sbl/segalib/lib/libsat.a(cdc_reg.o)
+                0x000000000601d494                _CDC_GetDataPtr
+                0x000000000601d4a0                _CDC_GetHirqReq
+                0x000000000601d4ac                _CDC_ClrHirqReq
+                0x000000000601d4cc                _CDREG_ClrHirqReq
+                0x000000000601d4d8                _CDREG_InitHirqReq
+                0x000000000601d4f0                _CDREG_SetHirqFlag
+                0x000000000601d500                _CDC_GetHirqMsk
+                0x000000000601d50c                _CDC_SetHirqMsk
+                0x000000000601d518                _CDC_GetMpegPtr
+                0x000000000601d524                _CDREG_TgetData
+                0x000000000601d580                _CDREG_WaitHirq
+                0x000000000601d5a8                _writeCmd
+                0x000000000601d5c8                _CDREG_ReadRsp
+                0x000000000601d5ec                _doCmdRsp
+                0x000000000601d694                _CDREG_CmdRsp
+ .text          0x000000000601d6c8       0xf4 ../sbl/segalib/lib/libsat.a(cdc_sub.o)
+                0x000000000601d6c8                _CDSUB_GetCdstat
+                0x000000000601d6fc                _CDSUB_RspToCdstat
+                0x000000000601d72e                _CDSUB_CdCmd
+                0x000000000601d790                _CDSUB_UpdStatus
+                0x000000000601d79c                _CDSUB_UpdCdstat
+                0x000000000601d7b8                _CDSUB_SoftTimer
+ .text          0x000000000601d7bc       0xb4 ../sbl/segalib/lib/libsat.a(cdc_dev.o)
+                0x000000000601d7bc                _CDC_CdSetCon
+                0x000000000601d7f0                _CDC_CdGetCon
+                0x000000000601d830                _CDC_CdGetLastBuf
+ .text          0x000000000601d870      0x290 ../sbl/segalib/lib/libsat.a(cdc_sel.o)
+                0x000000000601d870                _CDC_SetFiltRange
+                0x000000000601d8ac                _CDC_GetFiltRange
+                0x000000000601d918                _CDC_SetFiltSubh
+                0x000000000601d968                _CDC_GetFiltSubh
+                0x000000000601d9cc                _CDC_SetFiltMode
+                0x000000000601da00                _CDC_GetFiltMode
+                0x000000000601da40                _CDC_SetFiltCon
+                0x000000000601da78                _CDC_GetFiltCon
+                0x000000000601dacc                _CDC_ResetSelector
+ .text          0x000000000601db00      0x234 ../sbl/segalib/lib/libsat.a(cdc_bif.o)
+                0x000000000601db00                _CDC_GetBufSiz
+                0x000000000601db58                _CDC_GetSctNum
+                0x000000000601dba0                _CDC_CalActSiz
+                0x000000000601dbd0                _chkEselUpdStatus
+                0x000000000601dc04                _CDC_GetActSiz
+                0x000000000601dc48                _CDC_GetSctInfo
+                0x000000000601dca0                _CDC_ExeFadSearch
+                0x000000000601dcd4                _CDC_GetFadSearch
+ .text          0x000000000601dd34      0x190 ../sbl/segalib/lib/libsat.a(cdc_bio.o)
+                0x000000000601dd34                _CDC_SetSctLen
+                0x000000000601dd64                _CDC_GetSctData
+                0x000000000601dd94                _CDC_DelSctData
+                0x000000000601ddc4                _CDC_GetdelSctData
+                0x000000000601ddf4                _CDC_PutSctData
+                0x000000000601de24                _CDC_CopySctData
+                0x000000000601de58                _CDC_MoveSctData
+                0x000000000601de8c                _CDC_GetCopyErr
+ .text          0x000000000601dec4      0x1a4 ../sbl/segalib/lib/libsat.a(cdc_cfs.o)
+                0x000000000601dec4                _CDC_ChgDir
+                0x000000000601defc                _CDC_ReadDir
+                0x000000000601df34                _CDC_GetFileScope
+                0x000000000601df94                _CDC_TgetFileInfo
+                0x000000000601dfec                _CDC_ReadFile
+                0x000000000601e02c                _CDC_AbortFile
+ .text          0x000000000601e068       0xb0 ../sbl/segalib/lib/libsat.a(csh_main.o)
+                0x000000000601e068                _CSH_Init
+                0x000000000601e0b4                _CSH_AllClr
+                0x000000000601e0f4                _CSH_Purge
+ .text          0x000000000601e118      0x13c ../sbl/segalib/lib/libsat.a(dma_cpu0.o)
+                0x000000000601e118                _DMA_CpuSetComPrm
+                0x000000000601e150                _DMA_CpuSetPrm
+                0x000000000601e204                _DMA_CpuStart
+                0x000000000601e214                _DMA_CpuStop
+                0x000000000601e226                _DMA_CpuAllStop
+                0x000000000601e234                _DMA_CpuGetComStatus
+                0x000000000601e246                _DMA_CpuGetStatus
+ .text          0x000000000601e254      0x274 ../sbl/segalib/lib/libsat.a(dma_scu0.o)
+                0x000000000601e254                _DMA_ScuIntFunc0
+                0x000000000601e2b4                _DMA_ScuIntFunc1
+                0x000000000601e318                _DMA_ScuIntFunc2
+                0x000000000601e37c                _DMA_ScuSetPrm
+                0x000000000601e3e4                _DMA_ScuStart
+                0x000000000601e49c                _DMA_ScuGetStatus
+ .text          0x000000000601e4c8      0x240 ../sbl/segalib/lib/libsat.a(spr_1c.o)
+                0x000000000601e4c8                _SPR_SetTvMode
+                0x000000000601e544                _SPR_GetStatus
+                0x000000000601e598                _SPR_SetEraseData
+                0x000000000601e630                _SPR_Initial
+                0x000000000601e6e4                _SPR_WaitDrawEnd
+                0x000000000601e6f4                _SPR_SetEosMode
+ .text          0x000000000601e708      0x16c ../sbl/segalib/lib/libsat.a(spr_2a.o)
+                0x000000000601e708                _SPR_2SetDrawPrty
+                0x000000000601e778                _SPR_2FlushDrawPrtyBlock
+ .text          0x000000000601e874       0x52 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftrt.o)
+                0x000000000601e874                ___ashiftrt_r4_31
+                0x000000000601e874                ___ashiftrt_r4_32
+                0x000000000601e87a                ___ashiftrt_r4_30
+                0x000000000601e87c                ___ashiftrt_r4_29
+                0x000000000601e87e                ___ashiftrt_r4_28
+                0x000000000601e880                ___ashiftrt_r4_27
+                0x000000000601e882                ___ashiftrt_r4_26
+                0x000000000601e884                ___ashiftrt_r4_25
+                0x000000000601e886                ___ashiftrt_r4_24
+                0x000000000601e88e                ___ashiftrt_r4_23
+                0x000000000601e890                ___ashiftrt_r4_22
+                0x000000000601e892                ___ashiftrt_r4_21
+                0x000000000601e894                ___ashiftrt_r4_20
+                0x000000000601e896                ___ashiftrt_r4_19
+                0x000000000601e898                ___ashiftrt_r4_18
+                0x000000000601e89a                ___ashiftrt_r4_17
+                0x000000000601e89c                ___ashiftrt_r4_16
+                0x000000000601e8a2                ___ashiftrt_r4_15
+                0x000000000601e8a4                ___ashiftrt_r4_14
+                0x000000000601e8a6                ___ashiftrt_r4_13
+                0x000000000601e8a8                ___ashiftrt_r4_12
+                0x000000000601e8aa                ___ashiftrt_r4_11
+                0x000000000601e8ac                ___ashiftrt_r4_10
+                0x000000000601e8ae                ___ashiftrt_r4_9
+                0x000000000601e8b0                ___ashiftrt_r4_8
+                0x000000000601e8b2                ___ashiftrt_r4_7
+                0x000000000601e8b4                ___ashiftrt_r4_6
+                0x000000000601e8b6                ___ashiftrt_r4_5
+                0x000000000601e8b8                ___ashiftrt_r4_4
+                0x000000000601e8ba                ___ashiftrt_r4_3
+                0x000000000601e8bc                ___ashiftrt_r4_2
+                0x000000000601e8be                ___ashiftrt_r4_1
+                0x000000000601e8c2                ___ashiftrt_r4_0
+ *fill*         0x000000000601e8c6        0x2 
+ .text          0x000000000601e8c8       0x80 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftrt_n.o)
+                0x000000000601e8c8                ___ashrsi3
+ .text          0x000000000601e948       0xbc /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftlt.o)
+                0x000000000601e948                ___ashlsi3
+                0x000000000601e94c                ___ashlsi3_r0
+ .text          0x000000000601ea04       0x78 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_movmem.o)
+                0x000000000601ea04                ___movmem
+                0x000000000601ea04                ___movstr
+                0x000000000601ea38                ___movmemSI64
+                0x000000000601ea38                ___movstrSI64
+                0x000000000601ea3c                ___movmemSI60
+                0x000000000601ea3c                ___movstrSI60
+                0x000000000601ea40                ___movstrSI56
+                0x000000000601ea40                ___movmemSI56
+                0x000000000601ea44                ___movmemSI52
+                0x000000000601ea44                ___movstrSI52
+                0x000000000601ea48                ___movstrSI48
+                0x000000000601ea48                ___movmemSI48
+                0x000000000601ea4c                ___movmemSI44
+                0x000000000601ea4c                ___movstrSI44
+                0x000000000601ea50                ___movstrSI40
+                0x000000000601ea50                ___movmemSI40
+                0x000000000601ea54                ___movstrSI36
+                0x000000000601ea54                ___movmemSI36
+                0x000000000601ea58                ___movstrSI32
+                0x000000000601ea58                ___movmemSI32
+                0x000000000601ea5c                ___movmemSI28
+                0x000000000601ea5c                ___movstrSI28
+                0x000000000601ea60                ___movmemSI24
+                0x000000000601ea60                ___movstrSI24
+                0x000000000601ea64                ___movmemSI20
+                0x000000000601ea64                ___movstrSI20
+                0x000000000601ea68                ___movstrSI16
+                0x000000000601ea68                ___movmemSI16
+                0x000000000601ea6c                ___movmemSI12
+                0x000000000601ea6c                ___movstrSI12
+                0x000000000601ea70                ___movstrSI8
+                0x000000000601ea70                ___movmemSI8
+                0x000000000601ea74                ___movstrSI4
+                0x000000000601ea74                ___movmemSI4
+ .text          0x000000000601ea7c       0xa0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_sdivsi3.o)
+                0x000000000601ea7c                ___sdivsi3
+ .text          0x000000000601eb1c       0x6c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_udivsi3.o)
+                0x000000000601eb3e                ___udivsi3
+ .text          0x000000000601eb88      0x208 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
+                0x000000000601eb88                ___muldf3
+ .text          0x000000000601ed90       0xa8 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
+                0x000000000601ed90                ___floatsidf
+ .text          0x000000000601ee38       0xa0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
+                0x000000000601ee38                ___fixdfsi
+ .text          0x000000000601eed8        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
+ .text          0x000000000601eed8       0xbc /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_lshiftrt.o)
+                0x000000000601eed8                ___lshrsi3
+                0x000000000601eedc                ___lshrsi3_r0
+ .text          0x000000000601ef94       0x74 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
+                0x000000000601ef94                ___clzsi2
+ .text          0x000000000601f008      0x29c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
+                0x000000000601f008                ___pack_d
+ .text          0x000000000601f2a4       0xcc /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
+                0x000000000601f2a4                ___unpack_d
+ .text          0x000000000601f370        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
+ .text          0x000000000601f370       0x64 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
+                0x000000000601f370                _memcmp
+ .text          0x000000000601f3d4       0x94 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcpy.o)
+                0x000000000601f3d4                _memcpy
+ .text          0x000000000601f468       0xcc /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
+                0x000000000601f468                _memmove
+ .text          0x000000000601f534       0x40 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memset.o)
+                0x000000000601f534                _memset
+ .text          0x000000000601f574       0x3c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strcpy.o)
+                0x000000000601f574                _strcpy
+ .text          0x000000000601f5b0       0xd0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
+                0x000000000601f5b0                _strncmp
+ .text          0x000000000601f680       0xd4 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
+                0x000000000601f680                _strncpy
  *(.rodata*)
  .rodata.str1.4
-                0x000000000601f718        0x7 bg.o
- *fill*         0x000000000601f71f        0x1 
- .rodata        0x000000000601f720      0x100 crc.o
+                0x000000000601f754        0x7 bg.o
+ *fill*         0x000000000601f75b        0x1 
+ .rodata        0x000000000601f75c      0x100 crc.o
  .rodata.str1.4
-                0x000000000601f820       0x37 game.o
+                0x000000000601f85c       0x37 game.o
                                          0x3b (size before relaxing)
- *fill*         0x000000000601f857        0x1 
+ *fill*         0x000000000601f893        0x1 
  .rodata.str1.4
-                0x000000000601f858        0x9 pcmsys.o
- *fill*         0x000000000601f861        0x3 
- .rodata        0x000000000601f864      0x400 pcmsys.o
+                0x000000000601f894        0x9 pcmsys.o
+ *fill*         0x000000000601f89d        0x3 
+ .rodata        0x000000000601f8a0      0x400 pcmsys.o
  .rodata.str1.4
-                0x000000000601fc64        0x9 print.o
- *fill*         0x000000000601fc6d        0x3 
+                0x000000000601fca0        0x9 print.o
+ *fill*         0x000000000601fca9        0x3 
  .rodata.str1.4
-                0x000000000601fc70       0x77 sound.o
+                0x000000000601fcac       0x77 sound.o
                                          0x7b (size before relaxing)
- *fill*         0x000000000601fce7        0x1 
- .rodata        0x000000000601fce8        0xa ../sbl/segalib/lib/libsat.a(gfs.o)
- *fill*         0x000000000601fcf2        0x2 
- .rodata        0x000000000601fcf4       0x30 ../sbl/segalib/lib/libsat.a(gfs_buf.o)
- .rodata        0x000000000601fd24       0x2d ../sbl/segalib/lib/libsat.a(gfs_cdf.o)
- *fill*         0x000000000601fd51        0x3 
+ *fill*         0x000000000601fd23        0x1 
+ .rodata        0x000000000601fd24        0xa ../sbl/segalib/lib/libsat.a(gfs.o)
+ *fill*         0x000000000601fd2e        0x2 
+ .rodata        0x000000000601fd30       0x30 ../sbl/segalib/lib/libsat.a(gfs_buf.o)
+ .rodata        0x000000000601fd60       0x2d ../sbl/segalib/lib/libsat.a(gfs_cdf.o)
+ *fill*         0x000000000601fd8d        0x3 
  .rodata.str1.4
-                0x000000000601fd54        0x2 ../sbl/segalib/lib/libsat.a(gfs_dir.o)
+                0x000000000601fd90        0x2 ../sbl/segalib/lib/libsat.a(gfs_dir.o)
                                           0x7 (size before relaxing)
- *fill*         0x000000000601fd56        0x2 
- .rodata        0x000000000601fd58       0x30 ../sbl/segalib/lib/libsat.a(gfs_trn.o)
- .rodata        0x000000000601fd88        0xc ../sbl/segalib/lib/libsat.a(dma_scu0.o)
- .rodata        0x000000000601fd94       0x20 ../sbl/segalib/lib/libsat.a(spr_1c.o)
- .rodata        0x000000000601fdb4       0x14 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
-                0x000000000601fdb4                ___thenan_df
- .rodata        0x000000000601fdc8      0x100 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
-                0x000000000601fdc8                ___clz_tab
+ *fill*         0x000000000601fd92        0x2 
+ .rodata        0x000000000601fd94       0x30 ../sbl/segalib/lib/libsat.a(gfs_trn.o)
+ .rodata        0x000000000601fdc4        0xc ../sbl/segalib/lib/libsat.a(dma_scu0.o)
+ .rodata        0x000000000601fdd0       0x20 ../sbl/segalib/lib/libsat.a(spr_1c.o)
+ .rodata        0x000000000601fdf0       0x14 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
+                0x000000000601fdf0                ___thenan_df
+ .rodata        0x000000000601fe04      0x100 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
+                0x000000000601fe04                ___clz_tab
  *(.strings)
-                0x000000000601fed0                . = ALIGN (0x10)
- *fill*         0x000000000601fec8        0x8 
-                0x000000000601fed0                _etext = ABSOLUTE (.)
+                0x000000000601ff10                . = ALIGN (0x10)
+ *fill*         0x000000000601ff04        0xc 
+                0x000000000601ff10                _etext = ABSOLUTE (.)
 
-.tors           0x000000000601fed0        0x0
-                0x000000000601fed0                ___ctors = .
+.tors           0x000000000601ff10        0x0
+                0x000000000601ff10                ___ctors = .
  *(.ctors)
-                0x000000000601fed0                ___ctors_end = .
-                0x000000000601fed0                ___dtors = .
+                0x000000000601ff10                ___ctors_end = .
+                0x000000000601ff10                ___dtors = .
  *(.dtors)
-                0x000000000601fed0                ___dtors_end = .
-                0x000000000601fed0                . = ALIGN (0x10)
-                0x000000000601fed0                _etors = ABSOLUTE (.)
+                0x000000000601ff10                ___dtors_end = .
+                0x000000000601ff10                . = ALIGN (0x10)
+                0x000000000601ff10                _etors = ABSOLUTE (.)
 
-.data           0x000000000601fed0      0x8c0
+.data           0x000000000601ff10      0x8c0
  *(.data)
- .data          0x000000000601fed0        0x0 entry.o
- .data          0x000000000601fed0        0x0 stack.o
- .data          0x000000000601fed0        0x0 vblank.o
- .data          0x000000000601fed0        0x0 bg.o
- .data          0x000000000601fed0        0x0 cd.o
- .data          0x000000000601fed0        0x0 crc.o
- .data          0x000000000601fed0        0x0 devcart.o
- .data          0x000000000601fed0      0x130 game.o
-                0x000000000601fed0                _songs
-                0x000000000601fee4                _ranks
-                0x000000000601ff0c                _gravity
-                0x000000000601ff84                _levels
- .data          0x0000000006020000        0x0 hwram.o
- .data          0x0000000006020000        0xc pcmsys.o
-                0x0000000006020000                _master_volume
-                0x0000000006020004                _scsp_load
-                0x0000000006020008                _m68k_com
- .data          0x000000000602000c      0x700 piece.o
-                0x000000000602000c                _pieces
- .data          0x000000000602070c        0x0 print.o
- .data          0x000000000602070c        0x0 rng.o
- .data          0x000000000602070c       0x34 scroll.o
-                0x000000000602070c                _cycleTb
-                0x000000000602071c                _charOffsets
-                0x000000000602072c                _vram
- .data          0x0000000006020740        0x0 sound.o
- .data          0x0000000006020740       0x18 sprite.o
- .data          0x0000000006020758        0x0 main.o
- .data          0x0000000006020758        0x0 ../sbl/segalib/lib/libsat.a(cdc_cmn.o)
- .data          0x0000000006020758        0x0 ../sbl/segalib/lib/libsat.a(cdc_drv.o)
- .data          0x0000000006020758        0x0 ../sbl/segalib/lib/libsat.a(dma_scu1.o)
- .data          0x0000000006020758        0x0 ../sbl/segalib/lib/libsat.a(gfs.o)
- .data          0x0000000006020758        0x0 ../sbl/segalib/lib/libsat.a(gfs_buf.o)
- .data          0x0000000006020758        0x0 ../sbl/segalib/lib/libsat.a(gfs_cdb.o)
- .data          0x0000000006020758        0x0 ../sbl/segalib/lib/libsat.a(gfs_cdc.o)
- .data          0x0000000006020758        0x0 ../sbl/segalib/lib/libsat.a(gfs_cdf.o)
- .data          0x0000000006020758        0x0 ../sbl/segalib/lib/libsat.a(gfs_dir.o)
- .data          0x0000000006020758        0x0 ../sbl/segalib/lib/libsat.a(gfs_trn.o)
- .data          0x0000000006020758        0x0 ../sbl/segalib/lib/libsat.a(mth_rand.o)
- .data          0x0000000006020758        0x0 ../sbl/segalib/lib/libsat.a(mth_fixd.o)
- .data          0x0000000006020758        0x0 ../sbl/segalib/lib/libsat.a(mth_tri.o)
- .data          0x0000000006020758        0x3 ../sbl/segalib/lib/libsat.a(per_prt.o)
- .data          0x000000000602075b        0x0 ../sbl/segalib/lib/libsat.a(spr_2c.o)
- *fill*         0x000000000602075b        0x1 
- .data          0x000000000602075c        0x6 ../sbl/segalib/lib/libsat.a(scl_func.o)
-                0x000000000602075c                _SclRotateTableMode
-                0x000000000602075e                _SclDisplayY
-                0x0000000006020760                _SclDisplayX
- .data          0x0000000006020762        0x0 ../sbl/segalib/lib/libsat.a(scl_fu02.o)
- .data          0x0000000006020762        0x0 ../sbl/segalib/lib/libsat.a(scl_fu03.o)
- .data          0x0000000006020762        0x0 ../sbl/segalib/lib/libsat.a(scl_fu04.o)
- *fill*         0x0000000006020762        0x2 
- .data          0x0000000006020764       0x18 ../sbl/segalib/lib/libsat.a(scl_pri.o)
-                0x0000000006020764                _SclRealColOffset
-                0x0000000006020768                _SclRealBgColMix
-                0x000000000602076c                _SclRealSpColMix
-                0x0000000006020770                _SclRealBgPriNum
-                0x0000000006020774                _SclRealSpPriNum
-                0x0000000006020778                _SclRealOtherPri
- .data          0x000000000602077c        0x0 ../sbl/segalib/lib/libsat.a(scl_ro00.o)
- .data          0x000000000602077c        0x0 ../sbl/segalib/lib/libsat.a(scl_ro03.o)
- .data          0x000000000602077c        0x0 ../sbl/segalib/lib/libsat.a(scl_back.o)
- .data          0x000000000602077c        0x8 ../sbl/segalib/lib/libsat.a(scl_vblv.o)
-                0x000000000602077c                _VBInterval
-                0x0000000006020780                _SpFrameEraseMode
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(scl_pr01.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(scl_pr02.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(scl_pr03.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(scl_pr05.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(scl_pr06.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(scl_pr07.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(scl_pr11.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(scl_pr12.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(cdc_reg.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(cdc_sub.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(cdc_dev.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(cdc_sel.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(cdc_bif.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(cdc_bio.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(cdc_cfs.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(csh_main.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(dma_cpu0.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(dma_scu0.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(spr_1c.o)
- .data          0x0000000006020784        0x0 ../sbl/segalib/lib/libsat.a(spr_2a.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftrt.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftrt_n.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftlt.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_movmem.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_sdivsi3.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_udivsi3.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_lshiftrt.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcpy.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memset.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strcpy.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
- .data          0x0000000006020784        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
-                0x0000000006020790                . = ALIGN (0x10)
- *fill*         0x0000000006020784        0xc 
-                0x0000000006020790                _edata = ABSOLUTE (.)
+ .data          0x000000000601ff10        0x0 entry.o
+ .data          0x000000000601ff10        0x0 stack.o
+ .data          0x000000000601ff10        0x0 vblank.o
+ .data          0x000000000601ff10        0x0 bg.o
+ .data          0x000000000601ff10        0x0 cd.o
+ .data          0x000000000601ff10        0x0 crc.o
+ .data          0x000000000601ff10        0x0 devcart.o
+ .data          0x000000000601ff10      0x130 game.o
+                0x000000000601ff10                _songs
+                0x000000000601ff24                _ranks
+                0x000000000601ff4c                _gravity
+                0x000000000601ffc4                _levels
+ .data          0x0000000006020040        0x0 hwram.o
+ .data          0x0000000006020040        0xc pcmsys.o
+                0x0000000006020040                _master_volume
+                0x0000000006020044                _scsp_load
+                0x0000000006020048                _m68k_com
+ .data          0x000000000602004c      0x700 piece.o
+                0x000000000602004c                _pieces
+ .data          0x000000000602074c        0x0 print.o
+ .data          0x000000000602074c        0x0 rng.o
+ .data          0x000000000602074c       0x34 scroll.o
+                0x000000000602074c                _cycleTb
+                0x000000000602075c                _charOffsets
+                0x000000000602076c                _vram
+ .data          0x0000000006020780        0x0 sound.o
+ .data          0x0000000006020780       0x18 sprite.o
+ .data          0x0000000006020798        0x0 main.o
+ .data          0x0000000006020798        0x0 ../sbl/segalib/lib/libsat.a(cdc_cmn.o)
+ .data          0x0000000006020798        0x0 ../sbl/segalib/lib/libsat.a(cdc_drv.o)
+ .data          0x0000000006020798        0x0 ../sbl/segalib/lib/libsat.a(dma_scu1.o)
+ .data          0x0000000006020798        0x0 ../sbl/segalib/lib/libsat.a(gfs.o)
+ .data          0x0000000006020798        0x0 ../sbl/segalib/lib/libsat.a(gfs_buf.o)
+ .data          0x0000000006020798        0x0 ../sbl/segalib/lib/libsat.a(gfs_cdb.o)
+ .data          0x0000000006020798        0x0 ../sbl/segalib/lib/libsat.a(gfs_cdc.o)
+ .data          0x0000000006020798        0x0 ../sbl/segalib/lib/libsat.a(gfs_cdf.o)
+ .data          0x0000000006020798        0x0 ../sbl/segalib/lib/libsat.a(gfs_dir.o)
+ .data          0x0000000006020798        0x0 ../sbl/segalib/lib/libsat.a(gfs_trn.o)
+ .data          0x0000000006020798        0x0 ../sbl/segalib/lib/libsat.a(mth_rand.o)
+ .data          0x0000000006020798        0x0 ../sbl/segalib/lib/libsat.a(mth_fixd.o)
+ .data          0x0000000006020798        0x0 ../sbl/segalib/lib/libsat.a(mth_tri.o)
+ .data          0x0000000006020798        0x3 ../sbl/segalib/lib/libsat.a(per_prt.o)
+ .data          0x000000000602079b        0x0 ../sbl/segalib/lib/libsat.a(spr_2c.o)
+ *fill*         0x000000000602079b        0x1 
+ .data          0x000000000602079c        0x6 ../sbl/segalib/lib/libsat.a(scl_func.o)
+                0x000000000602079c                _SclRotateTableMode
+                0x000000000602079e                _SclDisplayY
+                0x00000000060207a0                _SclDisplayX
+ .data          0x00000000060207a2        0x0 ../sbl/segalib/lib/libsat.a(scl_fu02.o)
+ .data          0x00000000060207a2        0x0 ../sbl/segalib/lib/libsat.a(scl_fu03.o)
+ .data          0x00000000060207a2        0x0 ../sbl/segalib/lib/libsat.a(scl_fu04.o)
+ *fill*         0x00000000060207a2        0x2 
+ .data          0x00000000060207a4       0x18 ../sbl/segalib/lib/libsat.a(scl_pri.o)
+                0x00000000060207a4                _SclRealColOffset
+                0x00000000060207a8                _SclRealBgColMix
+                0x00000000060207ac                _SclRealSpColMix
+                0x00000000060207b0                _SclRealBgPriNum
+                0x00000000060207b4                _SclRealSpPriNum
+                0x00000000060207b8                _SclRealOtherPri
+ .data          0x00000000060207bc        0x0 ../sbl/segalib/lib/libsat.a(scl_ro00.o)
+ .data          0x00000000060207bc        0x0 ../sbl/segalib/lib/libsat.a(scl_ro03.o)
+ .data          0x00000000060207bc        0x0 ../sbl/segalib/lib/libsat.a(scl_back.o)
+ .data          0x00000000060207bc        0x8 ../sbl/segalib/lib/libsat.a(scl_vblv.o)
+                0x00000000060207bc                _VBInterval
+                0x00000000060207c0                _SpFrameEraseMode
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(scl_pr01.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(scl_pr02.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(scl_pr03.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(scl_pr05.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(scl_pr06.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(scl_pr07.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(scl_pr11.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(scl_pr12.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(cdc_reg.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(cdc_sub.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(cdc_dev.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(cdc_sel.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(cdc_bif.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(cdc_bio.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(cdc_cfs.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(csh_main.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(dma_cpu0.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(dma_scu0.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(spr_1c.o)
+ .data          0x00000000060207c4        0x0 ../sbl/segalib/lib/libsat.a(spr_2a.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftrt.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftrt_n.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftlt.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_movmem.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_sdivsi3.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_udivsi3.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_lshiftrt.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcpy.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memset.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strcpy.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
+ .data          0x00000000060207c4        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
+                0x00000000060207d0                . = ALIGN (0x10)
+ *fill*         0x00000000060207c4        0xc 
+                0x00000000060207d0                _edata = ABSOLUTE (.)
 
-.bss            0x0000000006020790    0x197a0
-                0x0000000006020790                _bss_start = .
+.bss            0x00000000060207d0    0x197b0
+                0x00000000060207d0                _bss_start = .
  *(.bss)
- .bss           0x0000000006020790        0x0 entry.o
- .bss           0x0000000006020790        0x0 stack.o
- .bss           0x0000000006020790       0x34 vblank.o
-                0x0000000006020790                _vblank_frames
-                0x0000000006020794                _VblankFlg
-                0x0000000006020798                _perFlag
-                0x000000000602079c                _PadWorkArea
-                0x00000000060207b8                _PadData2E
-                0x00000000060207ba                _PadData2L
-                0x00000000060207bc                _PadData2
-                0x00000000060207be                _PadData1E
-                0x00000000060207c0                _PadData1L
-                0x00000000060207c2                _PadData1
- .bss           0x00000000060207c4       0x48 bg.o
- .bss           0x000000000602080c     0x1674 cd.o
- .bss           0x0000000006021e80        0x0 crc.o
- .bss           0x0000000006021e80        0x0 devcart.o
- .bss           0x0000000006021e80      0x448 game.o
-                0x0000000006021e80                _song
-                0x0000000006021e84                _boardVram
- .bss           0x00000000060222c8    0x13880 hwram.o
-                0x00000000060222c8                _HWRAM_Buffer
- .bss           0x0000000006035b48        0x2 pcmsys.o
-                0x0000000006035b48                _numberPCMs
- .bss           0x0000000006035b4a        0x0 piece.o
- .bss           0x0000000006035b4a      0x528 print.o
-                0x0000000006035b4a                _text
- *fill*         0x0000000006036072        0x2 
- .bss           0x0000000006036074        0x8 rng.o
- .bss           0x000000000603607c      0x17c scroll.o
-                0x000000000603607c                _scfg
- .bss           0x00000000060361f8        0x0 sound.o
- .bss           0x00000000060361f8     0x257c sprite.o
-                0x00000000060361f8                _sprites
-                0x00000000060374b8                _palCnt
-                0x00000000060374bc                _tileCount
-                0x00000000060374c0                _numSprites
- .bss           0x0000000006038774        0x4 main.o
-                0x0000000006038774                _frame
- .bss           0x0000000006038778        0x0 ../sbl/segalib/lib/libsat.a(cdc_cmn.o)
- .bss           0x0000000006038778        0x0 ../sbl/segalib/lib/libsat.a(cdc_drv.o)
- .bss           0x0000000006038778        0xc ../sbl/segalib/lib/libsat.a(dma_scu1.o)
- .bss           0x0000000006038784        0xc ../sbl/segalib/lib/libsat.a(gfs.o)
-                0x0000000006038784                _GFMC_base
-                0x0000000006038788                _gfs_mng_ptr
-                0x000000000603878c                _bobtest
- .bss           0x0000000006038790        0x0 ../sbl/segalib/lib/libsat.a(gfs_buf.o)
- .bss           0x0000000006038790        0x0 ../sbl/segalib/lib/libsat.a(gfs_cdb.o)
- .bss           0x0000000006038790        0x4 ../sbl/segalib/lib/libsat.a(gfs_cdc.o)
-                0x0000000006038790                _gfcd_work
- .bss           0x0000000006038794        0x0 ../sbl/segalib/lib/libsat.a(gfs_cdf.o)
- .bss           0x0000000006038794        0x0 ../sbl/segalib/lib/libsat.a(gfs_dir.o)
- .bss           0x0000000006038794        0xc ../sbl/segalib/lib/libsat.a(gfs_trn.o)
- .bss           0x00000000060387a0        0x4 ../sbl/segalib/lib/libsat.a(mth_rand.o)
- .bss           0x00000000060387a4        0x0 ../sbl/segalib/lib/libsat.a(mth_fixd.o)
- .bss           0x00000000060387a4        0x0 ../sbl/segalib/lib/libsat.a(mth_tri.o)
- .bss           0x00000000060387a4       0x7f ../sbl/segalib/lib/libsat.a(per_prt.o)
-                0x00000000060387a4                _per_set_sys_flg
-                0x00000000060387a8                _per_get_sys_data
-                0x00000000060387b4                _per_get_time_adr
-                0x00000000060387b8                _per_hot_res
-                0x00000000060387b9                _per_time_out_flg
- *fill*         0x0000000006038823        0x1 
- .bss           0x0000000006038824       0x94 ../sbl/segalib/lib/libsat.a(spr_2c.o)
-                0x0000000006038824                _SpCmdTblR
-                0x0000000006038828                _SpCmdTbl
-                0x000000000603882c                _SpCrCmdChain
-                0x0000000006038830                _SpDrawPrtyBlk
-                0x0000000006038834                _SpCmdChain
-                0x0000000006038838                _SpCmdChainBlkNo
-                0x000000000603883c                _SpDrawPrtyProcFlag
-                0x0000000006038840                _SpDrawPrtyTopCmdNo
-                0x0000000006038844                _SpCmdNo
-                0x0000000006038848                _SpDrawPrtyBlkMax
-                0x000000000603884c                _SpCharMax
-                0x0000000006038850                _SpCharTbl
-                0x0000000006038854                _SpLCoordY
-                0x0000000006038858                _SpLCoordX
-                0x000000000603885c                _Sp2OpenFlag
- .bss           0x00000000060388b8      0xf1c ../sbl/segalib/lib/libsat.a(scl_func.o)
-                0x00000000060388b8                _SclRPMD
-                0x00000000060388bc                _SclRotateMoveZ
-                0x00000000060388c4                _SclRotateDisp
-                0x00000000060388cc                _SclRotateZ
-                0x00000000060388d4                _SclRotateXy
-                0x00000000060388dc                _SclRotateTableAddress
-                0x00000000060388e0                _SclRb
-                0x00000000060388e1                _SclRa
-                0x00000000060388e2                _SclRotXySw
-                0x00000000060388e8                _SclRbgKtbOffset
-                0x00000000060388f0                _SclRbgKtbAddr
-                0x00000000060388f8                _SclK_TableFlag
-                0x00000000060388fc                _SclK_TableNum
-                0x0000000006038904                _SclK_TableBuff
-                0x00000000060395d4                _SclRotregBuff
-                0x00000000060396d4                _Scl_w_reg
-                0x00000000060396f4                _Scl_r_reg
-                0x0000000006039704                _Scl_n_reg
-                0x0000000006039744                _Scl_d_reg
-                0x000000000603978c                _Scl_s_reg
-                0x00000000060397b4                _SclProcess
-                0x00000000060397b8                _SclCurSclNum
-                0x00000000060397bc                _SclLengthCsTbl
-                0x00000000060397be                _SclLengthLsTbl
-                0x00000000060397c0                _SclAddrCsTbl
-                0x00000000060397c8                _SclAddrLsTbl
- .bss           0x00000000060397d4        0x0 ../sbl/segalib/lib/libsat.a(scl_fu02.o)
- .bss           0x00000000060397d4        0x0 ../sbl/segalib/lib/libsat.a(scl_fu03.o)
- .bss           0x00000000060397d4        0x0 ../sbl/segalib/lib/libsat.a(scl_fu04.o)
- .bss           0x00000000060397d4      0x696 ../sbl/segalib/lib/libsat.a(scl_pri.o)
-                0x00000000060397d4                _SclAutoRGB
-                0x0000000006039dd4                _SclAutoPlusFlag
-                0x0000000006039dd5                _SclAutoVeFlag
-                0x0000000006039dd6                _SclAutoEndRate
-                0x0000000006039dd7                _SclAutoCurRate
-                0x0000000006039dd8                _SclAutoEndBlue2
-                0x0000000006039dda                _SclAutoEndGreen2
-                0x0000000006039ddc                _SclAutoEndRed2
-                0x0000000006039dde                _SclAutoEndBlue
-                0x0000000006039de0                _SclAutoEndGreen
-                0x0000000006039de2                _SclAutoEndRed
-                0x0000000006039de4                _SclAutoBlue
-                0x0000000006039de6                _SclAutoGreen
-                0x0000000006039de8                _SclAutoRed
-                0x0000000006039dec                _SclAutoMax
-                0x0000000006039df0                _SclAutoIndex
-                0x0000000006039df4                _SclAutoCount
-                0x0000000006039df8                _SclAutoInterval
-                0x0000000006039dfc                _SclAutoSurface
-                0x0000000006039e00                _SclColRamAlloc2048
-                0x0000000006039e04                _SclColRamAlloc256
-                0x0000000006039e24                _SclLineColRamOffset
-                0x0000000006039e28                _SclPriBuffDirty
-                0x0000000006039e2c                _SclColOffset
-                0x0000000006039e3c                _SclBgColMix
-                0x0000000006039e44                _SclSpColMix
-                0x0000000006039e4c                _SclBgPriNum
-                0x0000000006039e52                _SclSpPriNum
-                0x0000000006039e5a                _SclOtherPri
- *fill*         0x0000000006039e6a        0x2 
- .bss           0x0000000006039e6c       0x58 ../sbl/segalib/lib/libsat.a(scl_ro00.o)
-                0x0000000006039e6c                _SclCsy
-                0x0000000006039e74                _SclCsx
- .bss           0x0000000006039ec4        0x0 ../sbl/segalib/lib/libsat.a(scl_ro03.o)
- .bss           0x0000000006039ec4        0x0 ../sbl/segalib/lib/libsat.a(scl_back.o)
- .bss           0x0000000006039ec4       0x16 ../sbl/segalib/lib/libsat.a(scl_vblv.o)
-                0x0000000006039ec4                _frameChgFlag
-                0x0000000006039ec8                _VBIntrDisableDepth
-                0x0000000006039ecc                _ReqDisplayFlag2
-                0x0000000006039ed0                _ReqDisplayFlag1
-                0x0000000006039ed4                _VBIntervalCounter
-                0x0000000006039ed8                _SpFrameChgMode
- .bss           0x0000000006039eda        0x0 ../sbl/segalib/lib/libsat.a(scl_pr01.o)
- .bss           0x0000000006039eda        0x0 ../sbl/segalib/lib/libsat.a(scl_pr02.o)
- .bss           0x0000000006039eda        0x0 ../sbl/segalib/lib/libsat.a(scl_pr03.o)
- .bss           0x0000000006039eda        0x0 ../sbl/segalib/lib/libsat.a(scl_pr05.o)
- .bss           0x0000000006039eda        0x0 ../sbl/segalib/lib/libsat.a(scl_pr06.o)
- .bss           0x0000000006039eda        0x0 ../sbl/segalib/lib/libsat.a(scl_pr07.o)
- .bss           0x0000000006039eda        0x0 ../sbl/segalib/lib/libsat.a(scl_pr11.o)
- .bss           0x0000000006039eda        0x0 ../sbl/segalib/lib/libsat.a(scl_pr12.o)
- .bss           0x0000000006039eda        0x2 ../sbl/segalib/lib/libsat.a(cdc_reg.o)
-                0x0000000006039eda                _hirq_flag
- .bss           0x0000000006039edc        0xc ../sbl/segalib/lib/libsat.a(cdc_sub.o)
-                0x0000000006039edc                _cd_stat
- .bss           0x0000000006039ee8        0x0 ../sbl/segalib/lib/libsat.a(cdc_dev.o)
- .bss           0x0000000006039ee8        0x0 ../sbl/segalib/lib/libsat.a(cdc_sel.o)
- .bss           0x0000000006039ee8        0x0 ../sbl/segalib/lib/libsat.a(cdc_bif.o)
- .bss           0x0000000006039ee8        0x0 ../sbl/segalib/lib/libsat.a(cdc_bio.o)
- .bss           0x0000000006039ee8        0x0 ../sbl/segalib/lib/libsat.a(cdc_cfs.o)
- .bss           0x0000000006039ee8        0x0 ../sbl/segalib/lib/libsat.a(csh_main.o)
- .bss           0x0000000006039ee8        0x0 ../sbl/segalib/lib/libsat.a(dma_cpu0.o)
- .bss           0x0000000006039ee8       0x1c ../sbl/segalib/lib/libsat.a(dma_scu0.o)
- .bss           0x0000000006039f04       0x20 ../sbl/segalib/lib/libsat.a(spr_1c.o)
-                0x0000000006039f04                _SpDil
-                0x0000000006039f06                _SpDie
-                0x0000000006039f08                _SpFbcrMode
-                0x0000000006039f0a                _SpTvMode
-                0x0000000006039f0c                _SpScreenY
-                0x0000000006039f10                _SpScreenX
-                0x0000000006039f14                _SpInitialFlag
- .bss           0x0000000006039f24        0x0 ../sbl/segalib/lib/libsat.a(spr_2a.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftrt.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftrt_n.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftlt.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_movmem.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_sdivsi3.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_udivsi3.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_lshiftrt.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcpy.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memset.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strcpy.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
- .bss           0x0000000006039f24        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
+ .bss           0x00000000060207d0        0x0 entry.o
+ .bss           0x00000000060207d0        0x0 stack.o
+ .bss           0x00000000060207d0       0x34 vblank.o
+                0x00000000060207d0                _vblank_frames
+                0x00000000060207d4                _VblankFlg
+                0x00000000060207d8                _perFlag
+                0x00000000060207dc                _PadWorkArea
+                0x00000000060207f8                _PadData2E
+                0x00000000060207fa                _PadData2L
+                0x00000000060207fc                _PadData2
+                0x00000000060207fe                _PadData1E
+                0x0000000006020800                _PadData1L
+                0x0000000006020802                _PadData1
+ .bss           0x0000000006020804       0x58 bg.o
+ .bss           0x000000000602085c     0x1674 cd.o
+ .bss           0x0000000006021ed0        0x0 crc.o
+ .bss           0x0000000006021ed0        0x0 devcart.o
+ .bss           0x0000000006021ed0      0x44c game.o
+                0x0000000006021ed0                _song
+                0x0000000006021ed4                _boardVram
+ .bss           0x000000000602231c    0x13880 hwram.o
+                0x000000000602231c                _HWRAM_Buffer
+ .bss           0x0000000006035b9c        0x2 pcmsys.o
+                0x0000000006035b9c                _numberPCMs
+ .bss           0x0000000006035b9e        0x0 piece.o
+ .bss           0x0000000006035b9e      0x528 print.o
+                0x0000000006035b9e                _text
+ *fill*         0x00000000060360c6        0x2 
+ .bss           0x00000000060360c8        0x8 rng.o
+ .bss           0x00000000060360d0      0x17c scroll.o
+                0x00000000060360d0                _scfg
+ .bss           0x000000000603624c        0x0 sound.o
+ .bss           0x000000000603624c     0x257c sprite.o
+                0x000000000603624c                _sprites
+                0x000000000603750c                _palCnt
+                0x0000000006037510                _tileCount
+                0x0000000006037514                _numSprites
+ .bss           0x00000000060387c8        0x4 main.o
+                0x00000000060387c8                _frame
+ .bss           0x00000000060387cc        0x0 ../sbl/segalib/lib/libsat.a(cdc_cmn.o)
+ .bss           0x00000000060387cc        0x0 ../sbl/segalib/lib/libsat.a(cdc_drv.o)
+ .bss           0x00000000060387cc        0xc ../sbl/segalib/lib/libsat.a(dma_scu1.o)
+ .bss           0x00000000060387d8        0xc ../sbl/segalib/lib/libsat.a(gfs.o)
+                0x00000000060387d8                _GFMC_base
+                0x00000000060387dc                _gfs_mng_ptr
+                0x00000000060387e0                _bobtest
+ .bss           0x00000000060387e4        0x0 ../sbl/segalib/lib/libsat.a(gfs_buf.o)
+ .bss           0x00000000060387e4        0x0 ../sbl/segalib/lib/libsat.a(gfs_cdb.o)
+ .bss           0x00000000060387e4        0x4 ../sbl/segalib/lib/libsat.a(gfs_cdc.o)
+                0x00000000060387e4                _gfcd_work
+ .bss           0x00000000060387e8        0x0 ../sbl/segalib/lib/libsat.a(gfs_cdf.o)
+ .bss           0x00000000060387e8        0x0 ../sbl/segalib/lib/libsat.a(gfs_dir.o)
+ .bss           0x00000000060387e8        0xc ../sbl/segalib/lib/libsat.a(gfs_trn.o)
+ .bss           0x00000000060387f4        0x4 ../sbl/segalib/lib/libsat.a(mth_rand.o)
+ .bss           0x00000000060387f8        0x0 ../sbl/segalib/lib/libsat.a(mth_fixd.o)
+ .bss           0x00000000060387f8        0x0 ../sbl/segalib/lib/libsat.a(mth_tri.o)
+ .bss           0x00000000060387f8       0x7f ../sbl/segalib/lib/libsat.a(per_prt.o)
+                0x00000000060387f8                _per_set_sys_flg
+                0x00000000060387fc                _per_get_sys_data
+                0x0000000006038808                _per_get_time_adr
+                0x000000000603880c                _per_hot_res
+                0x000000000603880d                _per_time_out_flg
+ *fill*         0x0000000006038877        0x1 
+ .bss           0x0000000006038878       0x94 ../sbl/segalib/lib/libsat.a(spr_2c.o)
+                0x0000000006038878                _SpCmdTblR
+                0x000000000603887c                _SpCmdTbl
+                0x0000000006038880                _SpCrCmdChain
+                0x0000000006038884                _SpDrawPrtyBlk
+                0x0000000006038888                _SpCmdChain
+                0x000000000603888c                _SpCmdChainBlkNo
+                0x0000000006038890                _SpDrawPrtyProcFlag
+                0x0000000006038894                _SpDrawPrtyTopCmdNo
+                0x0000000006038898                _SpCmdNo
+                0x000000000603889c                _SpDrawPrtyBlkMax
+                0x00000000060388a0                _SpCharMax
+                0x00000000060388a4                _SpCharTbl
+                0x00000000060388a8                _SpLCoordY
+                0x00000000060388ac                _SpLCoordX
+                0x00000000060388b0                _Sp2OpenFlag
+ .bss           0x000000000603890c      0xf1c ../sbl/segalib/lib/libsat.a(scl_func.o)
+                0x000000000603890c                _SclRPMD
+                0x0000000006038910                _SclRotateMoveZ
+                0x0000000006038918                _SclRotateDisp
+                0x0000000006038920                _SclRotateZ
+                0x0000000006038928                _SclRotateXy
+                0x0000000006038930                _SclRotateTableAddress
+                0x0000000006038934                _SclRb
+                0x0000000006038935                _SclRa
+                0x0000000006038936                _SclRotXySw
+                0x000000000603893c                _SclRbgKtbOffset
+                0x0000000006038944                _SclRbgKtbAddr
+                0x000000000603894c                _SclK_TableFlag
+                0x0000000006038950                _SclK_TableNum
+                0x0000000006038958                _SclK_TableBuff
+                0x0000000006039628                _SclRotregBuff
+                0x0000000006039728                _Scl_w_reg
+                0x0000000006039748                _Scl_r_reg
+                0x0000000006039758                _Scl_n_reg
+                0x0000000006039798                _Scl_d_reg
+                0x00000000060397e0                _Scl_s_reg
+                0x0000000006039808                _SclProcess
+                0x000000000603980c                _SclCurSclNum
+                0x0000000006039810                _SclLengthCsTbl
+                0x0000000006039812                _SclLengthLsTbl
+                0x0000000006039814                _SclAddrCsTbl
+                0x000000000603981c                _SclAddrLsTbl
+ .bss           0x0000000006039828        0x0 ../sbl/segalib/lib/libsat.a(scl_fu02.o)
+ .bss           0x0000000006039828        0x0 ../sbl/segalib/lib/libsat.a(scl_fu03.o)
+ .bss           0x0000000006039828        0x0 ../sbl/segalib/lib/libsat.a(scl_fu04.o)
+ .bss           0x0000000006039828      0x696 ../sbl/segalib/lib/libsat.a(scl_pri.o)
+                0x0000000006039828                _SclAutoRGB
+                0x0000000006039e28                _SclAutoPlusFlag
+                0x0000000006039e29                _SclAutoVeFlag
+                0x0000000006039e2a                _SclAutoEndRate
+                0x0000000006039e2b                _SclAutoCurRate
+                0x0000000006039e2c                _SclAutoEndBlue2
+                0x0000000006039e2e                _SclAutoEndGreen2
+                0x0000000006039e30                _SclAutoEndRed2
+                0x0000000006039e32                _SclAutoEndBlue
+                0x0000000006039e34                _SclAutoEndGreen
+                0x0000000006039e36                _SclAutoEndRed
+                0x0000000006039e38                _SclAutoBlue
+                0x0000000006039e3a                _SclAutoGreen
+                0x0000000006039e3c                _SclAutoRed
+                0x0000000006039e40                _SclAutoMax
+                0x0000000006039e44                _SclAutoIndex
+                0x0000000006039e48                _SclAutoCount
+                0x0000000006039e4c                _SclAutoInterval
+                0x0000000006039e50                _SclAutoSurface
+                0x0000000006039e54                _SclColRamAlloc2048
+                0x0000000006039e58                _SclColRamAlloc256
+                0x0000000006039e78                _SclLineColRamOffset
+                0x0000000006039e7c                _SclPriBuffDirty
+                0x0000000006039e80                _SclColOffset
+                0x0000000006039e90                _SclBgColMix
+                0x0000000006039e98                _SclSpColMix
+                0x0000000006039ea0                _SclBgPriNum
+                0x0000000006039ea6                _SclSpPriNum
+                0x0000000006039eae                _SclOtherPri
+ *fill*         0x0000000006039ebe        0x2 
+ .bss           0x0000000006039ec0       0x58 ../sbl/segalib/lib/libsat.a(scl_ro00.o)
+                0x0000000006039ec0                _SclCsy
+                0x0000000006039ec8                _SclCsx
+ .bss           0x0000000006039f18        0x0 ../sbl/segalib/lib/libsat.a(scl_ro03.o)
+ .bss           0x0000000006039f18        0x0 ../sbl/segalib/lib/libsat.a(scl_back.o)
+ .bss           0x0000000006039f18       0x16 ../sbl/segalib/lib/libsat.a(scl_vblv.o)
+                0x0000000006039f18                _frameChgFlag
+                0x0000000006039f1c                _VBIntrDisableDepth
+                0x0000000006039f20                _ReqDisplayFlag2
+                0x0000000006039f24                _ReqDisplayFlag1
+                0x0000000006039f28                _VBIntervalCounter
+                0x0000000006039f2c                _SpFrameChgMode
+ .bss           0x0000000006039f2e        0x0 ../sbl/segalib/lib/libsat.a(scl_pr01.o)
+ .bss           0x0000000006039f2e        0x0 ../sbl/segalib/lib/libsat.a(scl_pr02.o)
+ .bss           0x0000000006039f2e        0x0 ../sbl/segalib/lib/libsat.a(scl_pr03.o)
+ .bss           0x0000000006039f2e        0x0 ../sbl/segalib/lib/libsat.a(scl_pr05.o)
+ .bss           0x0000000006039f2e        0x0 ../sbl/segalib/lib/libsat.a(scl_pr06.o)
+ .bss           0x0000000006039f2e        0x0 ../sbl/segalib/lib/libsat.a(scl_pr07.o)
+ .bss           0x0000000006039f2e        0x0 ../sbl/segalib/lib/libsat.a(scl_pr11.o)
+ .bss           0x0000000006039f2e        0x0 ../sbl/segalib/lib/libsat.a(scl_pr12.o)
+ .bss           0x0000000006039f2e        0x2 ../sbl/segalib/lib/libsat.a(cdc_reg.o)
+                0x0000000006039f2e                _hirq_flag
+ .bss           0x0000000006039f30        0xc ../sbl/segalib/lib/libsat.a(cdc_sub.o)
+                0x0000000006039f30                _cd_stat
+ .bss           0x0000000006039f3c        0x0 ../sbl/segalib/lib/libsat.a(cdc_dev.o)
+ .bss           0x0000000006039f3c        0x0 ../sbl/segalib/lib/libsat.a(cdc_sel.o)
+ .bss           0x0000000006039f3c        0x0 ../sbl/segalib/lib/libsat.a(cdc_bif.o)
+ .bss           0x0000000006039f3c        0x0 ../sbl/segalib/lib/libsat.a(cdc_bio.o)
+ .bss           0x0000000006039f3c        0x0 ../sbl/segalib/lib/libsat.a(cdc_cfs.o)
+ .bss           0x0000000006039f3c        0x0 ../sbl/segalib/lib/libsat.a(csh_main.o)
+ .bss           0x0000000006039f3c        0x0 ../sbl/segalib/lib/libsat.a(dma_cpu0.o)
+ .bss           0x0000000006039f3c       0x1c ../sbl/segalib/lib/libsat.a(dma_scu0.o)
+ .bss           0x0000000006039f58       0x20 ../sbl/segalib/lib/libsat.a(spr_1c.o)
+                0x0000000006039f58                _SpDil
+                0x0000000006039f5a                _SpDie
+                0x0000000006039f5c                _SpFbcrMode
+                0x0000000006039f5e                _SpTvMode
+                0x0000000006039f60                _SpScreenY
+                0x0000000006039f64                _SpScreenX
+                0x0000000006039f68                _SpInitialFlag
+ .bss           0x0000000006039f78        0x0 ../sbl/segalib/lib/libsat.a(spr_2a.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftrt.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftrt_n.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_ashiftlt.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_movmem.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_sdivsi3.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_udivsi3.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_lshiftrt.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcpy.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memset.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strcpy.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
+ .bss           0x0000000006039f78        0x0 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
  *(COMMON)
-                0x0000000006039f24                _bss_end = .
-                0x0000000006039f30                . = ALIGN (0x10)
- *fill*         0x0000000006039f24        0xc 
-                0x0000000006039f30                _end = ABSOLUTE (.)
+                0x0000000006039f78                _bss_end = .
+                0x0000000006039f80                . = ALIGN (0x10)
+ *fill*         0x0000000006039f78        0x8 
+                0x0000000006039f80                _end = ABSOLUTE (.)
 
-.stack          0x0000000006039f30     0x2000
+.stack          0x0000000006039f80     0x2000
  *(.stack)
- .stack         0x0000000006039f30     0x2000 stack.o
-                0x0000000006039f30                _PROG_STK
-                0x000000000603bf30                _stack = .
+ .stack         0x0000000006039f80     0x2000 stack.o
+                0x0000000006039f80                _PROG_STK
+                0x000000000603bf80                _stack = .
 
 .lwram          0x0000000000200000        0x0
                 0x0000000000200000                . = ALIGN (0x10)
  *(.lwram)
                 0x0000000000200000                . = ALIGN (0x10)
-
-.vdp2_vram      0x0000000005e00000        0x0
-                0x0000000005e00000                . = ALIGN (0x10)
- *(.vdp2_vram)
-                0x0000000005e00000                . = ALIGN (0x10)
 OUTPUT(main.elf elf32-sh)
 
-.debug_info     0x0000000000000000     0x7bed
+.debug_info     0x0000000000000000     0x7c06
  .debug_info    0x0000000000000000      0x4d4 vblank.o
  .debug_info    0x00000000000004d4      0x65e bg.o
  .debug_info    0x0000000000000b32      0x937 cd.o
  .debug_info    0x0000000000001469      0x12d crc.o
  .debug_info    0x0000000000001596      0x47b devcart.o
- .debug_info    0x0000000000001a11     0x1637 game.o
- .debug_info    0x0000000000003048       0x9e hwram.o
- .debug_info    0x00000000000030e6      0x6a5 pcmsys.o
- .debug_info    0x000000000000378b       0x69 piece.o
- .debug_info    0x00000000000037f4      0x3fe print.o
- .debug_info    0x0000000000003bf2      0x240 rng.o
- .debug_info    0x0000000000003e32      0xf2a scroll.o
- .debug_info    0x0000000000004d5c      0x49a sound.o
- .debug_info    0x00000000000051f6     0x102c sprite.o
- .debug_info    0x0000000000006222      0x39d main.o
- .debug_info    0x00000000000065bf      0x4d2 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
- .debug_info    0x0000000000006a91      0x259 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
- .debug_info    0x0000000000006cea      0x2a5 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
- .debug_info    0x0000000000006f8f      0x15b /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
- .debug_info    0x00000000000070ea      0x130 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
- .debug_info    0x000000000000721a      0x298 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
- .debug_info    0x00000000000074b2      0x20c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
- .debug_info    0x00000000000076be       0xca /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
- .debug_info    0x0000000000007788      0x10f /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
- .debug_info    0x0000000000007897      0x130 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
- .debug_info    0x00000000000079c7       0xf4 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
- .debug_info    0x0000000000007abb      0x132 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
+ .debug_info    0x0000000000001a11     0x1650 game.o
+ .debug_info    0x0000000000003061       0x9e hwram.o
+ .debug_info    0x00000000000030ff      0x6a5 pcmsys.o
+ .debug_info    0x00000000000037a4       0x69 piece.o
+ .debug_info    0x000000000000380d      0x3fe print.o
+ .debug_info    0x0000000000003c0b      0x240 rng.o
+ .debug_info    0x0000000000003e4b      0xf2a scroll.o
+ .debug_info    0x0000000000004d75      0x49a sound.o
+ .debug_info    0x000000000000520f     0x102c sprite.o
+ .debug_info    0x000000000000623b      0x39d main.o
+ .debug_info    0x00000000000065d8      0x4d2 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
+ .debug_info    0x0000000000006aaa      0x259 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
+ .debug_info    0x0000000000006d03      0x2a5 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
+ .debug_info    0x0000000000006fa8      0x15b /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
+ .debug_info    0x0000000000007103      0x130 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
+ .debug_info    0x0000000000007233      0x298 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
+ .debug_info    0x00000000000074cb      0x20c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
+ .debug_info    0x00000000000076d7       0xca /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
+ .debug_info    0x00000000000077a1      0x10f /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
+ .debug_info    0x00000000000078b0      0x130 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
+ .debug_info    0x00000000000079e0       0xf4 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
+ .debug_info    0x0000000000007ad4      0x132 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
 
-.debug_abbrev   0x0000000000000000     0x2d08
+.debug_abbrev   0x0000000000000000     0x2d1e
  .debug_abbrev  0x0000000000000000      0x1f2 vblank.o
  .debug_abbrev  0x00000000000001f2      0x1f9 bg.o
  .debug_abbrev  0x00000000000003eb      0x25b cd.o
  .debug_abbrev  0x0000000000000646       0xbe crc.o
  .debug_abbrev  0x0000000000000704      0x24f devcart.o
- .debug_abbrev  0x0000000000000953      0x497 game.o
- .debug_abbrev  0x0000000000000dea       0x69 hwram.o
- .debug_abbrev  0x0000000000000e53      0x2f6 pcmsys.o
- .debug_abbrev  0x0000000000001149       0x5a piece.o
- .debug_abbrev  0x00000000000011a3      0x1de print.o
- .debug_abbrev  0x0000000000001381      0x1ad rng.o
- .debug_abbrev  0x000000000000152e      0x332 scroll.o
- .debug_abbrev  0x0000000000001860      0x1cf sound.o
- .debug_abbrev  0x0000000000001a2f      0x3dc sprite.o
- .debug_abbrev  0x0000000000001e0b      0x1a3 main.o
- .debug_abbrev  0x0000000000001fae      0x278 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
- .debug_abbrev  0x0000000000002226      0x1b2 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
- .debug_abbrev  0x00000000000023d8      0x1b2 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
- .debug_abbrev  0x000000000000258a       0xcf /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
- .debug_abbrev  0x0000000000002659       0xca /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
- .debug_abbrev  0x0000000000002723      0x1ae /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
- .debug_abbrev  0x00000000000028d1      0x142 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
- .debug_abbrev  0x0000000000002a13       0x70 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
- .debug_abbrev  0x0000000000002a83       0x8a /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
- .debug_abbrev  0x0000000000002b0d       0xba /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
- .debug_abbrev  0x0000000000002bc7       0x8c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
- .debug_abbrev  0x0000000000002c53       0xb5 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
+ .debug_abbrev  0x0000000000000953      0x4ad game.o
+ .debug_abbrev  0x0000000000000e00       0x69 hwram.o
+ .debug_abbrev  0x0000000000000e69      0x2f6 pcmsys.o
+ .debug_abbrev  0x000000000000115f       0x5a piece.o
+ .debug_abbrev  0x00000000000011b9      0x1de print.o
+ .debug_abbrev  0x0000000000001397      0x1ad rng.o
+ .debug_abbrev  0x0000000000001544      0x332 scroll.o
+ .debug_abbrev  0x0000000000001876      0x1cf sound.o
+ .debug_abbrev  0x0000000000001a45      0x3dc sprite.o
+ .debug_abbrev  0x0000000000001e21      0x1a3 main.o
+ .debug_abbrev  0x0000000000001fc4      0x278 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
+ .debug_abbrev  0x000000000000223c      0x1b2 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
+ .debug_abbrev  0x00000000000023ee      0x1b2 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
+ .debug_abbrev  0x00000000000025a0       0xcf /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
+ .debug_abbrev  0x000000000000266f       0xca /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
+ .debug_abbrev  0x0000000000002739      0x1ae /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
+ .debug_abbrev  0x00000000000028e7      0x142 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
+ .debug_abbrev  0x0000000000002a29       0x70 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
+ .debug_abbrev  0x0000000000002a99       0x8a /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
+ .debug_abbrev  0x0000000000002b23       0xba /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
+ .debug_abbrev  0x0000000000002bdd       0x8c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
+ .debug_abbrev  0x0000000000002c69       0xb5 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
 
 .debug_aranges  0x0000000000000000      0x340
  .debug_aranges
@@ -1295,36 +1290,36 @@ OUTPUT(main.elf elf32-sh)
  .debug_aranges
                 0x0000000000000320       0x20 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
 
-.debug_line     0x0000000000000000     0x4774
+.debug_line     0x0000000000000000     0x47f1
  .debug_line    0x0000000000000000      0x153 vblank.o
- .debug_line    0x0000000000000153      0x3ba bg.o
- .debug_line    0x000000000000050d      0x13e cd.o
- .debug_line    0x000000000000064b       0xaa crc.o
- .debug_line    0x00000000000006f5      0x3d0 devcart.o
- .debug_line    0x0000000000000ac5      0xf66 game.o
- .debug_line    0x0000000000001a2b       0x58 hwram.o
- .debug_line    0x0000000000001a83      0x4ce pcmsys.o
- .debug_line    0x0000000000001f51       0x33 piece.o
- .debug_line    0x0000000000001f84      0x1db print.o
- .debug_line    0x000000000000215f      0x155 rng.o
- .debug_line    0x00000000000022b4      0x6b9 scroll.o
- .debug_line    0x000000000000296d      0x285 sound.o
- .debug_line    0x0000000000002bf2      0x820 sprite.o
- .debug_line    0x0000000000003412      0x191 main.o
- .debug_line    0x00000000000035a3      0x2d6 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
- .debug_line    0x0000000000003879      0x13d /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
- .debug_line    0x00000000000039b6       0xf6 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
- .debug_line    0x0000000000003aac       0x50 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
- .debug_line    0x0000000000003afc       0xad /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
- .debug_line    0x0000000000003ba9      0x30c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
- .debug_line    0x0000000000003eb5      0x146 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
- .debug_line    0x0000000000003ffb       0x52 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
- .debug_line    0x000000000000404d      0x167 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
- .debug_line    0x00000000000041b4      0x1ec /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
- .debug_line    0x00000000000043a0      0x200 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
- .debug_line    0x00000000000045a0      0x1d4 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
+ .debug_line    0x0000000000000153      0x3d2 bg.o
+ .debug_line    0x0000000000000525      0x13e cd.o
+ .debug_line    0x0000000000000663       0xaa crc.o
+ .debug_line    0x000000000000070d      0x3d0 devcart.o
+ .debug_line    0x0000000000000add      0xfcb game.o
+ .debug_line    0x0000000000001aa8       0x58 hwram.o
+ .debug_line    0x0000000000001b00      0x4ce pcmsys.o
+ .debug_line    0x0000000000001fce       0x33 piece.o
+ .debug_line    0x0000000000002001      0x1db print.o
+ .debug_line    0x00000000000021dc      0x155 rng.o
+ .debug_line    0x0000000000002331      0x6b9 scroll.o
+ .debug_line    0x00000000000029ea      0x285 sound.o
+ .debug_line    0x0000000000002c6f      0x820 sprite.o
+ .debug_line    0x000000000000348f      0x191 main.o
+ .debug_line    0x0000000000003620      0x2d6 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
+ .debug_line    0x00000000000038f6      0x13d /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
+ .debug_line    0x0000000000003a33       0xf6 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
+ .debug_line    0x0000000000003b29       0x50 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
+ .debug_line    0x0000000000003b79       0xad /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
+ .debug_line    0x0000000000003c26      0x30c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
+ .debug_line    0x0000000000003f32      0x146 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
+ .debug_line    0x0000000000004078       0x52 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
+ .debug_line    0x00000000000040ca      0x167 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
+ .debug_line    0x0000000000004231      0x1ec /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
+ .debug_line    0x000000000000441d      0x200 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
+ .debug_line    0x000000000000461d      0x1d4 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
 
-.debug_str      0x0000000000000000     0x1b5c
+.debug_str      0x0000000000000000     0x1b95
  .debug_str     0x0000000000000000      0x236 vblank.o
                                         0x298 (size before relaxing)
  .debug_str     0x0000000000000236      0x1c4 bg.o
@@ -1335,46 +1330,46 @@ OUTPUT(main.elf elf32-sh)
                                         0x121 (size before relaxing)
  .debug_str     0x000000000000068e      0x118 devcart.o
                                         0x246 (size before relaxing)
- .debug_str     0x00000000000007a6      0x4b4 game.o
-                                        0x5e8 (size before relaxing)
- .debug_str     0x0000000000000c5a        0x8 hwram.o
+ .debug_str     0x00000000000007a6      0x4ed game.o
+                                        0x621 (size before relaxing)
+ .debug_str     0x0000000000000c93        0x8 hwram.o
                                          0xcd (size before relaxing)
- .debug_str     0x0000000000000c62      0x161 pcmsys.o
+ .debug_str     0x0000000000000c9b      0x161 pcmsys.o
                                         0x302 (size before relaxing)
- .debug_str     0x0000000000000dc3        0x8 piece.o
+ .debug_str     0x0000000000000dfc        0x8 piece.o
                                          0x62 (size before relaxing)
- .debug_str     0x0000000000000dcb       0x56 print.o
+ .debug_str     0x0000000000000e04       0x56 print.o
                                         0x1f4 (size before relaxing)
- .debug_str     0x0000000000000e21       0x7c rng.o
+ .debug_str     0x0000000000000e5a       0x7c rng.o
                                         0x184 (size before relaxing)
- .debug_str     0x0000000000000e9d      0x35e scroll.o
+ .debug_str     0x0000000000000ed6      0x35e scroll.o
                                         0x4f8 (size before relaxing)
- .debug_str     0x00000000000011fb       0xb8 sound.o
+ .debug_str     0x0000000000001234       0xb8 sound.o
                                         0x20c (size before relaxing)
- .debug_str     0x00000000000012b3      0x330 sprite.o
+ .debug_str     0x00000000000012ec      0x330 sprite.o
                                         0x560 (size before relaxing)
- .debug_str     0x00000000000015e3      0x130 main.o
+ .debug_str     0x000000000000161c      0x130 main.o
                                         0x30e (size before relaxing)
- .debug_str     0x0000000000001713      0x212 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
+ .debug_str     0x000000000000174c      0x212 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
                                         0x28a (size before relaxing)
- .debug_str     0x0000000000001925       0x27 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
+ .debug_str     0x000000000000195e       0x27 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
                                         0x216 (size before relaxing)
- .debug_str     0x000000000000194c        0xa /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
+ .debug_str     0x0000000000001985        0xa /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
                                         0x233 (size before relaxing)
- .debug_str     0x0000000000001956      0x1d5 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
- .debug_str     0x0000000000001956       0x59 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
+ .debug_str     0x000000000000198f      0x1d5 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_thenan_df.o)
+ .debug_str     0x000000000000198f       0x59 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
                                         0x198 (size before relaxing)
- .debug_str     0x00000000000019af        0x7 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
+ .debug_str     0x00000000000019e8        0x7 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
                                         0x227 (size before relaxing)
- .debug_str     0x00000000000019b6      0x209 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
- .debug_str     0x00000000000019b6      0x17b /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
- .debug_str     0x00000000000019b6       0xa8 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
+ .debug_str     0x00000000000019ef      0x209 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
+ .debug_str     0x00000000000019ef      0x17b /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clz.o)
+ .debug_str     0x00000000000019ef       0xa8 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
                                         0x144 (size before relaxing)
- .debug_str     0x0000000000001a5e       0x72 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
+ .debug_str     0x0000000000001a97       0x72 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
                                         0x177 (size before relaxing)
- .debug_str     0x0000000000001ad0       0x41 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
+ .debug_str     0x0000000000001b09       0x41 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
                                         0x146 (size before relaxing)
- .debug_str     0x0000000000001b11       0x4b /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
+ .debug_str     0x0000000000001b4a       0x4b /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
                                         0x16e (size before relaxing)
 
 .comment        0x0000000000000000       0x12
@@ -1474,7 +1469,7 @@ OUTPUT(main.elf elf32-sh)
  .debug_frame   0x0000000000000f20       0x44 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
 
 .debug_loclists
-                0x0000000000000000     0x1e47
+                0x0000000000000000     0x1e50
  .debug_loclists
                 0x0000000000000000       0x4b bg.o
  .debug_loclists
@@ -1484,42 +1479,42 @@ OUTPUT(main.elf elf32-sh)
  .debug_loclists
                 0x0000000000000108      0x1ae devcart.o
  .debug_loclists
-                0x00000000000002b6      0x5af game.o
+                0x00000000000002b6      0x5b8 game.o
  .debug_loclists
-                0x0000000000000865      0x1fe pcmsys.o
+                0x000000000000086e      0x1fe pcmsys.o
  .debug_loclists
-                0x0000000000000a63      0x19d print.o
+                0x0000000000000a6c      0x19d print.o
  .debug_loclists
-                0x0000000000000c00       0x70 rng.o
+                0x0000000000000c09       0x70 rng.o
  .debug_loclists
-                0x0000000000000c70      0x42c scroll.o
+                0x0000000000000c79      0x42c scroll.o
  .debug_loclists
-                0x000000000000109c       0x94 sound.o
+                0x00000000000010a5       0x94 sound.o
  .debug_loclists
-                0x0000000000001130      0x2ed sprite.o
+                0x0000000000001139      0x2ed sprite.o
  .debug_loclists
-                0x000000000000141d      0x30c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
+                0x0000000000001426      0x30c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
  .debug_loclists
-                0x0000000000001729       0x6c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
+                0x0000000000001732       0x6c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
  .debug_loclists
-                0x0000000000001795       0x35 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
+                0x000000000000179e       0x35 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_df_to_si.o)
  .debug_loclists
-                0x00000000000017ca       0x22 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
+                0x00000000000017d3       0x22 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
  .debug_loclists
-                0x00000000000017ec      0x230 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
+                0x00000000000017f5      0x230 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
  .debug_loclists
-                0x0000000000001a1c       0x71 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
+                0x0000000000001a25       0x71 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_unpack_df.o)
  .debug_loclists
-                0x0000000000001a8d       0xae /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
+                0x0000000000001a96       0xae /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memcmp.o)
  .debug_loclists
-                0x0000000000001b3b      0x13c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
+                0x0000000000001b44      0x13c /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-memmove.o)
  .debug_loclists
-                0x0000000000001c77       0xd5 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
+                0x0000000000001c80       0xd5 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncmp.o)
  .debug_loclists
-                0x0000000000001d4c       0xfb /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
+                0x0000000000001d55       0xfb /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/../../../../sh-elf/lib/libc.a(lib_a-strncpy.o)
 
 .debug_rnglists
-                0x0000000000000000      0x65e
+                0x0000000000000000      0x647
  .debug_rnglists
                 0x0000000000000000       0x24 bg.o
  .debug_rnglists
@@ -1527,22 +1522,22 @@ OUTPUT(main.elf elf32-sh)
  .debug_rnglists
                 0x0000000000000048       0x7e devcart.o
  .debug_rnglists
-                0x00000000000000c6      0x348 game.o
+                0x00000000000000c6      0x331 game.o
  .debug_rnglists
-                0x000000000000040e       0x66 pcmsys.o
+                0x00000000000003f7       0x66 pcmsys.o
  .debug_rnglists
-                0x0000000000000474       0x23 rng.o
+                0x000000000000045d       0x23 rng.o
  .debug_rnglists
-                0x0000000000000497       0x47 scroll.o
+                0x0000000000000480       0x47 scroll.o
  .debug_rnglists
-                0x00000000000004de       0x7b sprite.o
+                0x00000000000004c7       0x7b sprite.o
  .debug_rnglists
-                0x0000000000000559       0x14 main.o
+                0x0000000000000542       0x14 main.o
  .debug_rnglists
-                0x000000000000056d       0x2e /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
+                0x0000000000000556       0x2e /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_mul_df.o)
  .debug_rnglists
-                0x000000000000059b       0x26 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
+                0x0000000000000584       0x26 /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_si_to_df.o)
  .debug_rnglists
-                0x00000000000005c1       0x1f /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
+                0x00000000000005aa       0x1f /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_clzsi2.o)
  .debug_rnglists
-                0x00000000000005e0       0x7e /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)
+                0x00000000000005c9       0x7e /opt/toolchains/sh-elf/bin/../lib/gcc/sh-elf/11.1.0/libgcc.a(_pack_df.o)

@@ -17,6 +17,8 @@ typedef enum {
     STATE_NORMAL,
     STATE_LINE,
     STATE_ARE,
+    STATE_GAMEOVER,
+    STATE_GAMEOVER_DONE,
 } GAME_STATE;
 
 static int borderBase;
@@ -87,6 +89,9 @@ static int downTimer;
 static int lockTimer;
 
 static int gravityTimer;
+
+#define GAME_OVER_FRAMES (5)
+static int gameOverRow;
 
 #define ROTATE_CLOCKWISE (-1)
 #define ROTATE_COUNTERCLOCKWISE (1)
@@ -166,7 +171,7 @@ void Game_Init() {
     for (int i = 0; i < 4; i++) { 
         ((volatile Uint16 *)MAP_PTR(1))[LEVEL_Y * ROW_OFFSET + LEVEL_X + i] = (LEVEL_TILE + i) * 2; 
     }
-    level = 80;
+    level = 0;
     levelCursor = 0;
    
     CD_ChangeDir("..");
@@ -574,7 +579,7 @@ static int Game_Normal() {
         }
 
         // bg changing
-        if ((level < 500) && (level / 100) > (oldLevel / 100)) {
+        if ((level < 600) && (level / 100) > (oldLevel / 100)) {
                 BG_Next();
         }
 
@@ -618,12 +623,6 @@ static int Game_Normal() {
         Game_DrawPiece(&currPiece);
     }
 
-    // copy the board to VRAM
-    for (int y = 0; y < GAME_ROWS; y++) {
-        for (int x = 0; x < GAME_COLS; x++) {
-            boardVram[(y * ROW_OFFSET) + x] = (gameBoard[y][x] * 2);
-        }
-    }
     return 0;
 }
 
@@ -638,12 +637,6 @@ static void Game_Line() {
                 Game_MoveDown(i);
             }
         }
-        // copy the board to VRAM
-        for (int y = 0; y < GAME_ROWS; y++) {
-            for (int x = 0; x < GAME_COLS; x++) {
-                boardVram[(y * ROW_OFFSET) + x] = (gameBoard[y][x] * 2);
-            }
-        }
         Sound_Play(SOUND_FALL);
         gameTimer = ARE_FRAMES;
         gameState = STATE_ARE;
@@ -656,6 +649,13 @@ static void Game_Are() {
     }
     else {
         Game_MakePiece(&currPiece, &nextPiece);
+        // if the new piece collides with the board, it's game over
+        if (!Game_CheckPiece(&currPiece)) {
+            gameState = STATE_GAMEOVER;
+            gameTimer = GAME_OVER_FRAMES;
+            gameOverRow = 0;
+            return;
+        }
         if ((level % 100) != 99) {
             level++;
         }
@@ -665,6 +665,24 @@ static void Game_Are() {
     // allow to charge DAS for the next piece
     Game_CanMoveLeft();
     Game_CanMoveRight();
+}
+
+static void Game_Over() {
+    if (gameTimer > 0) {
+        gameTimer--;
+    }
+    else {
+        for (int i = 0; i < GAME_COLS; i++) {
+            if (gameBoard[gameOverRow][i]) {
+                gameBoard[gameOverRow][i] = 8;
+            }
+        }
+        gameOverRow++;
+        gameTimer = GAME_OVER_FRAMES;
+        if (gameOverRow == GAME_ROWS) {
+            gameState = STATE_GAMEOVER_DONE;
+        }
+    }
 }
 
 int Game_Run() {
@@ -680,11 +698,22 @@ int Game_Run() {
         case STATE_ARE:
             Game_Are();
             break;
+
+        case STATE_GAMEOVER:
+            Game_Over();
+            break;
     }
     
     Game_DrawPiece(&nextPiece); 
     Game_DrawRanking(ranking);
     Game_DrawNums();
+    
+    // copy the board to VRAM
+    for (int y = 0; y < GAME_ROWS; y++) {
+        for (int x = 0; x < GAME_COLS; x++) {
+            boardVram[(y * ROW_OFFSET) + x] = (gameBoard[y][x] * 2);
+        }
+    }
 
     return 0;
 }

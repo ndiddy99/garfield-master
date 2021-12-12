@@ -9,7 +9,7 @@
 
 #define ASCII_NUMBER_BASE (48)
 
-#define BG_COUNT (5)
+#define BG_COUNT (7)
 static Uint8 *bgAddrs[BG_COUNT];
 static int bgLengths[BG_COUNT];
 
@@ -120,7 +120,12 @@ void BG_Run() {
                 SCL_SetAutoColOffset(SCL_OFFSET_A, 1, FADE_FRAMES, &black, &normal);
                 currBG++;
                 copyCursor = 0;
-                bgState = STATE_BUFFER;
+                if (currBG < BG_COUNT) {
+                    bgState = STATE_BUFFER;
+                }
+                else {
+                    bgState = STATE_NONE;
+                }
             }
             break;
 

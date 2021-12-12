@@ -57,11 +57,4 @@ SECTIONS
     	KEEP(*(.lwram));
     	. = ALIGN(0x10);
 	}
-
-	.vdp2_vram 0x5E00000 (NOLOAD) :
-	{
-		. = ALIGN(0x10);
-		KEEP(*(.vdp2_vram));
-		. = ALIGN(0x10);
-	}
 }
