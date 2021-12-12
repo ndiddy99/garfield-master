@@ -651,6 +651,7 @@ static void Game_Are() {
         Game_MakePiece(&currPiece, &nextPiece);
         // if the new piece collides with the board, it's game over
         if (!Game_CheckPiece(&currPiece)) {
+            Game_CopyPiece(&currPiece);
             gameState = STATE_GAMEOVER;
             gameTimer = GAME_OVER_FRAMES;
             gameOverRow = 0;
@@ -672,6 +673,7 @@ static void Game_Over() {
         gameTimer--;
     }
     else {
+        // replace the blocks with the "grayed out" block one row at a time
         for (int i = 0; i < GAME_COLS; i++) {
             if (gameBoard[gameOverRow][i]) {
                 gameBoard[gameOverRow][i] = 8;
