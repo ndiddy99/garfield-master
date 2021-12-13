@@ -77,6 +77,8 @@ static int combo;
 #define LEVEL_Y (SCORE_Y + 4)
 static int level;
 static int levelCursor;
+// the level where stuff starts moving fast
+#define FAST_LEVEL (800)
 
 #define MOVE_FRAMES (14)
 #define DAS_FRAMES (2)
@@ -85,6 +87,7 @@ static int rightTimer;
 
 #define DOWN_FRAMES (3)
 #define LOCK_FRAMES (30)
+#define FAST_LOCK_FRAMES (20)
 static int downTimer;
 static int lockTimer;
 
@@ -320,7 +323,12 @@ static int Game_CanMoveLeft() {
             return 1;
         }
         else {
-            leftTimer--;
+            if (level >= FAST_LEVEL) {
+                leftTimer -= 2;
+            }
+            else {
+                leftTimer--;
+            }
         }
     }
     return 0;
@@ -338,7 +346,12 @@ static int Game_CanMoveRight() {
             return 1;
         }
         else {
-            rightTimer--;
+            if (level >= FAST_LEVEL) {
+                rightTimer -= 2;
+            }
+            else {
+                rightTimer--;
+            }
         }
     }
     return 0;
@@ -500,7 +513,12 @@ static int Game_Normal() {
     }
 
     if ((lockTimer == -1) && Game_CheckBelow(&currPiece)) {
-        lockTimer = LOCK_FRAMES;
+        if (level >= FAST_LEVEL) {
+            lockTimer = FAST_LOCK_FRAMES;
+        }
+        else {
+            lockTimer = LOCK_FRAMES;
+        }
         Sound_Play(SOUND_LAND);
 
         // don't play lock sound & lock immediately if player's holding down
@@ -527,7 +545,12 @@ static int Game_Normal() {
     // hard drop
     if ((PadData1 & PAD_U) && (lockTimer == -1)) {
         while (Game_Drop(&currPiece));
-        lockTimer = LOCK_FRAMES;
+        if (level >= FAST_LEVEL) {
+            lockTimer = FAST_LOCK_FRAMES;
+        }
+        else {
+            lockTimer = LOCK_FRAMES;
+        }
         Sound_Play(SOUND_LAND);
     }
 
@@ -579,8 +602,14 @@ static int Game_Normal() {
         }
 
         // bg changing
-        if ((level < 600) && (level / 100) > (oldLevel / 100)) {
-                BG_Next();
+
+        // change every 100 levels before 600
+        if ((level < 600) && ((level / 100) > (oldLevel / 100))) {
+            BG_Next();
+        }
+        // change at 800
+        else if ((level >= 800) && (level < 900) && ((level / 100) > (oldLevel / 100))) {
+            BG_Next();
         }
 
         // cut volume before a song change for dramatic effect
@@ -628,7 +657,12 @@ static int Game_Normal() {
 
 static void Game_Line() {
     if (gameTimer > 0) {
-        gameTimer--;
+        if (level >= 800) {
+            gameTimer -= 2;
+        }
+        else {
+            gameTimer--;
+        }
     }
     else {
         // delete all cleared rows
@@ -645,7 +679,12 @@ static void Game_Line() {
 
 static void Game_Are() {
     if (gameTimer > 0) {
-        gameTimer--;
+        if (level >= 800) {
+            gameTimer -= 2;
+        }
+        else {
+            gameTimer--;
+        }
     }
     else {
         Game_MakePiece(&currPiece, &nextPiece);

@@ -4,3 +4,4 @@ t21 2.bmp
 t21 3.bmp
 t21 4.bmp
 t21 5.bmp
+t21 6.bmp

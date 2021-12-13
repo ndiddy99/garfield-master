@@ -21,6 +21,8 @@ static int currBG;
 static Uint8 *chrVram = (Uint8 *)SCL_VDP2_VRAM_B0;
 static Uint16 *mapVram = (Uint16 *)SCL_VDP2_VRAM_B1;
 
+static Uint16 tileMap128[32 * 32];
+
 typedef enum {
     STATE_NONE = 0,
     STATE_BUFFER,
@@ -70,12 +72,21 @@ void BG_Init() {
 
     // set up the tilemap
     int counter = 0;
+    
     for (int y = 0; y < (224 / 16); y++) {
         for (int x = 0; x < (320 / 16); x++) {
             mapVram[(y * 32) + x] = counter * 2;
             counter++;
         }
     }
+
+    // 128x128px repeating tilemap
+    for (int y = 0; y < 32; y++) {
+        for (int x = 0; x < 32; x++) {
+            tileMap128[x + (32 * y)] = ((x % 8) + ((y % 8) * 8)) * 2;
+        }
+    }
+
     
     // fade in bg
     SCL_SetAutoColOffset(SCL_OFFSET_A, 1, FADE_FRAMES, &black, &normal);
@@ -106,6 +117,11 @@ void BG_Run() {
                 // start of the tile data
                 copyOffset = (Uint8 *)Scroll_TilePtr(HWRAM_Buffer, NULL) - HWRAM_Buffer;
                 bgState = STATE_COPY;
+
+                // copy new tilemap if necessary
+                if (currBG == 5) {
+                    DMA_ScuMemCopy(mapVram, tileMap128, sizeof(tileMap128));
+                }
             }
             break;
 
@@ -132,6 +148,25 @@ void BG_Run() {
         case STATE_NONE:
             //Print_String("NONE", 0, 0);
             break;
+    }
+    
+    if (currBG == 6) {
+        SCL_Open(SCL_RBG_TB_A);
+        SCL_Move(MTH_FIXED(0.5), MTH_FIXED(0.5), 0);
+        SCL_Close();
+    }
+
+    else if (currBG == 7) {
+        frames++;
+        SCL_Open(SCL_RBG_TB_A);
+        SCL_Move(MTH_FIXED(0.5), MTH_FIXED(0.5), 0);
+        if (frames & 1) {
+            SCL_Rotate(MTH_FIXED(0.8), 0, 0);
+        }
+        else {
+            SCL_Rotate(0, MTH_FIXED(0.8), 0);
+        }
+        SCL_Close();
     }
 }
 
