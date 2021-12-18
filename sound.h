@@ -9,14 +9,14 @@ void Sound_Init(void);
 
 #define CDDA_START (2)
 typedef enum {
-    LOGO_TRACK = CDDA_START,
-    INTRO_TRACK,
-    MENU_TRACK,
-    PAUSE_TRACK,
-    GAMEOVER_TRACK,
-    TOMO_TRACK,
-    LEVEL1_TRACK,
-    SOON_TRACK,
+    TITLE_TRACK = CDDA_START,
+    GAME1_TRACK,
+    GAME2_TRACK,
+    GAME3_TRACK,
+    GAME4_TRACK,
+    GAMEOVER1_TRACK,
+    GAMEOVER2_TRACK,
+    GAMEOVER3_TRACK,
 } CDDA_INDEX;
 
 //play an audio track. loop: 1 if we want to loop the track

@@ -15,6 +15,7 @@
 #include "cd.h"
 #include "devcart.h"
 #include "game.h"
+#include "rank.h"
 #include "release.h"
 #include "scroll.h"
 #include "sound.h"
@@ -25,14 +26,11 @@
 volatile Uint32 frame = 0;
 
 typedef enum {
-	STATE_NOTICE = 0,
-	STATE_LOGO,
-	STATE_INTRO,
-	STATE_MENU,
-	STATE_CUTSCENE,
-	STATE_GAME,
-	STATE_SOON,
+    STATE_GAME = 0,
+    STATE_RANK,
 } GAME_STATE;
+
+int state;
 
 int main() {
 	frame = 0;
@@ -46,13 +44,14 @@ int main() {
 	CD_Init();
 	Sprite_Init();
 	Scroll_Init();
-    BG_Init();
 	Print_Init();
 	Print_Load();
 	Sound_Init();
     Game_Init();
-
     SCL_DisplayFrame();
+
+    state = STATE_GAME;
+
     while (1) {
         frame++;
 
@@ -77,24 +76,22 @@ int main() {
 
 		Sprite_StartDraw();
         
-        BG_Run();
-        Game_Run();
-        if (PadData1E & PAD_X) {
-            BG_Next();
+        switch (state) {
+            case STATE_GAME:
+                if (Game_Run()) {
+                    Rank_Init();
+                    state = STATE_RANK;
+                }
+                break;
+
+            case STATE_RANK:
+                if (Rank_Run()) {
+                    Game_Init();
+                    state = STATE_GAME;
+                }
+                break;
         }
        
-    /*    Fixed32 r = MTH_FIXED(0.8);
-
-			SCL_Open(SCL_RBG_TB_A);
-				SCL_Move( MTH_FIXED(1), MTH_FIXED(1), 0);
-                if (frame & 1) {
-				    SCL_Rotate(r, 0, 0);
-                }
-                else {
-                    SCL_Rotate(0, r, 0);
-                }
-			SCL_Close();
-     */   
 		Sprite_DrawAll();
 		if (DEBUG) {
 			Print_Display();

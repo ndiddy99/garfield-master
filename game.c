@@ -6,6 +6,7 @@
 #include "gravity.h"
 #include "piece.h"
 #include "print.h"
+#include "rank.h"
 #include "release.h"
 #include "rng.h"
 #include "scroll.h"
@@ -119,6 +120,9 @@ static void Game_MakePiece(PIECE *gamePiece, PIECE *previewPiece) {
 }
 
 void Game_Init() {
+    // setup background
+    BG_Init();
+
     // load assets
     Uint8 *gameBuf = (Uint8 *)LWRAM;
     CD_ChangeDir("GAME");
@@ -162,6 +166,7 @@ void Game_Init() {
     for (int i = 0; i < 5; i++) {
         ((volatile Uint16 *)MAP_PTR(1))[RANKING_Y * ROW_OFFSET + RANKING_X + i] = (RANKING_TILE + i) * 2;
     }
+    ranking = 0;
 
     // setup score
     for (int i = 0; i < 4; i++) { 
@@ -511,6 +516,17 @@ static int Game_Normal() {
             }
         }
     }
+    
+    // clockwise rotation
+    if (PadData1E & PAD_C) {
+        Game_Rotate(&currPiece, ROTATE_CLOCKWISE);
+    }
+
+    // counterclockwise rotation
+    if (PadData1E & PAD_B) {
+        Game_Rotate(&currPiece, ROTATE_COUNTERCLOCKWISE);
+    }
+    
 
     if ((lockTimer == -1) && Game_CheckBelow(&currPiece)) {
         if (level >= FAST_LEVEL) {
@@ -532,16 +548,6 @@ static int Game_Normal() {
         lockTimer = -1;
     }
 
-    // clockwise rotation
-    if (PadData1E & PAD_C) {
-        Game_Rotate(&currPiece, ROTATE_CLOCKWISE);
-    }
-
-    // counterclockwise rotation
-    if (PadData1E & PAD_B) {
-        Game_Rotate(&currPiece, ROTATE_COUNTERCLOCKWISE);
-    }
-    
     // hard drop
     if ((PadData1 & PAD_U) && (lockTimer == -1)) {
         while (Game_Drop(&currPiece));
@@ -722,6 +728,7 @@ static void Game_Over() {
         gameTimer = GAME_OVER_FRAMES;
         if (gameOverRow == GAME_ROWS) {
             gameState = STATE_GAMEOVER_DONE;
+            Rank_Setup(ranking);
         }
     }
 }
@@ -754,6 +761,12 @@ int Game_Run() {
         for (int x = 0; x < GAME_COLS; x++) {
             boardVram[(y * ROW_OFFSET) + x] = (gameBoard[y][x] * 2);
         }
+    }
+
+    BG_Run();
+
+    if (gameState == STATE_GAMEOVER_DONE) {
+        return 1;
     }
 
     return 0;
