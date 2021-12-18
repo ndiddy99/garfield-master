@@ -618,6 +618,11 @@ static int Game_Normal() {
             BG_Next();
         }
 
+        if (level > 999) {
+            Rank_Setup(9);
+            gameState = STATE_GAMEOVER_DONE;
+        }
+
         // cut volume before a song change for dramatic effect
         if ((songs[song + 1] - level) <= 10) {
             Sound_CDVolume(0, 0);

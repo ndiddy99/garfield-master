@@ -22,7 +22,7 @@ static char *ranks[] = {
     "ARLENE",
     "POOKY",
     "GARFIELD",
-    "GOD"
+    "TETRIS GOD"
 };
 
 #define RANKFONT_WIDTH (16)
@@ -62,7 +62,7 @@ void Rank_Setup(int ranking) {
 void Rank_Init() {
     // clear out previous scroll data
     for (int i = 0; i < 0x40000; i++) {
-        ((Uint8 *)SCL_VDP2_VRAM)[i] = 0;
+        ((volatile Uint8 *)SCL_VDP2_VRAM)[i] = 0;
     }
 
     for (int i = 0; i < 64 * 64; i++) {
@@ -92,6 +92,7 @@ int Rank_Run() {
     else if (frames == 200) {
         Rank_Print(ranks[rank], 4, 5);
         Sound_Play(SOUND_FALL);
+        Sound_CDVolume(6, 6);
         if (rank >= 9) {
             Sound_CDDA(GAMEOVER3_TRACK, 0);
         }
