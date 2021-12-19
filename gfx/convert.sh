@@ -1,6 +1,6 @@
 #! /bin/bash
 
-dirs=("." "bg" "game")
+dirs=("." "bg" "game" "rank")
 gfx_dir="$(cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)"
 satconv_path="$gfx_dir/../../satconv"
 cd_path="$gfx_dir/../cd"

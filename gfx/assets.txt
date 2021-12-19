@@ -1,2 +1,1 @@
 sr font
-t21 rankfont.bmp

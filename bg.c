@@ -44,7 +44,7 @@ static int frames;
 
 void BG_Init() {
     // reset position
-    SCL_Open(SCL_RBG0);
+    SCL_Open(SCL_RBG_TB_A);
     SCL_MoveTo(0, 0, 0);
     SCL_RotateTo(0, 0, 0, SCL_X_AXIS);
     SCL_Close();

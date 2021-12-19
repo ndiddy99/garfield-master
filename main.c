@@ -50,7 +50,10 @@ int main() {
     Game_Init();
     SCL_DisplayFrame();
 
-    state = STATE_GAME;
+    //state = STATE_GAME;
+    state = STATE_RANK;
+    Rank_Init();
+    Rank_Setup(9);
 
     while (1) {
         frame++;

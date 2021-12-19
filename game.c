@@ -120,6 +120,11 @@ static void Game_MakePiece(PIECE *gamePiece, PIECE *previewPiece) {
 }
 
 void Game_Init() {
+    // clear out previous scroll data
+    for (int i = 0; i < 0x40000; i++) {
+        ((volatile Uint8 *)SCL_VDP2_VRAM)[i] = 0;
+    }
+
     // setup background
     BG_Init();
 
