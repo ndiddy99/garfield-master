@@ -1,0 +1,4 @@
+sr titletex
+t11 bob.bmp
+t11 logo.bmp
+t11 title.bmp

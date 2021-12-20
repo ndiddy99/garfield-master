@@ -20,13 +20,15 @@
 #include "scroll.h"
 #include "sound.h"
 #include "sprite.h"
+#include "title.h"
 #include "print.h"
 #include "vblank.h"
 
 volatile Uint32 frame = 0;
 
 typedef enum {
-    STATE_GAME = 0,
+    STATE_TITLE = 0,
+    STATE_GAME,
     STATE_RANK,
 } GAME_STATE;
 
@@ -47,13 +49,11 @@ int main() {
 	Print_Init();
 	Print_Load();
 	Sound_Init();
-    Game_Init();
+    //Game_Init();
     SCL_DisplayFrame();
-
+    state = STATE_TITLE;
+    Title_Init();
     //state = STATE_GAME;
-    state = STATE_RANK;
-    Rank_Init();
-    Rank_Setup(9);
 
     while (1) {
         frame++;
@@ -80,6 +80,13 @@ int main() {
 		Sprite_StartDraw();
         
         switch (state) {
+            case STATE_TITLE:
+                if (Title_Run()) {
+                    Game_Init();
+                    state = STATE_GAME;
+                }
+                break;
+
             case STATE_GAME:
                 if (Game_Run()) {
                     Rank_Init();
@@ -89,8 +96,8 @@ int main() {
 
             case STATE_RANK:
                 if (Rank_Run()) {
-                    Game_Init();
-                    state = STATE_GAME;
+                    Title_Init();
+                    state = STATE_TITLE;
                 }
                 break;
         }

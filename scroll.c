@@ -95,7 +95,7 @@ void Scroll_Init(void) {
 		scfg[0].dispenbl      = ON;
 		scfg[0].charsize      = SCL_CHAR_SIZE_1X1;
 		scfg[0].pnamesize     = SCL_PN1WORD;
-		scfg[0].flip          = SCL_PN_10BIT;
+		scfg[0].flip          = SCL_PN_12BIT;
 		scfg[0].platesize     = SCL_PL_SIZE_2X1; //they meant "plane size"
 		scfg[0].coltype       = SCL_COL_TYPE_256;
 		scfg[0].datatype      = SCL_CELL;

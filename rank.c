@@ -76,7 +76,8 @@ void Rank_Init() {
     SCL_MoveTo(0, 0, 0);
     SCL_RotateTo(0, 0, 0, SCL_X_AXIS);
     SCL_Close();
-    
+    SCL_SetColOffset(SCL_OFFSET_A, SCL_RBG0 | SCL_NBG2, 0, 0, 0);
+
     CD_ChangeDir("RANK");
     CD_Load("RANKFONT.TLE", (void *)LWRAM);
     Scroll_LoadTile((void *)LWRAM, chrVram, SCL_RBG0, 0);
@@ -91,6 +92,14 @@ void Rank_Init() {
 int Rank_Run() {
     frames++;
     if ((frames >= 600) || (PadData1E)) {
+        // clear out previous scroll data
+        for (int i = 0; i < 0x40000; i++) {
+            ((volatile Uint8 *)SCL_VDP2_VRAM)[i] = 0;
+        }
+
+        for (int i = 0; i < 64 * 64; i++) {
+            mapVram[i] = 0;
+        }
         return 1;
     }
 

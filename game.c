@@ -88,7 +88,7 @@ static int rightTimer;
 
 #define DOWN_FRAMES (3)
 #define LOCK_FRAMES (30)
-#define FAST_LOCK_FRAMES (20)
+#define FAST_LOCK_FRAMES (25)
 static int downTimer;
 static int lockTimer;
 
@@ -381,12 +381,12 @@ static int Game_CheckBelow(PIECE *piece) {
 }
 
 static int Game_CanMoveDown() {
-    if (PadData1E & PAD_D) {
+    if (PadData1E & (PAD_D | PAD_A)) {
         downTimer = DOWN_FRAMES;
         return 1;
     }
 
-    else if (PadData1 & PAD_D) {
+    else if (PadData1 & (PAD_D | PAD_A)) {
         if (downTimer == 0) {
             downTimer = DOWN_FRAMES;
             return 1;
@@ -544,7 +544,7 @@ static int Game_Normal() {
 
         // don't play lock sound & lock immediately if player's holding down
         // when piece lands (aka soft drop)
-        if (PadData1 & PAD_D) {
+        if (PadData1 & (PAD_D | PAD_A)) {
             lockSound = 0;
             lockTimer = 0;
         }
@@ -584,7 +584,7 @@ static int Game_Normal() {
     }
 
     // allow player to interrupt lock timer if we're on the ground
-    if ((lockTimer > 0) && (PadData1 & PAD_D)) {
+    if ((lockTimer > 0) && (PadData1 & (PAD_D | PAD_A))) {
         lockTimer = 0;
     }
 
