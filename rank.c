@@ -76,7 +76,7 @@ void Rank_Init() {
     SCL_MoveTo(0, 0, 0);
     SCL_RotateTo(0, 0, 0, SCL_X_AXIS);
     SCL_Close();
-    SCL_SetColOffset(SCL_OFFSET_A, SCL_RBG0 | SCL_NBG2, 0, 0, 0);
+    SCL_SetColOffset(SCL_OFFSET_B, SCL_RBG0 | SCL_NBG2, 0, 0, 0);
 
     CD_ChangeDir("RANK");
     CD_Load("RANKFONT.TLE", (void *)LWRAM);
@@ -90,6 +90,8 @@ void Rank_Init() {
 }
 
 int Rank_Run() {
+    // override auto fade from game
+    SCL_SetColOffset(SCL_OFFSET_B, SCL_RBG0 | SCL_NBG2, 0, 0, 0);
     frames++;
     if ((frames >= 600) || (PadData1E)) {
         // clear out previous scroll data

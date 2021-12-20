@@ -52,7 +52,8 @@ void BG_Init() {
     black.red = -255; black.green = -255; black.blue = -255;
     normal.red = 0; normal.green = 0; normal.blue = 0;
 
-    SCL_SetColOffset(SCL_OFFSET_A, SCL_RBG0 | SCL_NBG2, -255, -255, -255);
+    SCL_SetColOffset(SCL_OFFSET_A, SCL_NBG0, 0, 0, 0);
+    SCL_SetColOffset(SCL_OFFSET_B, SCL_RBG0 | SCL_NBG2, -255, -255, -255);
     
     // load all the backgrounds into LWRAM
     char filename[] = "n.TLE";
@@ -89,7 +90,7 @@ void BG_Init() {
 
     
     // fade in bg
-    SCL_SetAutoColOffset(SCL_OFFSET_A, 1, FADE_FRAMES, &black, &normal);
+    SCL_SetAutoColOffset(SCL_OFFSET_B, 1, FADE_FRAMES, &black, &normal);
 
     // initialize the state
     bgState = STATE_BUFFER;
@@ -133,7 +134,7 @@ void BG_Run() {
                 // load palette
                 Scroll_LoadTile(HWRAM_Buffer, NULL, SCL_RBG0, 0);
                 // fade in bg
-                SCL_SetAutoColOffset(SCL_OFFSET_A, 1, FADE_FRAMES, &black, &normal);
+                SCL_SetAutoColOffset(SCL_OFFSET_B, 1, FADE_FRAMES, &black, &normal);
                 currBG++;
                 copyCursor = 0;
                 if (currBG < BG_COUNT) {
@@ -172,7 +173,7 @@ void BG_Run() {
 
 void BG_Next() {
     frames = 0;
-    SCL_SetAutoColOffset(SCL_OFFSET_A, 1, FADE_FRAMES, &normal, &black);
+    SCL_SetAutoColOffset(SCL_OFFSET_B, 1, FADE_FRAMES, &normal, &black);
     bgState = STATE_FADEOUT;
 }
 

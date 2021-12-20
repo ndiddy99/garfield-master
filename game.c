@@ -612,6 +612,10 @@ static int Game_Normal() {
             gameTimer = ARE_FRAMES;
         }
 
+        if (DEBUG && (PadData1 & PAD_Y)) {
+            level += 50;
+        }
+
         // bg changing
 
         // change every 100 levels before 600
