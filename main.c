@@ -49,12 +49,14 @@ int main() {
 	Print_Init();
 	Print_Load();
 	Sound_Init();
-    //Game_Init();
     SCL_DisplayFrame();
     state = STATE_TITLE;
     Title_Init();
-    //state = STATE_GAME;
-
+    
+    /*
+    state = STATE_GAME;
+    Game_Init();
+    */
     while (1) {
         frame++;
 

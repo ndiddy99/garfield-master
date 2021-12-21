@@ -20,6 +20,7 @@ typedef enum {
     STATE_ARE,
     STATE_GAMEOVER,
     STATE_GAMEOVER_DONE,
+    STATE_PAUSED,
 } GAME_STATE;
 
 static int borderBase;
@@ -33,6 +34,7 @@ static int borderBase;
 #define BLACK_TILE (borderBase + 322)
 
 static int gameState;
+static int prevState; // used to keep track of state when the game is paused
 static int gameTimer;
 
 #define ARE_FRAMES (30)
@@ -201,6 +203,7 @@ void Game_Init() {
     
     // set up game state
     gameState = STATE_NORMAL;
+    prevState = STATE_NORMAL;
 
     // initialize movement timers
     leftTimer = MOVE_FRAMES;
@@ -748,6 +751,26 @@ static void Game_Over() {
 }
 
 int Game_Run() {
+    // handle pause button
+    if (PadData1E & PAD_S) {
+        // pause: save previous state
+        if (gameState != STATE_PAUSED) {
+            prevState = gameState;
+            gameState = STATE_PAUSED;
+            
+            // clear board on screen so player can't cheat
+            for (int y = 0; y < GAME_ROWS; y++) {
+                for (int x = 0; x < GAME_COLS; x++) {
+                    boardVram[(y * ROW_OFFSET) + x] = 0;
+                }
+            }
+        }
+        // resume: restore state
+        else {
+            gameState = prevState;
+        }
+    }
+
     switch (gameState) {
         case STATE_NORMAL:
             Game_Normal();
@@ -764,16 +787,23 @@ int Game_Run() {
         case STATE_GAMEOVER:
             Game_Over();
             break;
+
+        case STATE_PAUSED:
+            break;
     }
     
     Game_DrawPiece(&nextPiece); 
     Game_DrawRanking(ranking);
     Game_DrawNums();
     
+
+
     // copy the board to VRAM
-    for (int y = 0; y < GAME_ROWS; y++) {
-        for (int x = 0; x < GAME_COLS; x++) {
-            boardVram[(y * ROW_OFFSET) + x] = (gameBoard[y][x] * 2);
+    if (gameState != STATE_PAUSED) {
+        for (int y = 0; y < GAME_ROWS; y++) {
+            for (int x = 0; x < GAME_COLS; x++) {
+                boardVram[(y * ROW_OFFSET) + x] = (gameBoard[y][x] * 2);
+            }
         }
     }
 
