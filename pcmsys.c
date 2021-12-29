@@ -98,8 +98,8 @@ void load_driver_binary(char *filename, void * buffer)
 							//There's no restriction on the timing of changing master volume.
 		for(int i = 0; i < file_size; i++)
 		{
-			unsigned char * binary_destination = (unsigned char *)(SNDRAM + i);
-			unsigned char * binary_source = (unsigned char *)(buffer + i);
+			volatile unsigned char * binary_destination = (volatile unsigned char *)(SNDRAM + i);
+			volatile unsigned char * binary_source = (volatile unsigned char *)(buffer + i);
 			*binary_destination = *binary_source;
 		}
 		
@@ -112,11 +112,11 @@ void load_driver_binary(char *filename, void * buffer)
 void load_drv(void)
 {
 	// Make sure SCSP is set to 512k mode
-	*(unsigned char *)(0x25B00400) = 0x02;
+	*(volatile unsigned char *)(0x25B00400) = 0x02;
 
 	// Clear Sound Ram
 	for (int i = 0; i < 0x80000; i+=4){
-		*(unsigned int *)(SNDRAM + i) = 0x00000000;
+		*(volatile unsigned int *)(SNDRAM + i) = 0x00000000;
 	}
 	void * binary_buffer = (void*)2097152;
 	

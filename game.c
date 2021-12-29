@@ -61,11 +61,11 @@ static int clearedLines[GAME_ROWS];
 #define BOARD_Y (5)
 volatile Uint16 *boardVram;
 
-#define SPAWN_X (4)
+#define SPAWN_X (3)
 #define SPAWN_Y (-1)
 static PIECE currPiece;
 
-#define PREVIEW_X (4)
+#define PREVIEW_X (3)
 #define PREVIEW_Y (-4)
 static PIECE nextPiece;
 
@@ -90,7 +90,7 @@ static int rightTimer;
 
 #define DOWN_FRAMES (3)
 #define LOCK_FRAMES (30)
-#define FAST_LOCK_FRAMES (25)
+#define FAST_LOCK_FRAMES (22)
 static int downTimer;
 static int lockTimer;
 

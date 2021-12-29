@@ -195,10 +195,6 @@ int Title_Run() {
             break;
     }
 
-    if (PadData1E & PAD_A) {
-        SCL_SetColOffset(SCL_OFFSET_A, SCL_NBG0, 0, 0, 0);
-    }
-    
     return 0;
 }
 

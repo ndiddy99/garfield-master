@@ -49,6 +49,8 @@ int main() {
 	Print_Init();
 	Print_Load();
 	Sound_Init();
+    Sound_CDVolume(6, 6);
+    SCL_DisplayFrame();
     SCL_DisplayFrame();
     state = STATE_TITLE;
     Title_Init();

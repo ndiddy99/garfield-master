@@ -93,7 +93,7 @@ int Rank_Run() {
     // override auto fade from game
     SCL_SetColOffset(SCL_OFFSET_B, SCL_RBG0 | SCL_NBG2, 0, 0, 0);
     frames++;
-    if ((frames >= 600) || (PadData1E)) {
+    if (frames >= 600) {
         // clear out previous scroll data
         for (int i = 0; i < 0x40000; i++) {
             ((volatile Uint8 *)SCL_VDP2_VRAM)[i] = 0;
